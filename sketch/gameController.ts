@@ -16,7 +16,7 @@ function preload() {
  * in the draw function below
  */
 function setup() {
-  const cnv = createCanvas(200, windowHeight);
+  const cnv = createCanvas((windowWidth / 100) * 50, windowHeight);
   const x = windowWidth - width / 2;
   frameRate(60);
 }
