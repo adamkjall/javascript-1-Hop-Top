@@ -16,9 +16,9 @@ function preload() {
  * in the draw function below
  */
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  const cnv = createCanvas(200, windowHeight);
+  const x = windowWidth - width / 2;
   frameRate(60);
-  fullscreen();  
 }
 
 /**
@@ -27,7 +27,7 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-  background(255, 0, 255);
+  background("cornflowerblue");
 }
 
 /**
