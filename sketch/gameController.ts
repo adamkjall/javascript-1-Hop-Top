@@ -16,8 +16,7 @@ function preload() {
  * in the draw function below
  */
 function setup() {
-  const cnv = createCanvas((windowWidth / 100) * 50, windowHeight);
-  const x = windowWidth - width / 2;
+  createCanvas((windowWidth / 100) * 50, windowHeight);
   frameRate(60);
 }
 
@@ -34,5 +33,5 @@ function draw() {
  *  Built in windowResize listener function in P5
  */
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas((windowWidth / 100) * 50, windowHeight);
 }
