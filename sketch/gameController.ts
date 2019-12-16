@@ -30,6 +30,7 @@ function setup() {
  */
 function draw() {
   background("cornflowerblue");
+  player.move();
   player.drawPlayer()
   gameObject.drawObject()
 }
