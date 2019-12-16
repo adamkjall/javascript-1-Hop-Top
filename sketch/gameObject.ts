@@ -1,4 +1,4 @@
-class gameObject {
+class GameObject {
   private position: Position;
   private width: number;
   private height: number;
