@@ -29,6 +29,7 @@ function setup() {
 function draw() {
   background("cornflowerblue");
   player.drawPlayer()
+  player.move()
 }
 
 /**
