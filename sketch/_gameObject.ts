@@ -4,16 +4,27 @@ class GameObject {
   private height: number;
 
   constructor(
-    position: Position,
+    x: number,
+    y: number,
     width: number,
     height: number,
   ) {
-    this.position = position;
+    this.position = new Position(x,y);
     this.width = width;
     this.height = height;
   }
 
-  public drawObject(): void {}
+  public drawObject(): void {
+    push()
+    fill('green');
+    rect(
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+      )
+      pop()
+  }
 
   public update(): void {}
 
