@@ -9,6 +9,7 @@ function preload() {
   // sound = (window as any).loadSound('../assets/mySound.wav');
 }
 let player: Player 
+let gameObject : GameObject;
 /**
  * Built in setup function in P5
  * This is a good place to create your first class object
@@ -19,6 +20,7 @@ function setup() {
   createCanvas((windowWidth / 100) * 50, windowHeight);
   frameRate(60);
   player = new Player(width/2, height/2)
+  gameObject = new GameObject(20,400, 100,10)
 }
 
 /**
@@ -29,7 +31,7 @@ function setup() {
 function draw() {
   background("cornflowerblue");
   player.drawPlayer()
-  player.move()
+  gameObject.drawObject()
 }
 
 /**
