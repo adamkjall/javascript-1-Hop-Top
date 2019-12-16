@@ -8,7 +8,7 @@ function preload() {
   // inladdningen av ljud men fungerar bra enligt nedan..
   // sound = (window as any).loadSound('../assets/mySound.wav');
 }
-
+let player: Player 
 /**
  * Built in setup function in P5
  * This is a good place to create your first class object
@@ -18,6 +18,7 @@ function preload() {
 function setup() {
   createCanvas((windowWidth / 100) * 50, windowHeight);
   frameRate(60);
+  player = new Player(width/2, height/2)
 }
 
 /**
@@ -27,6 +28,7 @@ function setup() {
  */
 function draw() {
   background("cornflowerblue");
+  player.drawPlayer()
 }
 
 /**

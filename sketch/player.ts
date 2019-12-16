@@ -1,4 +1,4 @@
-class player {
+class Player {
   private xVelocity: number;
   private yVelocity: number;
   private speed: number;
@@ -7,17 +7,18 @@ class player {
   private height: number;
 
   constructor(
-    xVelocity: number,
-    yVelocity: number,
-    speed: number,
-    position: Position,
-    width: number,
-    height: number
+    x: number,
+    y: number,
+    xVelocity: number = 0,
+    yVelocity: number = 0,
+    speed: number = 1,
+    width: number = 50,
+    height: number = 50
   ) {
     this.xVelocity = xVelocity;
     this.yVelocity = yVelocity;
     this.speed = speed;
-    this.position = position;
+    this.position = new Position(x, y);
     this.width = width;
     this.height = height;
   }
@@ -30,7 +31,12 @@ class player {
 
   private gravity(): void {}
 
-  public drawPlayer(): void {}
+  public drawPlayer(): void {
+    noStroke()
+    fill('pink')
+    circle(this.position.x, this.position.y, this.width)
+    
+  }
 
   public update(): void {}
 
