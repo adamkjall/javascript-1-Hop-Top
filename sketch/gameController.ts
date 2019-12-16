@@ -18,7 +18,6 @@ function preload() {
 function setup() {
   createCanvas((windowWidth / 100) * 50, windowHeight);
   frameRate(60);
-  setupMyX();
 }
 
 /**
@@ -28,7 +27,6 @@ function setup() {
  */
 function draw() {
   background("cornflowerblue");
-  paintMyX();
 }
 
 /**
