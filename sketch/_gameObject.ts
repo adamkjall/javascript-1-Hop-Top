@@ -1,22 +1,30 @@
-class gameObject {
+class GameObject {
   private position: Position;
   private width: number;
   private height: number;
-  private sprite: string;
 
   constructor(
-    position: Position,
+    x: number,
+    y: number,
     width: number,
     height: number,
-    sprite: string
   ) {
-    this.position = position;
+    this.position = new Position(x,y);
     this.width = width;
     this.height = height;
-    this.sprite = sprite;
   }
 
-  public drawObject(): void {}
+  public drawObject(): void {
+    push()
+    fill('green');
+    rect(
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+      )
+      pop()
+  }
 
   public update(): void {}
 
