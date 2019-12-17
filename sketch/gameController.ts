@@ -8,9 +8,10 @@ function preload() {
   // inladdningen av ljud men fungerar bra enligt nedan..
   // sound = (window as any).loadSound('../assets/mySound.wav');
 }
-let player: Player 
-let gameObject : GameObject;
-let level : Level;
+let player: Player;
+let gameObject: GameObject;
+let levelFactory: LevelFactory;
+let level: Level;
 /**
  * Built in setup function in P5
  * This is a good place to create your first class object
@@ -20,10 +21,11 @@ let level : Level;
 function setup() {
   createCanvas((windowWidth / 100) * 50, windowHeight);
   frameRate(60);
-  player = new Player(width/2, height/2)
-  gameObject = new GameObject(20,400, 100,10)
-  level = new Level()
-  
+  player = new Player(width / 2, height / 2);
+  gameObject = new GameObject(20, 400, 100, 10);
+  levelFactory = new LevelFactory();
+  level = levelFactory.createLevel(1);
+  level.drawLevel();
 }
 
 /**
@@ -32,11 +34,11 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-  background("cornflowerblue");
+  // background("cornflowerblue");
   player.move();
   player.drawPlayer();
   gameObject.drawObject();
-  level.drawLevel();
+  // level.drawLevel();
 }
 
 /**

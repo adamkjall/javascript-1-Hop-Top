@@ -15,7 +15,7 @@ class LevelFactory {
     }
   } 
 
-  levelOne(): LevelMap {
+  levelOne(): Level {
     const levelMap: LevelMap = [
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,14 +34,14 @@ class LevelFactory {
         [0, 0, 0, 2, 2, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [2, 2, 2, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 2, 2, 2, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 2, 2, 2, 2],
+        [2, 2, 0, 0, 0, 2, 2, 2],
         [1, 1, 1, 1, 1, 1, 1, 1],
       ];
     return new Level(levelMap);
   }
 
-  levelTwo(): LevelMap {
+  levelTwo(): Level {
     const levelMap: LevelMap = [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -64,10 +64,10 @@ class LevelFactory {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [1, 1, 1, 1, 1, 1, 1, 1],
     ];
-    return levelMap;
+    return new Level(levelMap);
   }
 
-  levelThree(): LevelMap {
+  levelThree(): Level {
     const levelMap: LevelMap = [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -90,6 +90,6 @@ class LevelFactory {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [1, 1, 1, 1, 1, 1, 1, 1],
     ];
-    return levelMap;
+    return new Level(levelMap);
   }
 }
