@@ -26,29 +26,31 @@ class Player {
   public autoBounce(): void {}
 
   public move(): void {
-    if (keyCode === RIGHT_ARROW) {
-     
-      this.position.x += 6
-        if (this.position.x > width-this.width/2) {
-          this.position.x = width-this.width/2; 
-        }
-      } else if (keyCode === LEFT_ARROW) {
-       
-        this.position.x -= 6;
-        if (this.position.x < this.width/2) {
-          this.position.x = this.width/2;
-        }
-      }
-    } 
-  
+    if (keyIsDown(RIGHT_ARROW)) {
+      this.xVelocity > 3 ? (this.xVelocity = 2.9) : (this.xVelocity += 0.5);
+    } else if (keyIsDown(LEFT_ARROW)) {
+      this.xVelocity > 3 ? (this.xVelocity = 2.9) : (this.xVelocity -= 0.5);
+    }
+
+    this.position.x += this.xVelocity;
+    this.xVelocity *= 0.9; // friction
+
+    const isOutsideRightEdge = this.position.x > width - this.width / 2;
+    if (isOutsideRightEdge) {
+      const endOfScreen = width - this.width / 2;
+      this.position.x = endOfScreen;
+    }
+    if (this.position.x < this.width / 2) {
+      this.position.x = this.width / 2;
+    }
+  }
 
   private gravity(): void {}
 
   public drawPlayer(): void {
-    noStroke()
-    fill('pink')
-    circle(this.position.x, this.position.y, this.width)
-    
+    noStroke();
+    fill("pink");
+    circle(this.position.x, this.position.y, this.width);
   }
 
   public update(): void {
