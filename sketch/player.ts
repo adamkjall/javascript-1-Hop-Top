@@ -33,6 +33,7 @@ class Player {
           this.position.x = width-this.width/2; 
         }
       } else if (keyCode === LEFT_ARROW) {
+        
        
         this.position.x -= 6
         if (this.position.x < this.width/2) {
