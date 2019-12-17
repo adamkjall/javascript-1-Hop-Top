@@ -10,6 +10,7 @@ function preload() {
 }
 let player: Player;
 let gameObject : GameObject;
+let level : Level;
 /**
  * Built in setup function in P5
  * This is a good place to create your first class object
@@ -21,6 +22,8 @@ function setup() {
   frameRate(60);
   player = new Player(width/2, height/2)
   gameObject = new GameObject(20,400, 100,10)
+  level = new Level()
+
 }
 
 /**
@@ -31,6 +34,9 @@ function setup() {
 function draw() {
   background("cornflowerblue");
   player.move();
+  player.drawPlayer();
+  gameObject.drawObject();
+  level.drawLevel();
   player.drawPlayer();
   gameObject.drawObject();
   //add .update for move down
