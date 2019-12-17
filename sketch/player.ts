@@ -26,24 +26,6 @@ class Player {
   public autoBounce(): void {}
 
   public move(): void {
-<<<<<<< HEAD
-    if (keyCode === RIGHT_ARROW) {
-     
-      this.position.x += 6
-        if (this.position.x > width-this.width/2) {
-          this.position.x = width-this.width/2; 
-        }
-      } else if (keyCode === LEFT_ARROW) {
-        
-       
-        this.position.x -= 6
-        if (this.position.x < this.width/2) {
-          this.position.x = this.width/2;
-        }
-      }
-    } 
-  
-=======
     if (keyIsDown(RIGHT_ARROW)) {
       this.xVelocity > 3 ? (this.xVelocity = 2.9) : (this.xVelocity += 0.5);
     } else if (keyIsDown(LEFT_ARROW)) {
@@ -62,7 +44,6 @@ class Player {
       this.position.x = this.width / 2;
     }
   }
->>>>>>> refs/heads/master
 
   private gravity(): void {}
 
