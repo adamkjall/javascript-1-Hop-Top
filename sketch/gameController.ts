@@ -25,7 +25,6 @@ function setup() {
   // gameObject = new GameObject(20, 400, 100, 10);
   levelFactory = new LevelFactory();
   level = levelFactory.createLevel(1);
-  level.drawLevel();
 }
 
 /**
@@ -34,11 +33,11 @@ function setup() {
  * you created in the setup function above
  */
 function draw() {
-  // background("cornflowerblue");
+  background("cornflowerblue");
   player.move();
-  player.drawPlayer();
-  // gameObject.drawObject();
   level.drawLevel();
+  player.drawPlayer();
+  //add .update for move down
 }
 
 /**

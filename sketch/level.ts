@@ -51,11 +51,12 @@ class Level {
     // this.createCloude();
     this.drawMap();
   }
-
+  
   private drawMap(): void {
     for (let object of this.levelObjects) {
       object.drawObject();
     }
+    this.createCloud();
   }
 
   private createLevelObject(): GameObject[] {
@@ -68,8 +69,8 @@ class Level {
       loop2: for (let x = 0; x < this.levelMap[0].length; x++) {
         const cell = this.levelMap[y][x];
         switch (cell) {
-          case 1:
-            this.createCloud();
+          case 1:     
+          // clouds       
             break loop2;
           case 2:
             const block = new GameObject(
