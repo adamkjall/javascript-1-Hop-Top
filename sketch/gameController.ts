@@ -8,7 +8,7 @@ function preload() {
   // inladdningen av ljud men fungerar bra enligt nedan..
   // sound = (window as any).loadSound('../assets/mySound.wav');
 }
-let player: Player 
+let player: Player;
 let gameObject : GameObject;
 let level : Level;
 /**
@@ -23,7 +23,7 @@ function setup() {
   player = new Player(width/2, height/2)
   gameObject = new GameObject(20,400, 100,10)
   level = new Level()
-  
+
 }
 
 /**
@@ -37,6 +37,10 @@ function draw() {
   player.drawPlayer();
   gameObject.drawObject();
   level.drawLevel();
+  player.drawPlayer();
+  gameObject.drawObject();
+  //add .update for move down
+  player.update();
 }
 
 /**
