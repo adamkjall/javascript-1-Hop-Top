@@ -23,7 +23,7 @@ class GameObject {
       this.width,
       this.height
       )
-      pop()
+    pop()
   }
 
   public update(): void {}
