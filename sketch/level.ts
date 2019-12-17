@@ -20,8 +20,8 @@ class Level {
   }
 
   private createCloud(): void {
-    const circleSize = 90;
-    const gridOfCloud = width / 8; 
+    const circleSize : number = 90;
+    const gridOfCloud : number = width / 8; 
     fill(200, 150, 255);
     noStroke();
     circle(0 * gridOfCloud, height +20, circleSize);
