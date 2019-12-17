@@ -26,13 +26,13 @@ class Player {
   public autoBounce(): void {}
 
   public move(): void {
-    if (keyCode === RIGHT_ARROW) {
+    if (keyIsDown(RIGHT_ARROW)) {
      
       this.position.x += 6
         if (this.position.x > width-this.width/2) {
           this.position.x = width-this.width/2; 
         }
-      } else if (keyCode === LEFT_ARROW) {
+      } else if (keyIsDown(LEFT_ARROW)) {
        
         this.position.x -= 6
         if (this.position.x < this.width/2) {
