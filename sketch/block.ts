@@ -1,6 +1,6 @@
 class Block extends GameObject {
-constructor(position: Position, width: number, height: number){
-    super(position, width, height,"")
+constructor(x: number, y: number, width: number, height: number){
+    super(x, y, width, height)
 }
 
 
