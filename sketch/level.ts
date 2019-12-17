@@ -18,16 +18,31 @@ class Level {
     return true;
   }
 
-  private createCloude(): void {
+  private createCloud(): void {
+    const circleSize : number = 90;
+    const gridOfCloud : number = width / 8; 
     fill(200, 150, 255);
     noStroke();
-    circle(25, height + 20, 90);
-    circle(90, height, 90);
-    circle(140, height - 10, 90);
-    circle(200, height - 15, 90);
-    circle(255, height + 10, 90);
-    circle(330, height - 20, 90);
-    circle(395, height - 10, 90);
+    circle(0 * gridOfCloud, height +20, circleSize);
+    circle(1 * gridOfCloud, height, circleSize);
+    circle(2 * gridOfCloud, height -10, circleSize);
+    circle(3 * gridOfCloud, height -15, circleSize);
+    circle(4 * gridOfCloud, height +10, circleSize);
+    circle(5 * gridOfCloud, height -20, circleSize);
+    circle(6 * gridOfCloud, height -10, circleSize);
+    circle(7 * gridOfCloud, height +10, circleSize);
+    circle(8 * gridOfCloud, height -10, circleSize);
+    
+    if(width > 460){
+        circle(0.5 * gridOfCloud, height +5, circleSize);
+        circle(1.5 * gridOfCloud, height -10, circleSize);
+        circle(2.5 * gridOfCloud, height +10, circleSize);
+        circle(3.5 * gridOfCloud, height +5, circleSize);
+        circle(4.5 * gridOfCloud, height -10, circleSize);
+        circle(5.5 * gridOfCloud, height +10, circleSize);
+        circle(6.5 * gridOfCloud, height -10, circleSize);
+        circle(7.5 * gridOfCloud, height +10, circleSize);
+    }
   }
 
   public updateLevel(): void {}
@@ -54,14 +69,14 @@ class Level {
         const cell = this.levelMap[y][x];
         switch (cell) {
           case 1:
-            this.createCloude();
+            this.createCloud();
             break loop2;
           case 2:
             const block = new GameObject(
               x * xStepSize,
               y * yStepSize,
               xStepSize,
-              10
+              30
             );
             levelObjects.push(block);
             break;

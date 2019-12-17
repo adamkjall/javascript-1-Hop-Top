@@ -22,7 +22,7 @@ function setup() {
   createCanvas((windowWidth / 100) * 50, windowHeight);
   frameRate(60);
   player = new Player(width / 2, height / 2);
-  gameObject = new GameObject(20, 400, 100, 10);
+  // gameObject = new GameObject(20, 400, 100, 10);
   levelFactory = new LevelFactory();
   level = levelFactory.createLevel(1);
   level.drawLevel();
@@ -37,8 +37,8 @@ function draw() {
   // background("cornflowerblue");
   player.move();
   player.drawPlayer();
-  gameObject.drawObject();
-  // level.drawLevel();
+  // gameObject.drawObject();
+  level.drawLevel();
 }
 
 /**
