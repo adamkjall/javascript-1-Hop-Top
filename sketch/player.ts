@@ -34,7 +34,7 @@ class Player {
         }
       } else if (keyCode === LEFT_ARROW) {
        
-        this.position.x -= 6
+        this.position.x -= 6;
         if (this.position.x < this.width/2) {
           this.position.x = this.width/2;
         }
@@ -51,7 +51,15 @@ class Player {
     
   }
 
-  public update(): void {}
+  public update(): void {
+    this.position.y += 3;
+    if (this.position.y > height -
+      this.width / 2) {
+      this.position = height -
+          this.width / 2;
+    }
+  }
+
 
   public setPosition(newPosition: Position): void {
     this.position = newPosition;

@@ -8,7 +8,7 @@ function preload() {
   // inladdningen av ljud men fungerar bra enligt nedan..
   // sound = (window as any).loadSound('../assets/mySound.wav');
 }
-let player: Player 
+let player: Player;
 let gameObject : GameObject;
 /**
  * Built in setup function in P5
@@ -31,8 +31,10 @@ function setup() {
 function draw() {
   background("cornflowerblue");
   player.move();
-  player.drawPlayer()
-  gameObject.drawObject()
+  player.drawPlayer();
+  gameObject.drawObject();
+  //add .update for move down
+  player.update();
 }
 
 /**
