@@ -12,8 +12,8 @@ class Player {
     xVelocity: number = 0,
     yVelocity: number = 0,
     speed: number = 1,
-    width: number = 50,
-    height: number = 50
+    width: number = 80,
+    height: number = 80
   ) {
     this.xVelocity = xVelocity;
     this.yVelocity = yVelocity;

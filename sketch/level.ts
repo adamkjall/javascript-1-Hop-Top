@@ -77,7 +77,7 @@ class Level {
               x * xStepSize,
               y * yStepSize,
               xStepSize,
-              30
+              20
             );
             levelObjects.push(block);
             break;
