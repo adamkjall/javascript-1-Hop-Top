@@ -2,7 +2,7 @@ type LevelMap = number[][]
 
 class LevelFactory {
 
-  createLevel(level: number) : LevelMap {
+  createLevel(level: number) : Level {
     switch (level) {
       case 1:
         return this.levelOne();
@@ -38,7 +38,7 @@ class LevelFactory {
         [0, 0, 0, 0, 0, 0, 0, 0],
         [1, 1, 1, 1, 1, 1, 1, 1],
       ];
-    return levelMap;
+    return new Level(levelMap);
   }
 
   levelTwo(): LevelMap {
