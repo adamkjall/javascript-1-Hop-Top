@@ -4,7 +4,7 @@ class Level {
   private minBlockWidth: number;
   private levelProgress: number;
   private levelMap: LevelMap;
-  private levelObjects : GameObject[];
+  private levelObjects: GameObject[];
 
   constructor(levelMap: LevelMap) {
     this.maxBlockWidth = 100;
@@ -43,23 +43,26 @@ class Level {
     }
   }
 
-  private createLevelObject(): void {
-    const levelObjects = []
-    const xStepSize = width / this.levelMap[0].length;
-    
-    
-    const yStepSize = height / this.levelMap.length;
+  private createLevelObject(): GameObject[] {
+    const levelObjects: GameObject[] = [];
+    const xStepSize: number = width / this.levelMap[0].length;
+
+    const yStepSize: number = height / this.levelMap.length;
 
     loop1: for (let y = 0; y < this.levelMap.length; y++) {
       loop2: for (let x = 0; x < this.levelMap[0].length; x++) {
-
         const cell = this.levelMap[y][x];
         switch (cell) {
           case 1:
             this.createCloude();
             break loop2;
           case 2:
-            const block = new GameObject(x * xStepSize, y * yStepSize, xStepSize, 10)
+            const block = new GameObject(
+              x * xStepSize,
+              y * yStepSize,
+              xStepSize,
+              10
+            );
             levelObjects.push(block);
             break;
         }
