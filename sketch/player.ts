@@ -12,8 +12,8 @@ class Player {
     xVelocity: number = 0,
     yVelocity: number = 0,
     speed: number = 1,
-    width: number = 50,
-    height: number = 50
+    width: number = 80,
+    height: number = 80
   ) {
     this.xVelocity = xVelocity;
     this.yVelocity = yVelocity;
@@ -33,6 +33,7 @@ class Player {
     }
 
     this.position.x += this.xVelocity;
+    this.gravity();
     this.xVelocity *= 0.9; // friction
 
     const isOutsideRightEdge = this.position.x > width - this.width / 2;
@@ -43,23 +44,23 @@ class Player {
     if (this.position.x < this.width / 2) {
       this.position.x = this.width / 2;
     }
+
   }
 
-  private gravity(): void {}
+  private gravity(): void {
+    this.position.y += 3;
+    if (this.position.y > height -
+      this.width / 2) {
+      this.position.y = height -
+          this.width / 2;
+    }
+
+  }
 
   public drawPlayer(): void {
     noStroke();
     fill("pink");
     circle(this.position.x, this.position.y, this.width);
-  }
-
-  public update(): void {
-    this.position.y += 3;
-    if (this.position.y > height -
-      this.width / 2) {
-      this.position = height -
-          this.width / 2;
-    }
   }
 
 

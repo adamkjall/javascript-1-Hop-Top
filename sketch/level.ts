@@ -1,18 +1,17 @@
 class Level {
- 
   // private highScoreAnimation: animation;
   private maxBlockWidth: number;
   private minBlockWidth: number;
   private levelProgress: number;
+  private levelMap: LevelMap;
+  private levelObjects: GameObject[];
 
-  constructor(
-    // highScoreAnimation: animation;
-    maxBlockwidth: number = 100,
-    minBlockWidth: number = 20
-  ) {
-    this.maxBlockWidth = maxBlockwidth;
-    this.minBlockWidth = minBlockWidth;
+  constructor(levelMap: LevelMap) {
+    this.maxBlockWidth = 100;
+    this.minBlockWidth = 20;
     this.levelProgress = 0;
+    this.levelMap = levelMap;
+    this.levelObjects = this.createLevelObject();
   }
 
   public isLevelDone(): Boolean {
@@ -49,7 +48,43 @@ class Level {
   public updateLevel(): void {}
 
   public drawLevel(): void {
-      this.createCloud()
+    // this.createCloude();
+    this.drawMap();
+  }
+  
+  private drawMap(): void {
+    for (let object of this.levelObjects) {
+      object.drawObject();
+    }
+    this.createCloud();
+  }
+
+  private createLevelObject(): GameObject[] {
+    const levelObjects: GameObject[] = [];
+    const xStepSize: number = width / this.levelMap[0].length;
+
+    const yStepSize: number = height / this.levelMap.length;
+
+    loop1: for (let y = 0; y < this.levelMap.length; y++) {
+      loop2: for (let x = 0; x < this.levelMap[0].length; x++) {
+        const cell = this.levelMap[y][x];
+        switch (cell) {
+          case 1:     
+          // clouds       
+            break loop2;
+          case 2:
+            const block = new GameObject(
+              x * xStepSize,
+              y * yStepSize,
+              xStepSize,
+              20
+            );
+            levelObjects.push(block);
+            break;
+        }
+      }
+    }
+    return levelObjects;
   }
 }
-  // public removeItem(item:ite)
+// public removeItem(item:ite)

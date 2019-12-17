@@ -12,7 +12,7 @@ class GameController {
     score: number,
     highScore: number
   ) {
-    this.level = new Level();
+    this.level = level;
     this.player = player;
     this.nrOfPlayers = nrOfPlayers;
     this.score = score;
