@@ -11,13 +11,16 @@ function preload() {
   //Use with   collectItemSound.play()
   collectItemSound = (window as any).loadSound('../assets/sounds/bubbles.wav');
   //Solid blocks
-  imgSolid = loadImage('../assets/images/10.png')
+  imgSolid = loadImage('../assets/images/10.png');
   //Fragile blocks
-  imgFragile = loadImage('../assets/images/1.png')
+  imgFragile = loadImage('../assets/images/1.png');
+  //Bonus items blocks
+  imgItemStar = loadImage('../assets/images/item1.png');
 }
 
-let imgSolid: p5.Image
-let imgFragile: p5.Image
+let imgSolid: p5.Image;
+let imgFragile: p5.Image;
+let imgItemStar: p5.Image;
 let collectItemSound: p5.SoundFile;
 let player: Player;
 let level : Level;
@@ -58,12 +61,17 @@ function draw() {
 
   gameController.displayScoreBoard();
 
+  // TODO: rename block to game object name,
+  //   because bonus items could be also in collision with player
   level.levelObjects.forEach(block => {
     if(collisionDetection.playerCollidedWithBlock(player, block)) {
-      player.bounceOnBlock(block.pos);
-      
+      if (block instanceof Item) {
+        const item = block as Item;
+        item.explode()
+      } else {
+        player.bounceOnBlock(block.pos);
+      }
     }
-
   })
 
 }
