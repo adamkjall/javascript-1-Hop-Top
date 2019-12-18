@@ -23,8 +23,6 @@ function setup() {
   player = new Player(width/2, height/2)
   levelFactory = new LevelFactory();
   level = levelFactory.createLevel(1);
-
-  
 }
 /**
  * Built in draw function in P5
