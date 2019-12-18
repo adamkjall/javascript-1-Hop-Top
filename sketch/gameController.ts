@@ -43,9 +43,9 @@ class GameController {
       push();
       fill(0, 10, 153);
       textSize(18);
-      text("Level", 240, 35);
+      text("Level", 275, 35);
       text("High Score", 90, 55);
-      text("Score", 410, 55);
+      text("Score", 430, 55);
       pop();
     }
 
@@ -57,18 +57,18 @@ class GameController {
       text(score, 90, 75);
       text(score, 430, 75);
       textSize(62);
-      text(score, 245, 90);
+      text(score, 280, 90);
       pop();
     }
 
     function scoreBoard() {
       push();
-      let c = color(900, 150, 255);
+      let c = color(252,208,107);
       stroke(c);
       fill(c);
-      circle(265, 60, 100);
+      circle(300, 60, 100);
       strokeWeight(50);
-      line(100, 60, 450, 60);
+      line(75, 60, 525, 60);
       pop();
     }
   }
