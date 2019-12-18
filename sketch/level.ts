@@ -48,7 +48,7 @@ class Level {
   public updateLevel(): void {}
 
   public drawLevel(): void {
-    // this.createCloude();
+   
     this.drawMap();
   }
   
