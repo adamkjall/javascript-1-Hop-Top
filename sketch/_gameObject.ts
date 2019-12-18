@@ -1,7 +1,7 @@
 class GameObject {
-  private position: Position;
-  private _width: number;
-  private _height: number;
+  protected position: Position;
+  protected _width: number;
+  protected _height: number;
 
   constructor(
     x: number,
