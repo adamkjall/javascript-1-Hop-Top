@@ -16,8 +16,8 @@ class GameObject {
 
   public drawObject(): void {
     push()
-    fill('green');
-    rect(
+    image(
+      imgSolid,
       this.position.x,
       this.position.y,
       this._width,

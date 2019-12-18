@@ -6,8 +6,19 @@
 function preload() {
   // Tyvärr har jag inte fått till den globala typningen för
   // inladdningen av ljud men fungerar bra enligt nedan..
-  // sound = (window as any).loadSound('../assets/mySound.wav');
+
+  //Sound for when the ball collects items. Not currently being used. 
+  //Use with   collectItemSound.play()
+  collectItemSound = (window as any).loadSound('../assets/sounds/bubbles.wav');
+  //Solid blocks
+  imgSolid = loadImage('../assets/images/10.png')
+  //Fragile blocks
+  imgFragile = loadImage('../assets/images/1.png')
 }
+
+let imgSolid: p5.Image
+let imgFragile: p5.Image
+let collectItemSound: p5.SoundFile;
 let player: Player;
 let level : Level;
 let levelFactory: LevelFactory;
