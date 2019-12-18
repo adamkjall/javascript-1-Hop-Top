@@ -22,7 +22,11 @@ let collectItemSound: p5.SoundFile;
 let player: Player;
 let level : Level;
 let levelFactory: LevelFactory;
+
+let gameController: GameController;
+
 let collisionDetection: CollisionDetection;
+
 /**
  * Built in setup function in P5
  * This is a good place to create your first class object
@@ -30,12 +34,16 @@ let collisionDetection: CollisionDetection;
  * in the draw function below
  */
 function setup() {
-  createCanvas((windowWidth / 100) * 50, windowHeight);
+  createCanvas(600, windowHeight);
   frameRate(60);
   player = new Player(width/2, height/2)
   levelFactory = new LevelFactory();
   level = levelFactory.createLevel(1);
+
+  gameController = new GameController(level, player,1,0,0 );
+
   collisionDetection = new CollisionDetection();
+
 }
 /**
  * Built in draw function in P5
@@ -47,6 +55,9 @@ function draw() {
   level.drawLevel();
   player.move();
   player.drawPlayer();
+
+  gameController.displayScoreBoard();
+
   level.levelObjects.forEach(block => {
     if(collisionDetection.playerCollidedWithBlock(player, block)) {
       player.bounceOnBlock(block.pos);
@@ -54,10 +65,11 @@ function draw() {
     }
 
   })
+
 }
 /**
  *  Built in windowResize listener function in P5
  */
 function windowResized() {
-  resizeCanvas((windowWidth / 100) * 50, windowHeight);
+  resizeCanvas(600, windowHeight);
 }
