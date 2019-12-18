@@ -67,7 +67,7 @@ class Level {
     
     loop1: for (let y = 0; y < this.levelMap.length; y++) {
       loop2: for (let x = 0; x < this.levelMap[0].length; x++) {
-        const cell = this.levelMap[y][x];
+        const cell = this.levelMap[this.levelMap.length - 1 - y][x];
         switch (cell) {
           case 1:     
           // clouds       
@@ -75,7 +75,7 @@ class Level {
           case 2:
             const block = new GameObject(
               x * xStepSize,
-              y * 100,
+              y * -100 + height - 100,  
               xStepSize,
               20
             );
