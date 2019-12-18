@@ -4,14 +4,14 @@ class Level {
   private minBlockWidth: number;
   private levelProgress: number;
   private levelMap: LevelMap;
-  private levelObjects: GameObject[];
+  private _levelObjects: GameObject[];
 
   constructor(levelMap: LevelMap) {
     this.maxBlockWidth = 100;
     this.minBlockWidth = 20;
     this.levelProgress = 0;
     this.levelMap = levelMap;
-    this.levelObjects = this.createLevelObject();
+    this._levelObjects = this.createLevelObject();
   }
 
   public isLevelDone(): Boolean {
@@ -53,7 +53,7 @@ class Level {
   }
   
   private drawMap(): void {
-    for (let object of this.levelObjects) {
+    for (let object of this._levelObjects) {
       object.drawObject();
     }
     this.createCloud();
@@ -67,7 +67,7 @@ class Level {
     
     loop1: for (let y = 0; y < this.levelMap.length; y++) {
       loop2: for (let x = 0; x < this.levelMap[0].length; x++) {
-        const cell = this.levelMap[y][x];
+        const cell = this.levelMap[this.levelMap.length - 1 - y][x];
         switch (cell) {
           case 1:     
           // clouds       
@@ -75,7 +75,7 @@ class Level {
           case 2:
             const block = new GameObject(
               x * xStepSize,
-              y * 100,
+              y * -100 + height - 100,  
               xStepSize,
               20
             );
@@ -85,5 +85,9 @@ class Level {
       }
     }
     return levelObjects;
+  }
+
+  public get levelObjects() {
+    return this._levelObjects
   }
 }

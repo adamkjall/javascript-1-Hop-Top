@@ -7,12 +7,7 @@ constructor(x: number, y: number, width: number, height: number){
 
 
     // public getPosition(): Position {}
-    public getWith(): number {
-        return 0
-    }
-    public getHeight() : number {
-        return 0
-    }
+ 
 
 }
 

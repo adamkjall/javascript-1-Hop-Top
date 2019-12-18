@@ -6,12 +6,27 @@
 function preload() {
   // Tyvärr har jag inte fått till den globala typningen för
   // inladdningen av ljud men fungerar bra enligt nedan..
-  // sound = (window as any).loadSound('../assets/mySound.wav');
+
+  //Sound for when the ball collects items. Not currently being used. 
+  //Use with   collectItemSound.play()
+  collectItemSound = (window as any).loadSound('../assets/sounds/bubbles.wav');
+  //Solid blocks
+  imgSolid = loadImage('../assets/images/10.png')
+  //Fragile blocks
+  imgFragile = loadImage('../assets/images/1.png')
 }
+
+let imgSolid: p5.Image
+let imgFragile: p5.Image
+let collectItemSound: p5.SoundFile;
 let player: Player;
 let level : Level;
 let levelFactory: LevelFactory;
+
 let gameController: GameController;
+
+let collisionDetection: CollisionDetection;
+
 /**
  * Built in setup function in P5
  * This is a good place to create your first class object
@@ -24,7 +39,11 @@ function setup() {
   player = new Player(width/2, height/2)
   levelFactory = new LevelFactory();
   level = levelFactory.createLevel(1);
+
   gameController = new GameController(level, player,1,0,0 );
+
+  collisionDetection = new CollisionDetection();
+
 }
 /**
  * Built in draw function in P5
@@ -36,7 +55,17 @@ function draw() {
   level.drawLevel();
   player.move();
   player.drawPlayer();
+
   gameController.displayScoreBoard();
+
+  level.levelObjects.forEach(block => {
+    if(collisionDetection.playerCollidedWithBlock(player, block)) {
+      player.bounceOnBlock(block.pos);
+      
+    }
+
+  })
+
 }
 /**
  *  Built in windowResize listener function in P5
