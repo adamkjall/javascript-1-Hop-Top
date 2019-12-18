@@ -35,8 +35,10 @@ class Player {
       else this.xVelocity -= this.speed;
     }
     
-
+    // bounce on ground
     if (this.position.y + this.diameter / 2 >= height) {
+      this.position.y = height - this.diameter / 2;
+      this.yVelocity = 0;
       this.yVelocity -= this.bouncePower;
     }
 
@@ -46,11 +48,6 @@ class Player {
     this.gravity();
     this.xVelocity *= 0.95; // friction
 
-    if (this.position.y + this.diameter / 2 >= height) {
-      this.position.y = height - this.diameter / 2;
-      this.yVelocity = 0;
-    }
-
     const isOutsideRightEdge = this.position.x > width - this.diameter / 2;
     if (isOutsideRightEdge) {
       const endOfScreen = width - this.diameter / 2;
@@ -59,6 +56,12 @@ class Player {
     if (this.position.x < this.diameter / 2) {
       this.position.x = this.diameter / 2;
     }
+  }
+
+  public bounceOnBlock(pos : Position) : void {
+    this.pos.y = pos.y - this.radius;
+    this.yVelocity = 0;
+    this.yVelocity -= this.bouncePower;
   }
 
   private gravity(): void {
@@ -73,5 +76,13 @@ class Player {
 
   public setPosition(newPosition: Position): void {
     this.position = newPosition;
+  }
+
+  public get pos() {
+    return this.position;
+  }
+
+  public get radius() {
+    return this.diameter / 2;
   }
 }

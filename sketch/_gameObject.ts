@@ -1,7 +1,7 @@
 class GameObject {
   private position: Position;
-  private width: number;
-  private height: number;
+  private _width: number;
+  private _height: number;
 
   constructor(
     x: number,
@@ -10,8 +10,8 @@ class GameObject {
     height: number,
   ) {
     this.position = new Position(x,y);
-    this.width = width;
-    this.height = height;
+    this._width = width;
+    this._height = height;
   }
 
   public drawObject(): void {
@@ -20,8 +20,8 @@ class GameObject {
     rect(
       this.position.x,
       this.position.y,
-      this.width,
-      this.height
+      this._width,
+      this._height
       )
     pop()
   }
@@ -31,4 +31,15 @@ class GameObject {
   public setPosition(newPosition: Position): void {
     this.position = newPosition;
   }
+
+  public get width(): number {
+    return this._width
+}
+public get height() : number {
+    return this._height
+}
+
+public get pos() {
+  return this.position;
+}
 }

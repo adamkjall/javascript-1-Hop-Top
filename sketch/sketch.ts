@@ -11,6 +11,7 @@ function preload() {
 let player: Player;
 let level : Level;
 let levelFactory: LevelFactory;
+let collisionDetection: CollisionDetection;
 /**
  * Built in setup function in P5
  * This is a good place to create your first class object
@@ -23,6 +24,7 @@ function setup() {
   player = new Player(width/2, height/2)
   levelFactory = new LevelFactory();
   level = levelFactory.createLevel(1);
+  collisionDetection = new CollisionDetection();
 }
 /**
  * Built in draw function in P5
@@ -34,6 +36,13 @@ function draw() {
   level.drawLevel();
   player.move();
   player.drawPlayer();
+  level.levelObjects.forEach(block => {
+    if(collisionDetection.playerCollidedWithBlock(player, block)) {
+      player.bounceOnBlock(block.pos);
+      
+    }
+
+  })
 }
 /**
  *  Built in windowResize listener function in P5
