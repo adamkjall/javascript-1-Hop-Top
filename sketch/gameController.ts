@@ -47,7 +47,7 @@ class GameController {
     background(r,b,g);
 
     this.level.drawLevel();
-    this.displayScoreBoard();
+    this.drawScoreBoard();
     this.player.drawPlayer();
   }
 
@@ -65,14 +65,14 @@ class GameController {
 
   private gameOver(): void {}
 
-  public displayScoreBoard(): void {
+  public drawScoreBoard(): void {
     
     function scoreText() : void {
       push();
       fill(0, 10, 153);
       textSize(18);
       text("Level", 275, 35);
-      text("High Score", 90, 55);
+      text("High Score", 85, 55);
       text("Score", 430, 55);
       pop();
     }
@@ -84,7 +84,8 @@ class GameController {
       text(this.highScore, 90, 75);
       text(this.score, 430, 75);
       textSize(62);
-      text(this.levelNumber, 280, 90);
+      textAlign(CENTER)
+      text(this.levelNumber, 300, 90);
       pop();
     }
     
