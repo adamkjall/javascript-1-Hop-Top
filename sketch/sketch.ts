@@ -15,9 +15,17 @@ function preload() {
   //Fragile blocks
   imgFragile = loadImage('../assets/images/1.png');
   //Bonus items blocks
+<<<<<<< HEAD
   imgItemStar = loadImage('../assets/images/item1.svg');
+=======
+  imgItemStar = loadImage('../assets/images/item1.png');
+<<<<<<< HEAD
+>>>>>>> added a start screen
   //SpeedBoost items
   imgSpeedBoost = loadImage('../assets/images/star.svg')
+=======
+  
+>>>>>>> added a start screen
 }
 
 let imgSpeedBoost: p5.Image
@@ -33,24 +41,66 @@ let gameController: GameController;
  * and save it as a global variable so it can be used
  * in the draw function below
  */
+
+
 function setup() {
   createCanvas(600, windowHeight);
   frameRate(60);
 
   gameController = new GameController();
 }
+
+
+
 /**
  * Built in draw function in P5
  * This is a good place to call public funcions of the object
  * you created in the setup function above
  */
 
+
 function draw() {
+<<<<<<< HEAD
   gameController.drawGame();
+=======
+<<<<<<< Updated upstream
+  gameController.gameLoop();
+=======
+  background("cornflowerblue");
+  level.drawLevel();
+  player.move();
+  player.drawPlayer();
+
+  gameController.displayScoreBoard();
+
+ 
+  
+  // TODO: rename block to game object name,
+  //   because bonus items could be also in collision with player
+  level.levelObjects.forEach(block => {
+    if(collisionDetection.playerCollidedWithBlock(player, block)) {
+      if (block instanceof Item) {
+        const item = block as Item;
+        item.explode()
+        gameController.collectItem()
+      } else {
+        player.bounceOnBlock(block.pos);
+      }
+    }
+  })
+
+  level.updateLevel(player.pos);
+
+>>>>>>> Stashed changes
+>>>>>>> added a start screen
 }
+
+
 /**
  *  Built in windowResize listener function in P5
  */
 function windowResized() {
   resizeCanvas(600, windowHeight);
+  
 }
+
