@@ -12,7 +12,7 @@ class Player {
     y: number,
     xVelocity: number = 0,
     yVelocity: number = 0,
-    speed: number = 1,
+    speed: number = .5,
     diameter: number = 80
   ) {
     this.position = new Position(x, y);
@@ -20,8 +20,8 @@ class Player {
     this.yVelocity = yVelocity;
     this.speed = speed;
     this.diameter = diameter;
-    this.bouncePower = 20;
-    this.maxSpeed = 10;
+    this.bouncePower = 16.5;
+    this.maxSpeed = 8;
   }
 
   public autoBounce(): void {}
@@ -59,9 +59,11 @@ class Player {
   }
 
   public bounceOnBlock(pos : Position) : void {
-    this.pos.y = pos.y - this.radius;
-    this.yVelocity = 0;
-    this.yVelocity -= this.bouncePower;
+    if (this.yVelocity > 0) {
+      this.pos.y = pos.y - this.radius;
+      this.yVelocity = 0;
+      this.yVelocity -= this.bouncePower;
+    }
   }
 
   private gravity(): void {
