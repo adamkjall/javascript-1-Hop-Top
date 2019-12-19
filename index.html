@@ -10,6 +10,18 @@
                 display: flex;
                 justify-content: center;
             }
+            #startButton {
+                display: flex;
+                justify-content: center;
+                position: absolute; 
+                font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                color: white;
+                font-size: 40px;
+                background: cornflowerblue;
+                width: 600;
+                height: 100%;
+
+            }
         </style>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
@@ -17,6 +29,11 @@
         <script src="build/bundle.js"></script>
     </head>
     <body>
-        <!-- Code injected from JavaScript ^^ -->
+          <button type="button" id="startButton" onclick="initialize()">HOP TOP <br> click to start</button>
     </body>
+    <script>
+        let = startButton = document.getElementById('startButton');
+        function initialize() {
+        startButton.style.display = 'none'; }
+    </script>
 </html>
