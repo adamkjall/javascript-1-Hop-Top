@@ -6,23 +6,6 @@ class GameController {
   private score: number;
   private highScore: number;
   private levelNumber: number;
-<<<<<<< HEAD
-  private isStartGame: boolean;
-=======
-  private isStartingNextLevel: boolean;
-  private countDown: number;
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> next level now spawns when the current one is done
-=======
-  private effectList: GameObject[];
->>>>>>> Item score moving effect during collision
-=======
-  private effectList: GameObject[];
-=======
-  private isStartGame: boolean;
->>>>>>> added a start screen
->>>>>>> added a start screen
 
   constructor() {
     this.score = 0;
@@ -32,94 +15,18 @@ class GameController {
     this.level = this.levelFactory.createLevel(this.levelNumber);
     this.player = new Player(width / 2, height - 100);
     this.collisionDetection = new CollisionDetection();
-<<<<<<< HEAD
-    this.isStartGame = true;
-=======
-    this.isStartingNextLevel = false;
-    this.countDown = 5;
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> next level now spawns when the current one is done
-=======
-    this.effectList = [];
->>>>>>> Item score moving effect during collision
   }
-
-<<<<<<< HEAD
-=======
-    this.effectList = [];
-=======
-    this.isStartGame = true;
->>>>>>> added a start screen
-  }
-
-
-
->>>>>>> added a start screen
-
-  public drawStartScreen() {
-    background("cornflowerblue");
-    fill("white");
-    textAlign(CENTER);
-    textSize(30);
-    text("HOP TOP", width / 2, height / 2);
-    text("click to start", width / 2, height / 2 + 38);
-   }
-
-<<<<<<< HEAD
-  public drawGame(): void {
-    if (mouseIsPressed === true) {
-    this.isStartGame = false;
-    console.log("mouseIsPressed");
-    }
-    if (this.isStartGame) {
-    this.drawStartScreen() 
-    return;
-    
-    }
 
   private loadLevel(level: Level): void {}
 
   private createPlayer(): void {}
 
   public gameLoop(): void {
-=======
-  public drawGame(): void {
-<<<<<<< HEAD
->>>>>>> the level starts when player has reached a certain height, the clouds disappear
-=======
-=======
-  public drawGame(): void {
-    if (mouseIsPressed === true) {
-    this.isStartGame = false;
-    console.log("mouseIsPressed");
-    }
-    if (this.isStartGame) {
-    this.drawStartScreen() 
-    return;
-    } 
-
-    
->>>>>>> added a start screen
-    // if level is done and we're not starting a new level
-    if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
-      this.startNextLevel();
-    }
-
->>>>>>> added comments in gameController, and fixed some errors
     this.player.move();
-
-    const heightBeforeGameStarts = height / 2;
-    if (
-      this.player.pos.y < heightBeforeGameStarts ||
-      this.level.levelProgress > 0 && this.player.pos.y < height
-    ) {
-      this.level.updateLevel();
-      this.updateEffects();
-    }
+    this.level.updateLevel(this.player.pos);
 
     // moves all level objects down
-    this.level.levelObjects.forEach((levelObject, index) => {
+    this.level.levelObjects.forEach(levelObject => {
       if (
         this.collisionDetection.playerCollidedWithBlock(
           this.player,
@@ -127,24 +34,34 @@ class GameController {
         )
       ) {
         if (levelObject instanceof Item) {
-          const effect = new Effect(levelObject);
-          this.effectList.push(effect);
-          this.level.levelObjects.splice(index, 1);
-
+          const item = levelObject as Item;
+          item.explode();
           gameController.collectItem();
-        } else if (levelObject instanceof SpeedBoost) {
-          this.level.levelObjects.splice(index, 1);
-          gameController.collectItem();
-          this.player.speedBoost();
         } else {
           this.player.bounceOnBlock(levelObject.pos);
         }
       }
     });
 
-    const r: number = map(this.level.levelProgress, 0, 100, 120, 60);
-    const b: number = map(this.level.levelProgress, 0, 100, 170, 110);
-    const g: number = map(this.level.levelProgress, 0, 100, 235, 200);
+    //Make speedboost(star) disappear when bounced into
+    this.level.levelObjects.forEach(block => {
+      if (this.collisionDetection.playerCollidedWithBlock(this.player, block)) {
+        if (block instanceof SpeedBoost) {
+          const item = block as SpeedBoost;
+          item.explode();
+          gameController.collectItem();
+        } else {
+          this.player.bounceOnBlock(block.pos);
+        }
+      }
+    });
+
+    this.level.updateLevel(this.player.pos);
+
+    console.log("progress", this.level.levelProgress);
+    const r = map(this.level.levelProgress, 0, 100, 140, 60);
+    const b = map(this.level.levelProgress, 0, 100, 190, 110);
+    const g = map(this.level.levelProgress, 0, 100, 255, 200);
 
     // background("cornflowerblue");
     background(r, b, g);
@@ -152,54 +69,22 @@ class GameController {
     this.level.drawLevel();
     this.drawScoreBoard();
     this.player.drawPlayer();
-
-    this.effectList.forEach(effect => {
-      effect.drawObject();
-    });
-    if (this.isStartingNextLevel) this.displayCountDown();
   }
 
-  public startNextLevel() {
-    this.isStartingNextLevel = true;
-    // wait before starting new level
-    setTimeout(() => {
-      this.levelNumber += 1;
-      this.player.pos = new Position(width / 2, height - 100);
-      this.level = this.levelFactory.createLevel(this.levelNumber);
-      this.isStartingNextLevel = false;
-    }, 5000);
-
-    // update the count down until
-    const nextLevelTimer: number = setInterval(() => {
-      // if countdown is 0, reset the countdown value and clear the interval
-      if (this.countDown < 1) {
-        this.countDown = 5;
-        clearInterval(nextLevelTimer);
-      } else this.countDown -= 1;
-    }, 1000);
+  private playerCollision(): boolean {
+    return false;
   }
 
-  // view the countdown message
-  private displayCountDown() {
-    push();
-    textAlign(CENTER);
-    fill(0);
-    textSize(32);
-    text("Next level in " + this.countDown, width / 2, height / 4);
-    pop();
-  }
-
-  private collectItem(): void {
+  public collectItem(): void {
     this.score += 1;
     if (this.score >= this.highScore) {
       this.highScore = this.score;
     }
   }
 
-  // todo
-  //private gameOver(): void {}
+  private gameOver(): void {}
 
-  private drawScoreBoard(): void {
+  public drawScoreBoard(): void {
     function scoreText(): void {
       push();
       fill(0, 10, 153);
@@ -232,15 +117,9 @@ class GameController {
       line(75, 60, 525, 60);
       pop();
     }
-      
+
     scoreBoard();
     scoreText();
     scorePoints();
-  }
-
-  private updateEffects(): void {
-    for (const effect of this.effectList) {
-      effect.pos.y += 3.5;
-    }
   }
 }
