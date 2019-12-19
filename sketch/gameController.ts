@@ -32,8 +32,12 @@ class GameController {
     return false;
   }
 
-  private collectItem(): void {
-    score++
+  public collectItem(): void {
+    this.score += 1
+    if(this.score >= this.highScore) {
+      this.highScore = this.score
+    }
+
   }
 
   private gameOver(): void {}
