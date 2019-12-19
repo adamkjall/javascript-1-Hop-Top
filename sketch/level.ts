@@ -45,7 +45,11 @@ class Level {
     }
   }
 
-  public updateLevel(): void {}
+  public updateLevel(): void {
+    this.levelObjects.forEach(obj => {
+      obj.pos.y += 0.5; 
+    })
+  }
 
   public drawLevel(): void {
    
