@@ -19,6 +19,7 @@ function preload() {
   
 }
 
+let imgSpeedBoost: p5.Image
 let imgSolid: p5.Image;
 let imgFragile: p5.Image;
 let imgItemStar: p5.Image;
@@ -58,7 +59,6 @@ function draw() {
   level.drawLevel();
   player.move();
   player.drawPlayer();
-
   gameController.displayScoreBoard();
 
  
