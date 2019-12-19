@@ -5,7 +5,7 @@ class CollisionDetection {
   ): boolean {
     let testX: number = px;
     let testY: number = py;
-    let aboveTopEdgde = false;
+    let aboveTopEdge = false;
 
     // which edge is closest?
     // test left edge
@@ -18,7 +18,7 @@ class CollisionDetection {
 
     if (py + radius / 2 < by) {      
       testY = by;
-      aboveTopEdgde = true;
+      aboveTopEdge = true;
     }
     // else if (py > by + bHeight) {
     //   testY = by + bHeight; // bottom edge
@@ -30,7 +30,7 @@ class CollisionDetection {
     const distance = dist(px, py, testX, testY);
 
     // only check for collision if close to top edge
-    if (aboveTopEdgde) {
+    if (aboveTopEdge) {
       return distance <= radius;
     } else return false;
   }
