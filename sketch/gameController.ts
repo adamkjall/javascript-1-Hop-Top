@@ -1,32 +1,55 @@
 class GameController {
+  private levelFactory : LevelFactory;
   private level: Level;
   private player: Player;
-  private nrOfPlayers: number;
+  private collisionDetection : CollisionDetection;
   private score: number;
   private highScore: number;
   private levelNumber: number;
 
-  constructor(
-    level: Level,
-    player: Player,
-    nrOfPlayers: number,
-    score: number,
-    highScore: number,
-    levelNumber: number
-  ) {
-    this.level = level;
-    this.player = player;
-    this.nrOfPlayers = nrOfPlayers;
-    this.score = score;
-    this.highScore = highScore;
-    this.levelNumber = levelNumber;
+  constructor() {
+    this.score = 0;
+    this.highScore = 0;
+    this.levelNumber = 1;
+    this.levelFactory = new LevelFactory();
+    this.level = this.levelFactory.createLevel(this.levelNumber);
+    this.player = new Player(width / 2, height - 100);
+    this.collisionDetection = new CollisionDetection();
   }
 
   private loadLevel(level: Level): void {}
 
   private createPlayer(): void {}
 
-  public gameLoop(): void {}
+  public gameLoop(): void {
+    this.player.move();
+    this.level.updateLevel(this.player.pos);
+    
+    // moves all level objects down
+    this.level.levelObjects.forEach(levelObject => {
+      if(this.collisionDetection.playerCollidedWithBlock(this.player, levelObject)) {
+        if (levelObject instanceof Item) {
+          const item = levelObject as Item;
+          item.explode()
+          gameController.collectItem()
+        } else {
+          this.player.bounceOnBlock(levelObject.pos);
+        }
+      }
+    })
+    
+    console.log("progress", this.level.levelProgress)
+    const r = map(this.level.levelProgress, 0, 100, 140, 60);
+    const b = map(this.level.levelProgress, 0, 100, 190, 110);
+    const g = map(this.level.levelProgress, 0, 100, 255, 200);
+
+    // background("cornflowerblue");
+    background(r,b,g);
+
+    this.level.drawLevel();
+    this.drawScoreBoard();
+    this.player.drawPlayer();
+  }
 
   private playerCollision(): boolean {
     return false;
