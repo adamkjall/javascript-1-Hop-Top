@@ -25,10 +25,9 @@ let collectItemSound: p5.SoundFile;
 let player: Player;
 let level : Level;
 let levelFactory: LevelFactory;
-
 let gameController: GameController;
-
 let collisionDetection: CollisionDetection;
+let score : number = 0;
 
 /**
  * Built in setup function in P5
@@ -43,9 +42,10 @@ function setup() {
   levelFactory = new LevelFactory();
   level = levelFactory.createLevel(1);
 
-  gameController = new GameController(level, player,1,0,0 );
+  gameController = new GameController(level, player,1, 0, 0 ,0);
 
   collisionDetection = new CollisionDetection();
+
 
 }
 /**
@@ -53,6 +53,7 @@ function setup() {
  * This is a good place to call public funcions of the object
  * you created in the setup function above
  */
+
 function draw() {
   background("cornflowerblue");
   level.drawLevel();
