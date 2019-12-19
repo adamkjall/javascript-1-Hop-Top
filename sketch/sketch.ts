@@ -74,6 +74,8 @@ function draw() {
     }
   })
 
+  level.updateLevel();
+
 }
 /**
  *  Built in windowResize listener function in P5
