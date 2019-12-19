@@ -27,7 +27,7 @@ let level : Level;
 let levelFactory: LevelFactory;
 let gameController: GameController;
 let collisionDetection: CollisionDetection;
-let score : number = 0;
+
 
 /**
  * Built in setup function in P5
@@ -42,7 +42,7 @@ function setup() {
   levelFactory = new LevelFactory();
   level = levelFactory.createLevel(1);
 
-  gameController = new GameController(level, player,1, 0, 0 ,0);
+  gameController = new GameController(level, player,1, 0, 0 ,1);
 
   collisionDetection = new CollisionDetection();
 
@@ -60,7 +60,7 @@ function draw() {
   player.move();
   player.drawPlayer();
 
-  gameController.displayScoreBoard();
+  gameController.drawScoreBoard();
 
   // TODO: rename block to game object name,
   //   because bonus items could be also in collision with player
