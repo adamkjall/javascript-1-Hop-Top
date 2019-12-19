@@ -16,8 +16,11 @@ function preload() {
   imgFragile = loadImage('../assets/images/1.png');
   //Bonus items blocks
   imgItemStar = loadImage('../assets/images/item1.png');
+  //speedBoost
+  imgSpeedBoost = loadImage('../assets/images/star.svg');
 }
 
+let imgSpeedBoost: p5.Image
 let imgSolid: p5.Image;
 let imgFragile: p5.Image;
 let imgItemStar: p5.Image;
@@ -59,8 +62,21 @@ function draw() {
   level.drawLevel();
   player.move();
   player.drawPlayer();
-
   gameController.displayScoreBoard();
+
+  level.levelObjects.forEach(block => {
+    if(collisionDetection.playerCollidedWithBlock(player, block)) {
+      if (block instanceof SpeedBoost) {
+        const item = block as SpeedBoost;
+        item.explode()
+        gameController.collectItem()
+      } else {
+        player.bounceOnBlock(block.pos);
+      }
+    }
+  })
+
+  level.updateLevel(player.pos);
 
   // TODO: rename block to game object name,
   //   because bonus items could be also in collision with player
@@ -77,6 +93,8 @@ function draw() {
   })
 
   level.updateLevel(player.pos);
+
+  
 
 }
 /**
