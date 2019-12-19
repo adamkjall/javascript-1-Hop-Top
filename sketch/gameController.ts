@@ -1,8 +1,8 @@
 class GameController {
-  private levelFactory : LevelFactory;
+  private levelFactory: LevelFactory;
   private level: Level;
   private player: Player;
-  private collisionDetection : CollisionDetection;
+  private collisionDetection: CollisionDetection;
   private score: number;
   private highScore: number;
   private levelNumber: number;
@@ -24,27 +24,47 @@ class GameController {
   public gameLoop(): void {
     this.player.move();
     this.level.updateLevel(this.player.pos);
-    
+
     // moves all level objects down
     this.level.levelObjects.forEach(levelObject => {
-      if(this.collisionDetection.playerCollidedWithBlock(this.player, levelObject)) {
+      if (
+        this.collisionDetection.playerCollidedWithBlock(
+          this.player,
+          levelObject
+        )
+      ) {
         if (levelObject instanceof Item) {
           const item = levelObject as Item;
-          item.explode()
-          gameController.collectItem()
+          item.explode();
+          gameController.collectItem();
         } else {
           this.player.bounceOnBlock(levelObject.pos);
         }
       }
-    })
-    
-    console.log("progress", this.level.levelProgress)
+    });
+
+    //Make speedboost(star) disappear when bounced into
+    this.level.levelObjects.forEach(block => {
+      if (this.collisionDetection.playerCollidedWithBlock(this.player, block)) {
+        if (block instanceof SpeedBoost) {
+          const item = block as SpeedBoost;
+          item.explode();
+          gameController.collectItem();
+        } else {
+          this.player.bounceOnBlock(block.pos);
+        }
+      }
+    });
+
+    this.level.updateLevel(this.player.pos);
+
+    console.log("progress", this.level.levelProgress);
     const r = map(this.level.levelProgress, 0, 100, 140, 60);
     const b = map(this.level.levelProgress, 0, 100, 190, 110);
     const g = map(this.level.levelProgress, 0, 100, 255, 200);
 
     // background("cornflowerblue");
-    background(r,b,g);
+    background(r, b, g);
 
     this.level.drawLevel();
     this.displayScoreBoard();
@@ -56,18 +76,16 @@ class GameController {
   }
 
   public collectItem(): void {
-    this.score += 1
-    if(this.score >= this.highScore) {
-      this.highScore = this.score
+    this.score += 1;
+    if (this.score >= this.highScore) {
+      this.highScore = this.score;
     }
-
   }
 
   private gameOver(): void {}
 
   public drawScoreBoard(): void {
-    
-    function scoreText() : void {
+    function scoreText(): void {
       push();
       fill(0, 10, 153);
       textSize(18);
@@ -76,22 +94,22 @@ class GameController {
       text("Score", 430, 55);
       pop();
     }
-    
-    const scorePoints = () : void => {
+
+    const scorePoints = (): void => {
       push();
       fill(255, 255, 255);
       textSize(18);
       text(this.highScore, 90, 75);
       text(this.score, 430, 75);
       textSize(62);
-      textAlign(CENTER)
+      textAlign(CENTER);
       text(this.levelNumber, 300, 90);
       pop();
-    }
-    
-    function scoreBoard():void {
+    };
+
+    function scoreBoard(): void {
       push();
-      let c : p5.Color= color(252,208,107);
+      let c: p5.Color = color(252, 208, 107);
       stroke(c);
       fill(c);
       circle(300, 60, 100);
