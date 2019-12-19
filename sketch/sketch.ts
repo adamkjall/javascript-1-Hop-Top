@@ -69,6 +69,7 @@ function draw() {
       if (block instanceof Item) {
         const item = block as Item;
         item.explode()
+        gameController.collectItem()
       } else {
         player.bounceOnBlock(block.pos);
       }
