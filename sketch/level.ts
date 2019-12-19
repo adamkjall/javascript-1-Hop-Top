@@ -81,6 +81,17 @@ class Level {
             );
             levelObjects.push(block);
             break;
+          case 5:
+            // bonus item
+            const item = new Item(
+              x * xStepSize,
+              y * -100 + height - 100,
+              xStepSize,
+                xStepSize,
+              imgItemStar
+            );
+            levelObjects.push(item);
+            break;
         }
       }
     }
