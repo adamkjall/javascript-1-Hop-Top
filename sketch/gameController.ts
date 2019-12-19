@@ -39,7 +39,7 @@ class GameController {
     scorePoints();
 
     
-    function scoreText() {
+    function scoreText() : void {
       push();
       fill(0, 10, 153);
       textSize(18);
@@ -49,9 +49,9 @@ class GameController {
       pop();
     }
 
-    function scorePoints() {
+    function scorePoints() : void {
       push();
-      let score = 0;
+      let score : number = 0;
       fill(255, 255, 255);
       textSize(18);
       text(score, 90, 75);
@@ -61,9 +61,9 @@ class GameController {
       pop();
     }
 
-    function scoreBoard() {
+    function scoreBoard():void {
       push();
-      let c = color(252,208,107);
+      let c : p5.Color= color(252,208,107);
       stroke(c);
       fill(c);
       circle(300, 60, 100);
