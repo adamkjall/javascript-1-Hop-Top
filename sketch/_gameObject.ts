@@ -28,7 +28,7 @@ class GameObject {
 
   public update(): void {}
 
-  public setPosition(newPosition: Position): void {
+  public set pos(newPosition: Position) {
     this.position = newPosition;
   }
 

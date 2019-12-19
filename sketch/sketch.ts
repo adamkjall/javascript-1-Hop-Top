@@ -76,6 +76,8 @@ function draw() {
     }
   })
 
+  level.updateLevel(player.pos);
+
 }
 /**
  *  Built in windowResize listener function in P5
