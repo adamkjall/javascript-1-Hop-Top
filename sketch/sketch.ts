@@ -16,8 +16,11 @@ function preload() {
   imgFragile = loadImage('../assets/images/1.png');
   //Bonus items blocks
   imgItemStar = loadImage('../assets/images/item1.png');
+  //speedBoost
+  imgSpeedBoost = loadImage('../assets/images/star.svg');
 }
 
+let imgSpeedBoost: p5.Image
 let imgSolid: p5.Image;
 let imgFragile: p5.Image;
 let imgItemStar: p5.Image;
@@ -27,7 +30,7 @@ let level : Level;
 let levelFactory: LevelFactory;
 let gameController: GameController;
 let collisionDetection: CollisionDetection;
-
+let score : number = 0;
 
 /**
  * Built in setup function in P5
@@ -42,7 +45,7 @@ function setup() {
   levelFactory = new LevelFactory();
   level = levelFactory.createLevel(1);
 
-  gameController = new GameController(level, player,1, 0, 0 ,1);
+  gameController = new GameController(level, player,1, 0, 0 ,0);
 
   collisionDetection = new CollisionDetection();
 
@@ -59,8 +62,21 @@ function draw() {
   level.drawLevel();
   player.move();
   player.drawPlayer();
+  gameController.displayScoreBoard();
 
-  gameController.drawScoreBoard();
+  level.levelObjects.forEach(block => {
+    if(collisionDetection.playerCollidedWithBlock(player, block)) {
+      if (block instanceof SpeedBoost) {
+        const item = block as SpeedBoost;
+        item.explode()
+        gameController.collectItem()
+      } else {
+        player.bounceOnBlock(block.pos);
+      }
+    }
+  })
+
+  level.updateLevel(player.pos);
 
   // TODO: rename block to game object name,
   //   because bonus items could be also in collision with player
@@ -77,6 +93,8 @@ function draw() {
   })
 
   level.updateLevel(player.pos);
+
+  
 
 }
 /**
