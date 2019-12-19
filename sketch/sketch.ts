@@ -76,7 +76,7 @@ function draw() {
     }
   })
 
-  level.updateLevel();
+  level.updateLevel(player.pos);
 
 }
 /**
