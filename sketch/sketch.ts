@@ -19,6 +19,7 @@ function preload() {
 <<<<<<< HEAD
   imgItemStar = loadImage('../assets/images/item1.png');
 <<<<<<< HEAD
+<<<<<<< HEAD
   
 =======
 =======
@@ -39,6 +40,10 @@ function preload() {
   
 >>>>>>> added a start screen
 >>>>>>> added a start screen
+=======
+  //speedBoost
+  imgSpeedBoost = loadImage('../assets/images/star.svg');
+>>>>>>> SuperBoost
 }
 
 let imgSpeedBoost: p5.Image
@@ -116,11 +121,27 @@ function draw() {
   level.drawLevel();
   player.move();
   player.drawPlayer();
-
   gameController.displayScoreBoard();
 
+<<<<<<< HEAD
  
   
+=======
+  level.levelObjects.forEach(block => {
+    if(collisionDetection.playerCollidedWithBlock(player, block)) {
+      if (block instanceof SpeedBoost) {
+        const item = block as SpeedBoost;
+        item.explode()
+        gameController.collectItem()
+      } else {
+        player.bounceOnBlock(block.pos);
+      }
+    }
+  })
+
+  level.updateLevel(player.pos);
+
+>>>>>>> SuperBoost
   // TODO: rename block to game object name,
   //   because bonus items could be also in collision with player
   level.levelObjects.forEach(block => {
@@ -137,9 +158,14 @@ function draw() {
 
   level.updateLevel(player.pos);
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
 >>>>>>> added a start screen
 >>>>>>> added a start screen
+=======
+  
+
+>>>>>>> SuperBoost
 }
 
 

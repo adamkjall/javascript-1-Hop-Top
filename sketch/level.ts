@@ -80,8 +80,54 @@ class Level {
     this.createCloud(cloudPosY ); 
   }
 
-  public get levelObjects(): Block[] {
-    return this._levelObjects;
+  private createLevelObject(): GameObject[] {
+    const levelObjects: GameObject[] = [];
+    const xStepSize: number = width / this.levelMap[0].length;
+
+    const yStepSize: number = height / this.levelMap.length;
+    
+    loop1: for (let y = 0; y < this.levelMap.length; y++) {
+      loop2: for (let x = 0; x < this.levelMap[0].length; x++) {
+        const cell = this.levelMap[this.levelMap.length - 1 - y][x];
+        switch (cell) {
+          case 1:     
+          // clouds       
+            break loop2;
+          case 2:
+            const block = new GameObject(
+              x * xStepSize,
+              y * -100 + height - 100,  
+              xStepSize,
+              20
+            );
+            levelObjects.push(block);
+            break;
+          case 5:
+            // bonus item
+            const item = new Item(
+              x * xStepSize,
+              y * -100 + height - 100,
+              xStepSize,
+                xStepSize,
+              imgItemStar
+            );
+            levelObjects.push(item);
+            break;
+            case 4:
+            //SpeedBoost item
+            const speedBoost = new SpeedBoost(
+              x * xStepSize,
+              y * -100 + height - 100,
+              xStepSize,
+                xStepSize,
+              imgSpeedBoost
+            );
+            levelObjects.push(speedBoost);
+            break;
+        }
+      }
+    }
+    return levelObjects;
   }
 
   public get levelProgress(): number {
