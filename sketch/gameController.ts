@@ -4,19 +4,22 @@ class GameController {
   private nrOfPlayers: number;
   private score: number;
   private highScore: number;
+  private levelNumber: number;
 
   constructor(
     level: Level,
     player: Player,
     nrOfPlayers: number,
     score: number,
-    highScore: number
+    highScore: number,
+    levelNumber: number
   ) {
     this.level = level;
     this.player = player;
     this.nrOfPlayers = nrOfPlayers;
     this.score = score;
     this.highScore = highScore;
+    this.levelNumber = levelNumber;
   }
 
   private loadLevel(level: Level): void {}
@@ -29,15 +32,13 @@ class GameController {
     return false;
   }
 
-  private collectItem(): void {}
+  private collectItem(): void {
+    score++
+  }
 
   private gameOver(): void {}
 
   public displayScoreBoard(): void {
-    scoreBoard();
-    scoreText();
-    scorePoints();
-
     
     function scoreText() : void {
       push();
@@ -48,19 +49,18 @@ class GameController {
       text("Score", 430, 55);
       pop();
     }
-
-    function scorePoints() : void {
+    
+    const scorePoints = () : void => {
       push();
-      let score : number = 0;
       fill(255, 255, 255);
       textSize(18);
-      text(score, 90, 75);
-      text(score, 430, 75);
+      text(this.highScore, 90, 75);
+      text(this.score, 430, 75);
       textSize(62);
-      text(score, 280, 90);
+      text(this.levelNumber, 280, 90);
       pop();
     }
-
+    
     function scoreBoard():void {
       push();
       let c : p5.Color= color(252,208,107);
@@ -71,5 +71,9 @@ class GameController {
       line(75, 60, 525, 60);
       pop();
     }
+
+    scoreBoard();
+    scoreText();
+    scorePoints();
   }
 }
