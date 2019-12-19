@@ -16,6 +16,7 @@ function preload() {
   imgFragile = loadImage('../assets/images/1.png');
   //Bonus items blocks
 <<<<<<< HEAD
+<<<<<<< HEAD
   imgItemStar = loadImage('../assets/images/item1.png');
 <<<<<<< HEAD
   
@@ -26,6 +27,18 @@ function preload() {
   //SpeedBoost items
   imgSpeedBoost = loadImage('../assets/images/star.svg')
 >>>>>>> Stars appears and goes away
+=======
+  imgItemStar = loadImage('../assets/images/item1.svg');
+=======
+  imgItemStar = loadImage('../assets/images/item1.png');
+<<<<<<< HEAD
+>>>>>>> added a start screen
+  //SpeedBoost items
+  imgSpeedBoost = loadImage('../assets/images/star.svg')
+=======
+  
+>>>>>>> added a start screen
+>>>>>>> added a start screen
 }
 
 let imgSpeedBoost: p5.Image
@@ -61,6 +74,7 @@ function setup() {
 
 function draw() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   gameController.gameLoop();
 =======
@@ -92,6 +106,40 @@ function draw() {
 =======
   gameController.drawGame();
 >>>>>>> the level starts when player has reached a certain height, the clouds disappear
+=======
+  gameController.drawGame();
+=======
+<<<<<<< Updated upstream
+  gameController.gameLoop();
+=======
+  background("cornflowerblue");
+  level.drawLevel();
+  player.move();
+  player.drawPlayer();
+
+  gameController.displayScoreBoard();
+
+ 
+  
+  // TODO: rename block to game object name,
+  //   because bonus items could be also in collision with player
+  level.levelObjects.forEach(block => {
+    if(collisionDetection.playerCollidedWithBlock(player, block)) {
+      if (block instanceof Item) {
+        const item = block as Item;
+        item.explode()
+        gameController.collectItem()
+      } else {
+        player.bounceOnBlock(block.pos);
+      }
+    }
+  })
+
+  level.updateLevel(player.pos);
+
+>>>>>>> Stashed changes
+>>>>>>> added a start screen
+>>>>>>> added a start screen
 }
 
 

@@ -12,10 +12,17 @@ class GameController {
   private isStartingNextLevel: boolean;
   private countDown: number;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> next level now spawns when the current one is done
 =======
   private effectList: GameObject[];
 >>>>>>> Item score moving effect during collision
+=======
+  private effectList: GameObject[];
+=======
+  private isStartGame: boolean;
+>>>>>>> added a start screen
+>>>>>>> added a start screen
 
   constructor() {
     this.score = 0;
@@ -31,6 +38,7 @@ class GameController {
     this.isStartingNextLevel = false;
     this.countDown = 5;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> next level now spawns when the current one is done
 =======
     this.effectList = [];
@@ -38,6 +46,16 @@ class GameController {
   }
 
 <<<<<<< HEAD
+=======
+    this.effectList = [];
+=======
+    this.isStartGame = true;
+>>>>>>> added a start screen
+  }
+
+
+
+>>>>>>> added a start screen
 
   public drawStartScreen() {
     background("cornflowerblue");
@@ -48,6 +66,7 @@ class GameController {
     text("click to start", width / 2, height / 2 + 38);
    }
 
+<<<<<<< HEAD
   public drawGame(): void {
     if (mouseIsPressed === true) {
     this.isStartGame = false;
@@ -69,6 +88,19 @@ class GameController {
 <<<<<<< HEAD
 >>>>>>> the level starts when player has reached a certain height, the clouds disappear
 =======
+=======
+  public drawGame(): void {
+    if (mouseIsPressed === true) {
+    this.isStartGame = false;
+    console.log("mouseIsPressed");
+    }
+    if (this.isStartGame) {
+    this.drawStartScreen() 
+    return;
+    } 
+
+    
+>>>>>>> added a start screen
     // if level is done and we're not starting a new level
     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
