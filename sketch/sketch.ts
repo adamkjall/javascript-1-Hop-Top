@@ -16,7 +16,12 @@ function preload() {
   imgFragile = loadImage('../assets/images/1.png');
   //Bonus items blocks
   imgItemStar = loadImage('../assets/images/item1.png');
+<<<<<<< HEAD
   
+=======
+  //SpeedBoost items
+  imgSpeedBoost = loadImage('../assets/images/star.svg')
+>>>>>>> Stars appears and goes away
 }
 
 let imgSpeedBoost: p5.Image
