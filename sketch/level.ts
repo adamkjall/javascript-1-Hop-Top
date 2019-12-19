@@ -45,7 +45,13 @@ class Level {
     }
   }
 
-  public updateLevel(): void {}
+  public updateLevel(playerPos : Position): void {
+    this.levelObjects.forEach(obj => {
+      // if(playerPos.y < 500) {
+        obj.pos.y += 1.5; 
+      // } 
+    })
+  }
 
   public drawLevel(): void {
    
