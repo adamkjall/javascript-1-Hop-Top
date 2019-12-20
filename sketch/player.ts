@@ -87,4 +87,17 @@ class Player {
   public get radius() {
     return this.diameter / 2;
   }
+
+  //Creates a speed boost when the star is collected. Lasts for 4 seconds
+  public speedBoost() {
+    this.maxSpeed = 15
+    this.speed = 10
+    
+    setTimeout(() => this.clearBoost(), 4000)
+  }
+
+  public clearBoost() {
+    this.maxSpeed = 8
+    this.speed = .5    
+  }
 }
