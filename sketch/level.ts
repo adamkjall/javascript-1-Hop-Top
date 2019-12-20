@@ -5,6 +5,7 @@ class Level {
   private _levelProgress: number;
   private levelMap: LevelMap;
   private _levelObjects: GameObject[];
+  private isLevelDone : boolean;
 
   constructor(levelMap: LevelMap) {
     this.maxBlockWidth = 100;
@@ -12,11 +13,9 @@ class Level {
     this._levelProgress = 0;
     this.levelMap = levelMap;
     this._levelObjects = this.createLevelObject();
+    this.isLevelDone = false;
   }
 
-  public isLevelDone(): Boolean {
-    return true;
-  }
 
   private createCloud(): void {
     const circleSize: number = 90;
@@ -50,12 +49,26 @@ class Level {
     const progressSize: number = 100 / length;
     let numberOfBlocksPassed: number = 0;
 
-    this.levelObjects.forEach(obj => {
-      // if(playerPos.y < 500) {
-      obj.pos.y += 1.5;
-      // }
+    for (let obj of this._levelObjects) {
+      const lastObject = this.levelObjects[this.levelObjects.length - 1];
+      if (lastObject.pos.y >= height - 100) {
+        this.isLevelDone = true;
+        break;
+      }
+      
+    
+      obj.pos.y += 10.5;
       if (obj.pos.y > height) numberOfBlocksPassed++;
-    });
+
+    }
+    // this.levelObjects.forEach(obj => {
+    //   // if(playerPos.y < 500) {
+    //     if (lastObject.pos.y >= height / 2)
+    //   obj.pos.y += 1.5;
+    //   // }
+    //   if (obj.pos.y > height) numberOfBlocksPassed++;
+
+    // });
 
     this._levelProgress = numberOfBlocksPassed * progressSize;
   }
