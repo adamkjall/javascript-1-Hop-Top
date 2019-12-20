@@ -29,7 +29,6 @@ let imgSolid: p5.Image;
 let imgFragile: p5.Image;
 let imgItemStar: p5.Image;
 let collectItemSound: p5.SoundFile;
-
 let gameController: GameController;
 
 /**
