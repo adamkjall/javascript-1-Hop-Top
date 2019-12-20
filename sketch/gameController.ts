@@ -37,21 +37,19 @@ class GameController {
           const item = levelObject as Item;
           item.explode();
           gameController.collectItem();
-        } else {
-          this.player.bounceOnBlock(levelObject.pos);
-        }
-      }
-    });
-
-    //Make speedboost(star) disappear when bounced into
-    this.level.levelObjects.forEach(block => {
-      if (this.collisionDetection.playerCollidedWithBlock(this.player, block)) {
-        if (block instanceof SpeedBoost) {
-          const item = block as SpeedBoost;
-          item.explode();
-          gameController.collectItem();
-        } else {
-          this.player.bounceOnBlock(block.pos);
+        } else if (
+          this.collisionDetection.playerCollidedWithBlock(
+            this.player,
+            levelObject
+          )
+        ) {
+          if (levelObject instanceof SpeedBoost) {
+            const item = levelObject as SpeedBoost;
+            item.explode();
+            gameController.collectItem();
+          } else {
+            this.player.bounceOnBlock(levelObject.pos);
+          }
         }
       }
     });
