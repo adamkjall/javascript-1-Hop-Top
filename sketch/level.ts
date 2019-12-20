@@ -37,6 +37,7 @@ class Level {
     }
   }
 
+<<<<<<< HEAD
   private checkIfLevelIsDone(): boolean {
     const lastObject = this.levelObjects[this.levelObjects.length - 1];
     return lastObject.pos.y >= height - 300;
@@ -52,6 +53,11 @@ class Level {
     
     const mapLength: number = this.levelObjects.length - 10;
     const progressStep: number = 100 / mapLength;
+=======
+  public updateLevel(playerPos: Position): void {
+    const length: number = this.levelObjects.length;
+    const progressSize: number = 100 / length;
+>>>>>>> fixed level progress
     let numberOfBlocksPassed: number = 0;
 
     for (let obj of this._levelObjects) {
