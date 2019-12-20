@@ -104,6 +104,17 @@ class Level {
             );
             levelObjects.push(item);
             break;
+            case 4:
+            //SpeedBoost item
+            const speedBoost = new SpeedBoost(
+              x * xStepSize,
+              y * -100 + height - 100,
+              xStepSize,
+                xStepSize,
+              imgSpeedBoost
+            );
+            levelObjects.push(speedBoost);
+            break;
         }
       }
     }
