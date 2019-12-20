@@ -36,4 +36,7 @@ class Item extends GameObject {
         // alert('boom!!!');
     }
 
+
+
+
 }
