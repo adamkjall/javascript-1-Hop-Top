@@ -43,6 +43,7 @@ class GameController {
           this.level.levelObjects.splice(index, 1);
           item.explode();
           gameController.collectItem();
+          this.player.speedBoost();
         } else {
           this.player.bounceOnBlock(levelObject.pos);
         }
