@@ -41,6 +41,7 @@ class GameController {
           const item = levelObject as SpeedBoost;
           item.explode();
           gameController.collectItem();
+          this.player.speedBoost();
         } else {
           this.player.bounceOnBlock(levelObject.pos);
         }
