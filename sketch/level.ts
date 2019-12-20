@@ -47,7 +47,7 @@ class Level {
 
   public updateLevel(playerPos: Position): void {
     const length: number = this.levelObjects.length;
-    const progressSize: number = length / 100;
+    const progressSize: number = 100 / length;
     let numberOfBlocksPassed: number = 0;
 
     this.levelObjects.forEach(obj => {
