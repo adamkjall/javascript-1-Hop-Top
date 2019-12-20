@@ -1,25 +1,22 @@
 class Item extends GameObject {
     private _img: p5.Image;
-    private _score: number;
+    private _exploded: boolean = false;
 
     constructor(
         x: number,
         y: number,
         width: number,
         height: number,
-        image: p5.Image,
-        score: number,
+        image: p5.Image
     ) {
         super(x, y, width, height);
         this._img = image;
-        this._score = score;
-    }
-
-    public getScore(): number {
-        return this._score;
     }
 
     public drawObject(): void {
+        if (this._exploded) {
+            return;
+        }
         push();
         image(
             this._img,
@@ -30,4 +27,16 @@ class Item extends GameObject {
         );
         pop();
     }
+
+    public explode(): void {
+        if (this._exploded) {
+            return;
+        }
+        this._exploded = true;
+        // alert('boom!!!');
+    }
+
+
+
+
 }
