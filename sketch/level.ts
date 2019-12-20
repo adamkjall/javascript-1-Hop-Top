@@ -57,7 +57,7 @@ class Level {
       }
       
     
-      obj.pos.y += 10.5;
+      obj.pos.y += 1.5;
       if (obj.pos.y > height) numberOfBlocksPassed++;
 
     }
