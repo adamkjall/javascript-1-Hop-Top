@@ -13,7 +13,7 @@ class Player {
     xVelocity: number = 0,
     yVelocity: number = 0,
     speed: number = .5,
-    diameter: number = 65
+    diameter: number = 55
   ) {
     this.position = new Position(x, y);
     this.xVelocity = xVelocity;
@@ -71,8 +71,9 @@ class Player {
   }
 
   public drawPlayer(): void {
-    noStroke();
-    fill("pink");
+    stroke("rgb(255,171,194)");
+    strokeWeight(20);
+    fill("rgb(38,48,86)");
     circle(this.position.x, this.position.y, this.diameter);
   }
 
@@ -86,5 +87,18 @@ class Player {
 
   public get radius() {
     return this.diameter / 2;
+  }
+
+  //Creates a speed boost when the star is collected. Lasts for 4 seconds
+  public speedBoost() {
+    this.maxSpeed = 15
+    this.speed = 10
+    
+    setTimeout(() => this.clearBoost(), 4000)
+  }
+
+  public clearBoost() {
+    this.maxSpeed = 8
+    this.speed = .5    
   }
 }
