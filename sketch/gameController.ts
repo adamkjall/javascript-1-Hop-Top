@@ -70,8 +70,6 @@ class GameController {
       }
     });
 
-    this.level.updateLevel(this.player.pos);
-
     console.log("progress", this.level.levelProgress);
     const r = map(this.level.levelProgress, 0, 100, 140, 60);
     const b = map(this.level.levelProgress, 0, 100, 190, 110);
