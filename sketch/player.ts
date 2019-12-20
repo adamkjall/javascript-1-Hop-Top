@@ -13,7 +13,7 @@ class Player {
     xVelocity: number = 0,
     yVelocity: number = 0,
     speed: number = .5,
-    diameter: number = 55
+    diameter: number = 65
   ) {
     this.position = new Position(x, y);
     this.xVelocity = xVelocity;
@@ -23,6 +23,8 @@ class Player {
     this.bouncePower = 16.5;
     this.maxSpeed = 8;
   }
+
+  public autoBounce(): void {}
 
   public move(): void {
     if (keyIsDown(RIGHT_ARROW)) {
@@ -34,11 +36,11 @@ class Player {
     }
     
     // bounce on ground
-    // if (this.position.y + this.diameter / 2 >= height) {
-    //   this.position.y = height - this.diameter / 2;
-    //   this.yVelocity = 0;
-    //   this.yVelocity -= this.bouncePower;
-    // }
+    if (this.position.y + this.diameter / 2 >= height) {
+      this.position.y = height - this.diameter / 2;
+      this.yVelocity = 0;
+      this.yVelocity -= this.bouncePower;
+    }
 
     
     this.position.x += this.xVelocity;
@@ -58,7 +60,7 @@ class Player {
 
   public bounceOnBlock(pos : Position) : void {
     if (this.yVelocity > 0) {
-      this.pos.y = pos.y - this.radius - 1;
+      this.pos.y = pos.y - this.radius;
       this.yVelocity = 0;
       this.yVelocity -= this.bouncePower;
     }
@@ -69,9 +71,8 @@ class Player {
   }
 
   public drawPlayer(): void {
-    stroke("rgb(255,171,194)");
-    strokeWeight(20);
-    fill("rgb(38,48,86)");
+    noStroke();
+    fill("pink");
     circle(this.position.x, this.position.y, this.diameter);
   }
 
@@ -83,25 +84,20 @@ class Player {
     return this.position;
   }
 
-  public set pos(pos: Position) {
-    this.position = pos; 
-  }
-
   public get radius() {
     return this.diameter / 2;
   }
 
   //Creates a speed boost when the star is collected. Lasts for 4 seconds
   public speedBoost() {
-    this.maxSpeed = 10
-    this.speed = 5
+    this.maxSpeed = 15
+    this.speed = 10
     
     setTimeout(() => this.clearBoost(), 4000)
   }
 
-  private clearBoost() {
+  public clearBoost() {
     this.maxSpeed = 8
     this.speed = .5    
   }
-
 }

@@ -34,8 +34,5 @@ class SpeedBoost extends GameObject {
     }
     this._exploded = true;
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> SuperBoost
 }
