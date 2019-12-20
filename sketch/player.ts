@@ -13,7 +13,7 @@ class Player {
     xVelocity: number = 0,
     yVelocity: number = 0,
     speed: number = .5,
-    diameter: number = 80
+    diameter: number = 65
   ) {
     this.position = new Position(x, y);
     this.xVelocity = xVelocity;
