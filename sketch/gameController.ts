@@ -60,19 +60,12 @@ class GameController {
           const item = levelObject as Item;
           item.explode();
           gameController.collectItem();
-        } else if (
-          this.collisionDetection.playerCollidedWithBlock(
-            this.player,
-            levelObject
-          )
-        ) {
-          if (levelObject instanceof SpeedBoost) {
-            const item = levelObject as SpeedBoost;
-            item.explode();
-            gameController.collectItem();
-          } else {
-            this.player.bounceOnBlock(levelObject.pos);
-          }
+        } else if (levelObject instanceof SpeedBoost) {
+          const item = levelObject as SpeedBoost;
+          item.explode();
+          gameController.collectItem();
+        } else {
+          this.player.bounceOnBlock(levelObject.pos);
         }
       }
     });
