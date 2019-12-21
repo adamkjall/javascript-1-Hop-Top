@@ -14,12 +14,12 @@ class LevelFactory {
     }
   }
 
-  createLevelObject(levelMap :LevelMap): GameObject[] {
+  createLevelObject(levelMap: LevelMap): GameObject[] {
     const levelObjects: GameObject[] = [];
     const xStepSize: number = width / levelMap[0].length;
 
-     for (let y = 0; y < levelMap.length; y++) {
-       for (let x = 0; x < levelMap[0].length; x++) {
+    for (let y = 0; y < levelMap.length; y++) {
+      for (let x = 0; x < levelMap[0].length; x++) {
         const cell = levelMap[levelMap.length - 1 - y][x];
         switch (cell) {
           case 1:
@@ -134,23 +134,23 @@ class LevelFactory {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [2, 2, 2, 2, 2, 2, 2, 2]
     ];
-    const gameObjects : GameObject[] = this.createLevelObject(levelMap)
+    const gameObjects: GameObject[] = this.createLevelObject(levelMap);
     return new Level(gameObjects);
   }
 
   levelTwo(): Level {
     const levelMap: LevelMap = [
+      [2, 2, 2, 2, 2, 2, 2, 2],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 2, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
+      [2, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 2, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 2, 2, 0],
       [2, 2, 0, 0, 0, 0, 0, 0],
@@ -159,22 +159,23 @@ class LevelFactory {
       [2, 2, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 2, 2, 2, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [1, 1, 1, 1, 1, 1, 1, 1]
+      [2, 2, 2, 2, 2, 2, 2, 2]
     ];
-    return new Level(levelMap);
+    const gameObjects: GameObject[] = this.createLevelObject(levelMap);
+    return new Level(gameObjects);
   }
 
   levelThree(): Level {
     const levelMap: LevelMap = [
+      [2, 2, 2, 2, 2, 2, 2, 2],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
+      [2, 2, 2, 0, 0, 0, 2, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 2, 2, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 2, 2, 2],
@@ -185,8 +186,9 @@ class LevelFactory {
       [2, 2, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 2, 2, 2, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [1, 1, 1, 1, 1, 1, 1, 1]
+      [2, 2, 2, 2, 2, 2, 2, 2]
     ];
-    return new Level(levelMap);
+    const gameObjects: GameObject[] = this.createLevelObject(levelMap);
+    return new Level(gameObjects);
   }
 }
