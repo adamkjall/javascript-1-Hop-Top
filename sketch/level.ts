@@ -1,14 +1,10 @@
 class Level {
   // private highScoreAnimation: animation;
-  private maxBlockWidth: number;
-  private minBlockWidth: number;
   private _levelProgress: number;
   private _levelObjects: GameObject[];
   private isLevelDone: boolean;
 
   constructor(gameObjects: GameObject[]) {
-    this.maxBlockWidth = 100;
-    this.minBlockWidth = 20;
     this._levelProgress = 0;
     this._levelObjects = gameObjects;
     this.isLevelDone = false;
