@@ -59,7 +59,7 @@ class Level {
     let numberOfBlocksPassed: number = 0;
 
     for (let obj of this._levelObjects) {
-      obj.pos.y += 1.5;
+      obj.pos.y += 3.5;
       
       if (obj.pos.y >= height){
         numberOfBlocksPassed++;
