@@ -46,7 +46,7 @@ function setup() {
  */
 
 function draw() {
-  gameController.gameLoop();
+  gameController.drawGame();
 }
 /**
  *  Built in windowResize listener function in P5

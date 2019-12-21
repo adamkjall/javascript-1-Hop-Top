@@ -17,13 +17,16 @@ class GameController {
     this.collisionDetection = new CollisionDetection();
   }
 
-  private loadLevel(level: Level): void {}
-
-  private createPlayer(): void {}
-
-  public gameLoop(): void {
+  public drawGame(): void {
     this.player.move();
-    this.level.updateLevel(this.player.pos);
+
+    const heightBeforeGameStarts = height / 2;
+    if (
+      this.player.pos.y < heightBeforeGameStarts ||
+      this.level.levelProgress > 0
+    ) {
+      this.level.updateLevel();
+    }
 
     // moves all level objects down
     this.level.levelObjects.forEach((levelObject, index) => {
@@ -34,14 +37,11 @@ class GameController {
         )
       ) {
         if (levelObject instanceof Item) {
-          const item = levelObject as Item;
           this.level.levelObjects.splice(index, 1);
-          item.explode();
+
           gameController.collectItem();
         } else if (levelObject instanceof SpeedBoost) {
-          const item = levelObject as SpeedBoost;
           this.level.levelObjects.splice(index, 1);
-          item.explode();
           gameController.collectItem();
           this.player.speedBoost();
         } else {
@@ -50,10 +50,9 @@ class GameController {
       }
     });
 
-    console.log("progress", this.level.levelProgress);
-    const r = map(this.level.levelProgress, 0, 100, 140, 60);
-    const b = map(this.level.levelProgress, 0, 100, 190, 110);
-    const g = map(this.level.levelProgress, 0, 100, 255, 200);
+    const r = map(this.level.levelProgress, 0, 100, 120, 60);
+    const b = map(this.level.levelProgress, 0, 100, 170, 110);
+    const g = map(this.level.levelProgress, 0, 100, 235, 200);
 
     // background("cornflowerblue");
     background(r, b, g);
@@ -63,11 +62,7 @@ class GameController {
     this.player.drawPlayer();
   }
 
-  private playerCollision(): boolean {
-    return false;
-  }
-
-  public collectItem(): void {
+  private collectItem(): void {
     this.score += 1;
     if (this.score >= this.highScore) {
       this.highScore = this.score;
@@ -76,7 +71,7 @@ class GameController {
 
   private gameOver(): void {}
 
-  public drawScoreBoard(): void {
+  private drawScoreBoard(): void {
     function scoreText(): void {
       push();
       fill(0, 10, 153);
