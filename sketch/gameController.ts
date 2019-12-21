@@ -6,15 +6,19 @@ class GameController {
   private score: number;
   private highScore: number;
   private levelNumber: number;
+  private isStartingNextLevel: boolean;
+  private countDown: number;
 
   constructor() {
     this.score = 0;
     this.highScore = 0;
-    this.levelNumber = 1;
+    this.levelNumber = 2;
     this.levelFactory = new LevelFactory();
     this.level = this.levelFactory.createLevel(this.levelNumber);
     this.player = new Player(width / 2, height - 100);
     this.collisionDetection = new CollisionDetection();
+    this.isStartingNextLevel = false;
+    this.countDown = 5;
   }
 
   public drawGame(): void {
@@ -60,6 +64,41 @@ class GameController {
     this.level.drawLevel();
     this.displayScoreBoard();
     this.player.drawPlayer();
+    if (this.isStartingNextLevel) this.displayCountDown();
+
+    console.log("progress", this.level.levelProgress);
+
+    if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
+      console.log("new level");
+
+      this.isStartingNextLevel = true;
+      setTimeout(() => {
+        this.levelNumber += 1;
+        this.player.pos = new Position(width / 2, height - 100);
+        this.level = this.levelFactory.createLevel(this.levelNumber);
+        this.isStartingNextLevel = false;
+        this.countDown = 5;
+      }, 5000);
+
+      const nextLevelTimer = setInterval(() => {
+        if (this.countDown < 1) {
+          this.countDown = 5;
+          clearInterval(nextLevelTimer);
+        }
+        else this.countDown -= 1;
+        console.log("countdown");
+        
+      }, 1000);
+    }
+  }
+
+  private displayCountDown() {
+    push();
+    textAlign(CENTER);
+    fill(0);
+    textSize(32);
+    text("Next level in " + this.countDown, width / 2, height / 4);
+    pop();
   }
 
   private collectItem(): void {

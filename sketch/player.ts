@@ -83,6 +83,10 @@ class Player {
     return this.position;
   }
 
+  public set pos(pos: Position) {
+    this.position = pos; 
+  }
+
   public get radius() {
     return this.diameter / 2;
   }
