@@ -56,6 +56,7 @@ function setup() {
 
 
 function draw() {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   gameController.gameLoop();
 =======
@@ -84,6 +85,9 @@ function draw() {
   level.updateLevel(player.pos);
 
 >>>>>>> Stashed changes
+=======
+  gameController.drawGame();
+>>>>>>> the level starts when player has reached a certain height, the clouds disappear
 }
 
 

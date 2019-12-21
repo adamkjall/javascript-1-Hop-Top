@@ -16,7 +16,7 @@ class CollisionDetection {
     }
     // top edge
 
-    if (py + radius / 2 < by) {      
+    if (py < by) {      
       testY = by;
       aboveTopEdge = true;
     }
