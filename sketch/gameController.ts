@@ -12,7 +12,7 @@ class GameController {
   constructor() {
     this.score = 0;
     this.highScore = 0;
-    this.levelNumber = 2;
+    this.levelNumber = 1;
     this.levelFactory = new LevelFactory();
     this.level = this.levelFactory.createLevel(this.levelNumber);
     this.player = new Player(width / 2, height - 100);
@@ -22,6 +22,11 @@ class GameController {
   }
 
   public drawGame(): void {
+    // if level is done and we're not starting a new level
+    if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
+      this.startNextLevel();
+    }
+
     this.player.move();
 
     const heightBeforeGameStarts = height / 2;
@@ -54,9 +59,9 @@ class GameController {
       }
     });
 
-    const r = map(this.level.levelProgress, 0, 100, 120, 60);
-    const b = map(this.level.levelProgress, 0, 100, 170, 110);
-    const g = map(this.level.levelProgress, 0, 100, 235, 200);
+    const r: number = map(this.level.levelProgress, 0, 100, 120, 60);
+    const b: number = map(this.level.levelProgress, 0, 100, 170, 110);
+    const g: number = map(this.level.levelProgress, 0, 100, 235, 200);
 
     // background("cornflowerblue");
     background(r, b, g);
@@ -65,33 +70,29 @@ class GameController {
     this.drawScoreBoard();
     this.player.drawPlayer();
     if (this.isStartingNextLevel) this.displayCountDown();
-
-    console.log("progress", this.level.levelProgress);
-
-    if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
-      console.log("new level");
-
-      this.isStartingNextLevel = true;
-      setTimeout(() => {
-        this.levelNumber += 1;
-        this.player.pos = new Position(width / 2, height - 100);
-        this.level = this.levelFactory.createLevel(this.levelNumber);
-        this.isStartingNextLevel = false;
-        this.countDown = 5;
-      }, 5000);
-
-      const nextLevelTimer = setInterval(() => {
-        if (this.countDown < 1) {
-          this.countDown = 5;
-          clearInterval(nextLevelTimer);
-        }
-        else this.countDown -= 1;
-        console.log("countdown");
-        
-      }, 1000);
-    }
   }
 
+  public startNextLevel() {
+    this.isStartingNextLevel = true;
+    // wait before starting new level
+    setTimeout(() => {
+      this.levelNumber += 1;
+      this.player.pos = new Position(width / 2, height - 100);
+      this.level = this.levelFactory.createLevel(this.levelNumber);
+      this.isStartingNextLevel = false;
+    }, 5000);
+
+    // update the count down until
+    const nextLevelTimer: number = setInterval(() => {
+      // if countdown is 0, reset the countdown value and clear the interval
+      if (this.countDown < 1) {
+        this.countDown = 5;
+        clearInterval(nextLevelTimer);
+      } else this.countDown -= 1;
+    }, 1000);
+  }
+
+  // view the countdown message
   private displayCountDown() {
     push();
     textAlign(CENTER);
@@ -108,7 +109,8 @@ class GameController {
     }
   }
 
-  private gameOver(): void {}
+  // todo
+  //private gameOver(): void {}
 
   private drawScoreBoard(): void {
     function scoreText(): void {
