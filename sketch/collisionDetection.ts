@@ -1,7 +1,7 @@
 class CollisionDetection {
   playerCollidedWithBlock(
     { pos: { x: px, y: py }, radius }: Player,
-    { pos: { x: bx, y: by }, width: bWidth, height: bHeight }: Block
+    { pos: { x: bx, y: by }, width: bWidth }: Block
   ): boolean {
     let testX: number = px;
     let testY: number = py;
@@ -16,7 +16,7 @@ class CollisionDetection {
     }
     // top edge
 
-    if (py + radius / 2 < by) {      
+    if (py < by) {      
       testY = by;
       aboveTopEdge = true;
     }

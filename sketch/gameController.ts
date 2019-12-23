@@ -6,6 +6,8 @@ class GameController {
   private score: number;
   private highScore: number;
   private levelNumber: number;
+  private isStartingNextLevel: boolean;
+  private countDown: number;
 
   constructor() {
     this.score = 0;
@@ -15,15 +17,25 @@ class GameController {
     this.level = this.levelFactory.createLevel(this.levelNumber);
     this.player = new Player(width / 2, height - 100);
     this.collisionDetection = new CollisionDetection();
+    this.isStartingNextLevel = false;
+    this.countDown = 5;
   }
 
-  private loadLevel(level: Level): void {}
+  public drawGame(): void {
+    // if level is done and we're not starting a new level
+    if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
+      this.startNextLevel();
+    }
 
-  private createPlayer(): void {}
-
-  public gameLoop(): void {
     this.player.move();
-    this.level.updateLevel(this.player.pos);
+
+    const heightBeforeGameStarts = height / 2;
+    if (
+      this.player.pos.y < heightBeforeGameStarts ||
+      this.level.levelProgress > 0
+    ) {
+      this.level.updateLevel();
+    }
 
     // moves all level objects down
     this.level.levelObjects.forEach((levelObject, index) => {
@@ -34,14 +46,11 @@ class GameController {
         )
       ) {
         if (levelObject instanceof Item) {
-          const item = levelObject as Item;
           this.level.levelObjects.splice(index, 1);
-          item.explode();
+
           gameController.collectItem();
         } else if (levelObject instanceof SpeedBoost) {
-          const item = levelObject as SpeedBoost;
           this.level.levelObjects.splice(index, 1);
-          item.explode();
           gameController.collectItem();
           this.player.speedBoost();
         } else {
@@ -50,10 +59,9 @@ class GameController {
       }
     });
 
-    console.log("progress", this.level.levelProgress);
-    const r = map(this.level.levelProgress, 0, 100, 140, 60);
-    const b = map(this.level.levelProgress, 0, 100, 190, 110);
-    const g = map(this.level.levelProgress, 0, 100, 255, 200);
+    const r: number = map(this.level.levelProgress, 0, 100, 120, 60);
+    const b: number = map(this.level.levelProgress, 0, 100, 170, 110);
+    const g: number = map(this.level.levelProgress, 0, 100, 235, 200);
 
     // background("cornflowerblue");
     background(r, b, g);
@@ -61,22 +69,50 @@ class GameController {
     this.level.drawLevel();
     this.drawScoreBoard();
     this.player.drawPlayer();
+    if (this.isStartingNextLevel) this.displayCountDown();
   }
 
-  private playerCollision(): boolean {
-    return false;
+  public startNextLevel() {
+    this.isStartingNextLevel = true;
+    // wait before starting new level
+    setTimeout(() => {
+      this.levelNumber += 1;
+      this.player.pos = new Position(width / 2, height - 100);
+      this.level = this.levelFactory.createLevel(this.levelNumber);
+      this.isStartingNextLevel = false;
+    }, 5000);
+
+    // update the count down until
+    const nextLevelTimer: number = setInterval(() => {
+      // if countdown is 0, reset the countdown value and clear the interval
+      if (this.countDown < 1) {
+        this.countDown = 5;
+        clearInterval(nextLevelTimer);
+      } else this.countDown -= 1;
+    }, 1000);
   }
 
-  public collectItem(): void {
+  // view the countdown message
+  private displayCountDown() {
+    push();
+    textAlign(CENTER);
+    fill(0);
+    textSize(32);
+    text("Next level in " + this.countDown, width / 2, height / 4);
+    pop();
+  }
+
+  private collectItem(): void {
     this.score += 1;
     if (this.score >= this.highScore) {
       this.highScore = this.score;
     }
   }
 
-  private gameOver(): void {}
+  // todo
+  //private gameOver(): void {}
 
-  public drawScoreBoard(): void {
+  private drawScoreBoard(): void {
     function scoreText(): void {
       push();
       fill(0, 10, 153);

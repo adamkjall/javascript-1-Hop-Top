@@ -24,8 +24,6 @@ class Player {
     this.maxSpeed = 8;
   }
 
-  public autoBounce(): void {}
-
   public move(): void {
     if (keyIsDown(RIGHT_ARROW)) {
       if (this.xVelocity >= this.maxSpeed) this.xVelocity = this.maxSpeed;
@@ -36,11 +34,11 @@ class Player {
     }
     
     // bounce on ground
-    if (this.position.y + this.diameter / 2 >= height) {
-      this.position.y = height - this.diameter / 2;
-      this.yVelocity = 0;
-      this.yVelocity -= this.bouncePower;
-    }
+    // if (this.position.y + this.diameter / 2 >= height) {
+    //   this.position.y = height - this.diameter / 2;
+    //   this.yVelocity = 0;
+    //   this.yVelocity -= this.bouncePower;
+    // }
 
     
     this.position.x += this.xVelocity;
@@ -60,7 +58,7 @@ class Player {
 
   public bounceOnBlock(pos : Position) : void {
     if (this.yVelocity > 0) {
-      this.pos.y = pos.y - this.radius;
+      this.pos.y = pos.y - this.radius - 1;
       this.yVelocity = 0;
       this.yVelocity -= this.bouncePower;
     }
@@ -85,6 +83,10 @@ class Player {
     return this.position;
   }
 
+  public set pos(pos: Position) {
+    this.position = pos; 
+  }
+
   public get radius() {
     return this.diameter / 2;
   }
@@ -97,7 +99,7 @@ class Player {
     setTimeout(() => this.clearBoost(), 4000)
   }
 
-  public clearBoost() {
+  private clearBoost() {
     this.maxSpeed = 8
     this.speed = .5    
   }
