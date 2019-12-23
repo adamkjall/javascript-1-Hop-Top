@@ -186,6 +186,12 @@ class GameController {
       pop();
     }
 
+    //Restarts the game when player falls down
+      let isPlayerAlive = this.player.pos.y + this.player.radius > height
+      if(isPlayerAlive) {
+        setup();
+      }
+      
     scoreBoard();
     scoreText();
     scorePoints();
