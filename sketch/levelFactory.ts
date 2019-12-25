@@ -41,7 +41,8 @@ class LevelFactory {
               y * -100 + height,
               xStepSize,
               xStepSize,
-              imgItemStar
+              imgItemStar,
+              20
             );
             levelObjects.push(item);
             break;
@@ -128,7 +129,7 @@ class LevelFactory {
       [0, 0, 0, 0, 2, 2, 0, 0],
       [2, 2, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 0, 0, 2, 2, 0, 0, 5],
       [0, 0, 0, 0, 0, 2, 2, 2],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [2, 2, 2, 2, 2, 2, 2, 2]
