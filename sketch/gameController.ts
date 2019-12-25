@@ -11,7 +11,11 @@ class GameController {
 =======
   private isStartingNextLevel: boolean;
   private countDown: number;
+<<<<<<< HEAD
 >>>>>>> next level now spawns when the current one is done
+=======
+  private effectList: GameObject[];
+>>>>>>> Item score moving effect during collision
 
   constructor() {
     this.score = 0;
@@ -26,7 +30,11 @@ class GameController {
 =======
     this.isStartingNextLevel = false;
     this.countDown = 5;
+<<<<<<< HEAD
 >>>>>>> next level now spawns when the current one is done
+=======
+    this.effectList = [];
+>>>>>>> Item score moving effect during collision
   }
 
 <<<<<<< HEAD
@@ -75,6 +83,7 @@ class GameController {
       this.level.levelProgress > 0 && this.player.pos.y < height
     ) {
       this.level.updateLevel();
+      this.updateEffects();
     }
 
     // moves all level objects down
@@ -86,6 +95,8 @@ class GameController {
         )
       ) {
         if (levelObject instanceof Item) {
+          const effect = new Effect(levelObject);
+          this.effectList.push(effect);
           this.level.levelObjects.splice(index, 1);
 
           gameController.collectItem();
@@ -109,6 +120,10 @@ class GameController {
     this.level.drawLevel();
     this.drawScoreBoard();
     this.player.drawPlayer();
+
+    this.effectList.forEach(effect => {
+      effect.drawObject();
+    });
     if (this.isStartingNextLevel) this.displayCountDown();
   }
 
@@ -189,5 +204,11 @@ class GameController {
     scoreBoard();
     scoreText();
     scorePoints();
+  }
+
+  private updateEffects(): void {
+    for (const effect of this.effectList) {
+      effect.pos.y += 3.5;
+    }
   }
 }

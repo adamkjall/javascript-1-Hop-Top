@@ -15,10 +15,14 @@ function preload() {
   //Fragile blocks
   imgFragile = loadImage('../assets/images/1.png');
   //Bonus items blocks
+<<<<<<< HEAD
   imgItemStar = loadImage('../assets/images/item1.png');
 <<<<<<< HEAD
   
 =======
+=======
+  imgItemStar = loadImage('../assets/images/item1.svg');
+>>>>>>> Item score moving effect during collision
   //SpeedBoost items
   imgSpeedBoost = loadImage('../assets/images/star.svg')
 >>>>>>> Stars appears and goes away
