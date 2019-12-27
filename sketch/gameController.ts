@@ -72,7 +72,7 @@ class GameController {
     const heightBeforeGameStarts = height / 2;
     if (
       this.player.pos.y < heightBeforeGameStarts ||
-      this.level.levelProgress > 0
+      this.level.levelProgress > 0 && this.player.pos.y < height
     ) {
       this.level.updateLevel();
     }
@@ -185,12 +185,6 @@ class GameController {
       line(75, 60, 525, 60);
       pop();
     }
-
-    //Restarts the game when player falls down
-      let isPlayerAlive = this.player.pos.y + this.player.radius > height
-      if(isPlayerAlive) {
-        setup();
-      }
       
     scoreBoard();
     scoreText();
