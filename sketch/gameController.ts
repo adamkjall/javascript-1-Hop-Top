@@ -32,7 +32,7 @@ class GameController {
     const heightBeforeGameStarts = height / 2;
     if (
       this.player.pos.y < heightBeforeGameStarts ||
-      this.level.levelProgress > 0
+      this.level.levelProgress > 0 && this.player.pos.y < height
     ) {
       this.level.updateLevel();
     }
@@ -145,7 +145,7 @@ class GameController {
       line(75, 60, 525, 60);
       pop();
     }
-
+      
     scoreBoard();
     scoreText();
     scorePoints();
