@@ -6,6 +6,7 @@ class GameController {
   private score: number;
   private highScore: number;
   private levelNumber: number;
+  private isStartGame: boolean;
 
   constructor() {
     this.score = 0;
@@ -15,7 +16,29 @@ class GameController {
     this.level = this.levelFactory.createLevel(this.levelNumber);
     this.player = new Player(width / 2, height - 100);
     this.collisionDetection = new CollisionDetection();
+    this.isStartGame = true;
   }
+
+
+  public drawStartScreen() {
+    background("cornflowerblue");
+    fill("white");
+    textAlign(CENTER);
+    textSize(30);
+    text("HOP TOP", width / 2, height / 2);
+    text("click to start", width / 2, height / 2 + 38);
+   }
+
+  public drawGame(): void {
+    if (mouseIsPressed === true) {
+    this.isStartGame = false;
+    console.log("mouseIsPressed");
+    }
+    if (this.isStartGame) {
+    this.drawStartScreen() 
+    return;
+    
+    }
 
   private loadLevel(level: Level): void {}
 
