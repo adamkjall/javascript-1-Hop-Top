@@ -8,7 +8,7 @@ class GameController {
   private levelNumber: number;
   private isStartingNextLevel: boolean;
   private countDown: number;
-  private effectList: GameObject[];
+  
 
   constructor() {
     this.score = 0;
@@ -20,24 +20,22 @@ class GameController {
     this.collisionDetection = new CollisionDetection();
     this.isStartingNextLevel = false;
     this.countDown = 5;
-    this.effectList = [];
   }
 
   public drawGame(): void {
     // if level is done and we're not starting a new level
     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
-    }
-
+    } 
+  
     this.player.move();
 
     const heightBeforeGameStarts = height / 2;
     if (
       this.player.pos.y < heightBeforeGameStarts ||
-      this.level.levelProgress > 0 && this.player.pos.y < height
+      this.level.levelProgress > 0
     ) {
       this.level.updateLevel();
-      this.updateEffects();
     }
 
     // moves all level objects down
@@ -49,8 +47,6 @@ class GameController {
         )
       ) {
         if (levelObject instanceof Item) {
-          const effect = new Effect(levelObject);
-          this.effectList.push(effect);
           this.level.levelObjects.splice(index, 1);
 
           gameController.collectItem();
@@ -74,10 +70,6 @@ class GameController {
     this.level.drawLevel();
     this.drawScoreBoard();
     this.player.drawPlayer();
-
-    this.effectList.forEach(effect => {
-      effect.drawObject();
-    });
     if (this.isStartingNextLevel) this.displayCountDown();
   }
 
@@ -154,15 +146,9 @@ class GameController {
       line(75, 60, 525, 60);
       pop();
     }
-      
+
     scoreBoard();
     scoreText();
     scorePoints();
-  }
-
-  private updateEffects(): void {
-    for (const effect of this.effectList) {
-      effect.pos.y += 3.5;
-    }
   }
 }
