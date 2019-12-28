@@ -126,7 +126,7 @@ class GameController {
     textSize(32);
     noCursor()
     ellipse(mouseX, mouseY, 30, 30);
-    background(200, 150, 255, 50)
+    background(200, 150, 255, 10)
     text("GAME OVER", width / 2, height -390);
     
     //button = createButton("PLAY AGAIN?");
@@ -138,7 +138,7 @@ class GameController {
   }
 
   private collectItem(): void {
-    this.score += 1;
+    this.score += 20;
     if (this.score >= this.highScore) {
       this.highScore = this.score;
     }
