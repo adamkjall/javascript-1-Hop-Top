@@ -34,10 +34,16 @@ class GameController {
     const heightBeforeGameStarts = height / 2;
     if (
       this.player.pos.y < heightBeforeGameStarts ||
-      this.level.levelProgress > 0 && this.player.pos.y < height
+      (this.level.levelProgress > 0 && this.player.pos.y < height)
     ) {
       this.level.updateLevel();
       this.updateEffects();
+    }
+    //If player is under game area display Game Over on screen
+    if (this.player.pos.y > height + this.player.radius * 2) {
+      this.displayGameOver();
+      //noLoop()
+      return;
     }
 
     // moves all level objects down
@@ -111,6 +117,22 @@ class GameController {
     pop();
   }
 
+  private displayGameOver() {
+    
+    push();
+    // let button;
+    textAlign(CENTER);
+    fill(0, 10, 153);
+    textSize(32);
+    text("GAME OVER", width / 2, height / 4);
+    // button = createButton("PLAY AGAIN?");
+    // button.position( width / 2, height / 6);
+
+    // button = createButton("EXIT");
+    // button.position(width / 2, height / 6);
+    pop();
+  }
+
   private collectItem(): void {
     this.score += 1;
     if (this.score >= this.highScore) {
@@ -154,7 +176,7 @@ class GameController {
       line(75, 60, 525, 60);
       pop();
     }
-      
+
     scoreBoard();
     scoreText();
     scorePoints();
