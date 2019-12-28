@@ -120,13 +120,17 @@ class GameController {
   private displayGameOver() {
     
     push();
-    // let button;
+    //let button;
     textAlign(CENTER);
     fill(0, 10, 153);
     textSize(32);
-    text("GAME OVER", width / 2, height / 4);
-    // button = createButton("PLAY AGAIN?");
-    // button.position( width / 2, height / 6);
+    noCursor()
+    ellipse(mouseX, mouseY, 30, 30);
+    background(200, 150, 255, 50)
+    text("GAME OVER", width / 2, height -390);
+    
+    //button = createButton("PLAY AGAIN?");
+    //button.pos( width /2, height/ 2);
 
     // button = createButton("EXIT");
     // button.position(width / 2, height / 6);
