@@ -93,8 +93,8 @@ class Player {
 
   //Creates a speed boost when the star is collected. Lasts for 4 seconds
   public speedBoost() {
-    this.maxSpeed = 15
-    this.speed = 10
+    this.maxSpeed = 10
+    this.speed = 5
     
     setTimeout(() => this.clearBoost(), 4000)
   }
@@ -103,4 +103,5 @@ class Player {
     this.maxSpeed = 8
     this.speed = .5    
   }
+
 }

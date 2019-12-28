@@ -15,7 +15,7 @@ function preload() {
   //Fragile blocks
   imgFragile = loadImage('../assets/images/1.png');
   //Bonus items blocks
-  imgItemStar = loadImage('../assets/images/item1.png');
+  imgItemStar = loadImage('../assets/images/item1.svg');
   //SpeedBoost items
   imgSpeedBoost = loadImage('../assets/images/star.svg')
 }
