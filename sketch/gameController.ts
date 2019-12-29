@@ -51,10 +51,15 @@ class GameController {
     // moves all level objects down
     this.level.levelObjects.forEach((levelObject, index) => {
       if (
+        levelObject instanceof Block &&
         this.collisionDetection.playerCollidedWithBlock(
           this.player,
           levelObject
         )
+      ) {
+        this.player.bounceOnBlock(levelObject.pos);
+      } else if (
+        this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
       ) {
         if (levelObject instanceof Item) {
           this.level.levelObjects.splice(index, 1);
@@ -64,8 +69,6 @@ class GameController {
         } else if (levelObject instanceof SpeedBoost) {
           this.level.levelObjects.splice(index, 1);
           this.player.speedBoost();
-        } else {
-          this.player.bounceOnBlock(levelObject.pos);
         }
       }
     });
@@ -81,7 +84,7 @@ class GameController {
     this.drawScoreBoard();
     this.effectList.forEach((effect, i) => {
       effect.drawObject();
-      if(effect.pos.y >= height) this.effectList.splice(i, 1);
+      if (effect.pos.y >= height) this.effectList.splice(i, 1);
     });
     this.player.drawPlayer();
 
