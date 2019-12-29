@@ -69,10 +69,12 @@ class Player {
   }
 
   public drawPlayer(): void {
+    push();
     stroke("rgb(255,171,194)");
     strokeWeight(20);
     fill("rgb(38,48,86)");
     circle(this.position.x, this.position.y, this.diameter);
+    pop();
   }
 
   public setPosition(newPosition: Position): void {

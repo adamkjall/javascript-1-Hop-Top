@@ -79,8 +79,9 @@ class GameController {
 
     this.level.drawLevel();
     this.drawScoreBoard();
-    this.effectList.forEach(effect => {
+    this.effectList.forEach((effect, i) => {
       effect.drawObject();
+      if(effect.pos.y >= height) this.effectList.splice(i, 1);
     });
     this.player.drawPlayer();
 
@@ -114,8 +115,11 @@ class GameController {
   private displayCountDown() {
     push();
     textAlign(CENTER);
-    fill(0);
-    textSize(32);
+    stroke("rgb(255,171,194)");
+    strokeWeight(7);
+    textStyle(BOLD);
+    fill(32);
+    textSize(42);
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
