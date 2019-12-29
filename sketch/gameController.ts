@@ -15,7 +15,9 @@ class GameController {
   constructor() {
     this.score = 0;
     const localStorageHighscore = localStorage.getItem("highscore");
-    this.highScore = localStorageHighscore ? JSON.parse(localStorageHighscore) : 0;
+    this.highScore = localStorageHighscore
+      ? JSON.parse(localStorageHighscore)
+      : 0;
     this.levelNumber = 1;
     this.levelFactory = new LevelFactory();
     this.level = this.levelFactory.createLevel(this.levelNumber);
@@ -30,14 +32,14 @@ class GameController {
     //If player is under game area display Game Over on screen
     if (this.isPlayerDead()) {
       this.displayGameOver();
-      localStorage.setItem("highscore", JSON.stringify(this.highScore))
+      localStorage.setItem("highscore", JSON.stringify(this.highScore));
       return;
     }
 
     // if level is done and we're not starting a new level
     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
-      localStorage.setItem("highscore", JSON.stringify(this.highScore))
+      localStorage.setItem("highscore", JSON.stringify(this.highScore));
     }
 
     this.player.move();
@@ -129,28 +131,43 @@ class GameController {
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
-  
+
   private displayGameOver() {
     if (!this.playButton && !this.exitButton) {
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(0, height / 2);
       this.playButton.center("horizontal");
-      this.playButton.style('background-color', 'rgb(255,171,194)');
+      this.playButton.style("background-color", "rgb(252, 208, 107)");
+      this.playButton.style("font-size", "30px");
+      this.playButton.style("color", "rgb(38,48,86)");
+      this.playButton.style("border-radius", "16px");
+      this.playButton.style("border", "none");
+      this.playButton.style("outline", "none");
 
       this.exitButton = createButton("EXIT");
-      this.exitButton.position(0, height / 6);
+      this.exitButton.position(0,height / 2);
       this.exitButton.center("horizontal");
+      this.exitButton.style("background-color", "rgb(38,48,86)");
+      this.exitButton.style("font-size", "30px");
+      this.exitButton.style("color", "rgb(252, 208, 107)");
+      this.exitButton.style("border-radius", "16px");
+      this.exitButton.style("border", "none");
+      this.exitButton.style("outline", "none");
     }
 
     push();
-    //let button;
     textAlign(CENTER);
-    fill(0, 10, 153);
+    fill("rgb(242,37,174)");
+    stroke("rgb(5,42,147)");
+    strokeWeight(12);
     textSize(32);
     noCursor();
     ellipse(mouseX, mouseY, 30, 30);
-    background(200, 150, 255, 10);
-    text("GAME OVER", width / 2, height - 390);
+    background(237, 244, 234, 4);
+    image(gameOver, 15, 15);
+    
+
+    //text("GAME OVER", width / 2, height - 390);
     pop();
   }
 

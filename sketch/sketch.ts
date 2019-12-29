@@ -18,8 +18,11 @@ function preload() {
   imgItemStar = loadImage('../assets/images/item1.svg');
   //SpeedBoost items
   imgSpeedBoost = loadImage('../assets/images/star.svg')
+  //Game over text
+  gameOver = loadImage('../assets/images/game_over.png')
 }
 
+let gameOver: p5.Image
 let imgSpeedBoost: p5.Image
 let imgSolid: p5.Image;
 let imgFragile: p5.Image;
