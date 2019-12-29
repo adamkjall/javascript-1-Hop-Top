@@ -33,14 +33,6 @@ class Player {
       else this.xVelocity -= this.speed;
     }
     
-    // bounce on ground
-    // if (this.position.y + this.diameter / 2 >= height) {
-    //   this.position.y = height - this.diameter / 2;
-    //   this.yVelocity = 0;
-    //   this.yVelocity -= this.bouncePower;
-    // }
-
-    
     this.position.x += this.xVelocity;
     this.position.y += this.yVelocity;
     this.gravity();
@@ -74,7 +66,6 @@ class Player {
     // outer circle
     stroke("rgb(255,171,194)");
     const outerCircleSize = this.diameter / 3.5;
-    console.log(outerCircleSize);
     
     strokeWeight(outerCircleSize);
     // inner circle
@@ -101,14 +92,11 @@ class Player {
 
   //Creates a speed boost when the star is collected. Lasts for 4 seconds
   public speedBoost() {
-    this.maxSpeed = 10
-    this.speed = 5
-    
+    this.speed = 1.4;
     setTimeout(() => this.clearBoost(), 4000)
   }
 
   private clearBoost() {
-    this.maxSpeed = 8
     this.speed = .5    
   }
 
