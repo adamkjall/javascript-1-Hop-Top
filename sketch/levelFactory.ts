@@ -36,7 +36,7 @@ class LevelFactory {
             break;
           case 5:
             // bonus item
-            const item = new Item(
+            const itemPresent = new Item(
               x * xStepSize,
               y * -100 + height,
               xStepSize,
@@ -44,7 +44,19 @@ class LevelFactory {
               imgItemStar,
               20
             );
-            levelObjects.push(item);
+            levelObjects.push(itemPresent);
+            break;
+          case 6:
+            // bonus item
+            const itemCandy = new Item(
+                x * xStepSize,
+                y * -100 + height,
+                xStepSize,
+                xStepSize,
+                imgItemCandy,
+                10
+            );
+            levelObjects.push(itemCandy);
             break;
           case 4:
             //SpeedBoost item
@@ -130,7 +142,7 @@ class LevelFactory {
       [0, 0, 0, 0, 2, 2, 0, 0],
       [2, 2, 0, 0, 0, 5, 0, 0],
       [0, 0, 0, 0, 0, 0, 5, 0],
-      [0, 0, 0, 2, 2, 0, 0, 5],
+      [0, 0, 0, 2, 2, 0, 0, 6],
       [0, 0, 0, 0, 0, 2, 2, 2],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [2, 2, 2, 2, 2, 2, 2, 2]
