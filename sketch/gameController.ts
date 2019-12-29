@@ -8,11 +8,8 @@ class GameController {
   private levelNumber: number;
   private isStartingNextLevel: boolean;
   private countDown: number;
-<<<<<<< HEAD
   private effectList: GameObject[];
-=======
   private isStartGame: boolean;
->>>>>>> added a start screen
 
   constructor() {
     this.score = 0;
@@ -24,11 +21,8 @@ class GameController {
     this.collisionDetection = new CollisionDetection();
     this.isStartingNextLevel = false;
     this.countDown = 5;
-<<<<<<< HEAD
     this.effectList = [];
-=======
     this.isStartGame = true;
->>>>>>> added a start screen
   }
 
 
