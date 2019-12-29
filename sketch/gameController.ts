@@ -8,7 +8,8 @@ class GameController {
   private levelNumber: number;
   private isStartingNextLevel: boolean;
   private countDown: number;
-  
+  private playButton: p5.Element | undefined;
+  private exitButton: p5.Element | undefined;
 
   constructor() {
     this.score = 0;
@@ -23,6 +24,12 @@ class GameController {
   }
 
   public drawGame(): void {
+    //If player is under game area display Game Over on screen
+    if (this.isGameOver()) {
+      this.displayGameOver();
+      return;
+    }
+
     // if level is done and we're not starting a new level
     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
@@ -36,12 +43,6 @@ class GameController {
       (this.level.levelProgress > 0 && this.player.pos.y < height)
     ) {
       this.level.updateLevel();
-    }
-    //If player is under game area display Game Over on screen
-    if (this.player.pos.y > height + this.player.radius * 2) {
-      this.displayGameOver();
-      //noLoop()
-      return;
     }
 
     // moves all level objects down
@@ -79,6 +80,8 @@ class GameController {
     if (this.isStartingNextLevel) this.displayCountDown();
   }
 
+  private isGameOver = () : boolean => this.player.pos.y > height + this.player.radius * 2;
+
   public startNextLevel() {
     this.isStartingNextLevel = true;
     // wait before starting new level
@@ -110,6 +113,15 @@ class GameController {
   }
 
   private displayGameOver() {
+    if(!this.playButton && !this.exitButton) {
+      this.playButton = createButton("PLAY AGAIN?");
+      this.playButton.position( 0, height/ 2);
+      this.playButton.center("horizontal");
+
+      this.exitButton = createButton("EXIT");
+      this.exitButton.position( 0, height / 6);
+      this.exitButton.center("horizontal");
+    }
     
     push();
     //let button;
@@ -120,12 +132,6 @@ class GameController {
     ellipse(mouseX, mouseY, 30, 30);
     background(200, 150, 255, 10)
     text("GAME OVER", width / 2, height -390);
-    
-    //button = createButton("PLAY AGAIN?");
-    //button.pos( width /2, height/ 2);
-
-    // button = createButton("EXIT");
-    // button.position(width / 2, height / 6);
     pop();
   }
 
