@@ -10,10 +10,15 @@ class GameController {
   private countDown: number;
   private effectList: GameObject[];
   private isStartGame: boolean;
+  private playButton: p5.Element | undefined;
+  private exitButton: p5.Element | undefined;
 
   constructor() {
     this.score = 0;
-    this.highScore = 0;
+    const localStorageHighscore = localStorage.getItem("highscore");
+    this.highScore = localStorageHighscore
+      ? JSON.parse(localStorageHighscore)
+      : 0;
     this.levelNumber = 1;
     this.levelFactory = new LevelFactory();
     this.level = this.levelFactory.createLevel(this.levelNumber);
@@ -25,32 +30,38 @@ class GameController {
     this.isStartGame = true;
   }
 
-
-
-
   public drawStartScreen() {
+    push();
     background("cornflowerblue");
     fill("white");
     textAlign(CENTER);
     textSize(30);
     text("HOP TOP", width / 2, height / 2);
     text("click to start", width / 2, height / 2 + 38);
-   }
+    pop();
+  }
 
   public drawGame(): void {
     if (mouseIsPressed === true) {
-    this.isStartGame = false;
-    console.log("mouseIsPressed");
+      this.isStartGame = false;
+      console.log("mouseIsPressed");
     }
     if (this.isStartGame) {
-    this.drawStartScreen() 
-    return;
-    } 
+      this.drawStartScreen();
+      return;
+    }
 
-    
+    //If player is under game area display Game Over on screen
+    if (this.isPlayerDead()) {
+      this.displayGameOver();
+      localStorage.setItem("highscore", JSON.stringify(this.highScore));
+      return;
+    }
+
     // if level is done and we're not starting a new level
     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
+      localStorage.setItem("highscore", JSON.stringify(this.highScore));
     }
 
     this.player.move();
@@ -58,7 +69,7 @@ class GameController {
     const heightBeforeGameStarts = height / 2;
     if (
       this.player.pos.y < heightBeforeGameStarts ||
-      this.level.levelProgress > 0 && this.player.pos.y < height
+      this.level.levelProgress > 0
     ) {
       this.level.updateLevel();
       this.updateEffects();
@@ -67,23 +78,24 @@ class GameController {
     // moves all level objects down
     this.level.levelObjects.forEach((levelObject, index) => {
       if (
+        levelObject instanceof Block &&
         this.collisionDetection.playerCollidedWithBlock(
           this.player,
           levelObject
         )
       ) {
+        this.player.bounceOnBlock(levelObject.pos);
+      } else if (
+        this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
+      ) {
         if (levelObject instanceof Item) {
+          this.level.levelObjects.splice(index, 1);
+          this.collectItem();
           const effect = new Effect(levelObject);
           this.effectList.push(effect);
-          this.level.levelObjects.splice(index, 1);
-
-          gameController.collectItem();
         } else if (levelObject instanceof SpeedBoost) {
           this.level.levelObjects.splice(index, 1);
-          gameController.collectItem();
           this.player.speedBoost();
-        } else {
-          this.player.bounceOnBlock(levelObject.pos);
         }
       }
     });
@@ -97,15 +109,19 @@ class GameController {
 
     this.level.drawLevel();
     this.drawScoreBoard();
+    this.effectList.forEach((effect, i) => {
+      effect.drawObject();
+      if (effect.pos.y >= height) this.effectList.splice(i, 1);
+    });
     this.player.drawPlayer();
 
-    this.effectList.forEach(effect => {
-      effect.drawObject();
-    });
     if (this.isStartingNextLevel) this.displayCountDown();
   }
 
-  public startNextLevel() {
+  private isPlayerDead = (): boolean =>
+    this.player.pos.y > height + this.player.radius * 2;
+
+  private startNextLevel() {
     this.isStartingNextLevel = true;
     // wait before starting new level
     setTimeout(() => {
@@ -129,21 +145,45 @@ class GameController {
   private displayCountDown() {
     push();
     textAlign(CENTER);
-    fill(0);
-    textSize(32);
+    stroke("rgb(255,171,194)");
+    strokeWeight(7);
+    textStyle(BOLD);
+    fill(32);
+    textSize(42);
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
 
+  private displayGameOver() {
+    if (!this.playButton && !this.exitButton) {
+      this.playButton = createButton("PLAY AGAIN?");
+      this.playButton.position(0, height / 2);
+      this.playButton.center("horizontal");
+      this.playButton.style("background-color", "rgb(255,171,194)");
+
+      this.exitButton = createButton("EXIT");
+      this.exitButton.position(0, height / 6);
+      this.exitButton.center("horizontal");
+    }
+
+    push();
+    //let button;
+    textAlign(CENTER);
+    fill(0, 10, 153);
+    textSize(32);
+    noCursor();
+    ellipse(mouseX, mouseY, 30, 30);
+    background(200, 150, 255, 10);
+    text("GAME OVER", width / 2, height - 390);
+    pop();
+  }
+
   private collectItem(): void {
-    this.score += 1;
+    this.score += 20;
     if (this.score >= this.highScore) {
       this.highScore = this.score;
     }
   }
-
-  // todo
-  //private gameOver(): void {}
 
   private drawScoreBoard(): void {
     function scoreText(): void {
@@ -178,7 +218,7 @@ class GameController {
       line(75, 60, 525, 60);
       pop();
     }
-      
+
     scoreBoard();
     scoreText();
     scorePoints();

@@ -38,7 +38,7 @@ let gameController: GameController;
 function setup() {
   createCanvas(600, windowHeight);
   frameRate(60);
-
+  
   gameController = new GameController();
 }
 
