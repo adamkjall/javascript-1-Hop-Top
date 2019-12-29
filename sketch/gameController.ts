@@ -129,12 +129,13 @@ class GameController {
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
-
+  
   private displayGameOver() {
     if (!this.playButton && !this.exitButton) {
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(0, height / 2);
       this.playButton.center("horizontal");
+      this.playButton.style('background-color', 'rgb(255,171,194)');
 
       this.exitButton = createButton("EXIT");
       this.exitButton.position(0, height / 6);
