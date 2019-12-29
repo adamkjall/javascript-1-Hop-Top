@@ -15,7 +15,7 @@ function preload() {
   //Fragile blocks
   imgFragile = loadImage('../assets/images/1.png');
   //Bonus items blocks
-  imgItemStar = loadImage('../assets/images/item1.svg');
+  imgItemPresent = loadImage('../assets/images/itemPresent.svg');
   imgItemCandy = loadImage('../assets/images/itemCandy.svg');
   //SpeedBoost items
   imgSpeedBoost = loadImage('../assets/images/star.svg')
@@ -24,7 +24,7 @@ function preload() {
 let imgSpeedBoost: p5.Image;
 let imgSolid: p5.Image;
 let imgFragile: p5.Image;
-let imgItemStar: p5.Image;
+let imgItemPresent: p5.Image;
 let imgItemCandy: p5.Image;
 let collectItemSound: p5.SoundFile;
 let gameController: GameController;

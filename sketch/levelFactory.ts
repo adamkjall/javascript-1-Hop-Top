@@ -41,7 +41,7 @@ class LevelFactory {
               y * -100 + height,
               xStepSize,
               xStepSize,
-              imgItemStar,
+              imgItemPresent,
               20
             );
             levelObjects.push(itemPresent);
