@@ -8,10 +8,11 @@ class GameController {
   private levelNumber: number;
   private isStartingNextLevel: boolean;
   private countDown: number;
+<<<<<<< HEAD
   private effectList: GameObject[];
+=======
   private isStartGame: boolean;
-  private isImg: p5.Image;
-
+>>>>>>> added a start screen
 
   constructor() {
     this.score = 0;
@@ -23,21 +24,26 @@ class GameController {
     this.collisionDetection = new CollisionDetection();
     this.isStartingNextLevel = false;
     this.countDown = 5;
+<<<<<<< HEAD
     this.effectList = [];
+=======
     this.isStartGame = true;
-    this.isImg = new p5.Image;
+>>>>>>> added a start screen
   }
+
+
+
 
   public drawStartScreen() {
     background("cornflowerblue");
     fill("white");
     textAlign(CENTER);
     textSize(30);
+    text("HOP TOP", width / 2, height / 2);
     text("click to start", width / 2, height / 2 + 38);
-    this.isImg = loadImage('images/HOP_TOP.png');
    }
 
-  public drawStartGame(): void {
+  public drawGame(): void {
     if (mouseIsPressed === true) {
     this.isStartGame = false;
     console.log("mouseIsPressed");
@@ -46,7 +52,7 @@ class GameController {
     this.drawStartScreen() 
     return;
     } 
-  
+
     
     // if level is done and we're not starting a new level
     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
@@ -96,7 +102,7 @@ class GameController {
     background(r, b, g);
 
     this.level.drawLevel();
-    this.displayScoreBoard();
+    this.drawScoreBoard();
     this.player.drawPlayer();
 
     this.effectList.forEach(effect => {
