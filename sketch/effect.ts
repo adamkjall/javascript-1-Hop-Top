@@ -4,14 +4,19 @@ class Effect extends GameObject {
 
     constructor(item: Item) {
       super(item.pos.x, item.pos.y, 0, 0);
-      this.position = item.pos;
       this.text = '+' + item.getScore().toString();
     }
 
     public drawObject(): void {
-        fill(0);
+        push();
+        fill("yellow");
+        stroke("black");
+        strokeWeight(5);
+        textAlign(CENTER);
+        textSize(24);
         text(this.text, this.position.x, this.position.y - this.shift);
         this.shift -= 1;
+        pop();
     }
 }
 

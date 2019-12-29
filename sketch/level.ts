@@ -13,6 +13,7 @@ class Level {
   private createCloud(y : number): void {
     const circleSize: number = 90;
     const gridOfCloud: number = width / 8;
+    push();
     fill(200, 150, 255);
     noStroke();
     circle(0 * gridOfCloud, y + 20, circleSize);
@@ -35,6 +36,7 @@ class Level {
       circle(6.5 * gridOfCloud, y - 10, circleSize);
       circle(7.5 * gridOfCloud, y + 10, circleSize);
     }
+    pop();
   }
 
   private checkIfLevelIsDone(): boolean {
