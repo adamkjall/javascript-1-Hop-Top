@@ -26,7 +26,7 @@ class LevelFactory {
             // clouds
             break;
           case 2:
-            const block = new GameObject(
+            const block = new Block(
               x * xStepSize,
               y * -100 + height,
               xStepSize,
