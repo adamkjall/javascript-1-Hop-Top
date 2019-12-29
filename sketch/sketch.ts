@@ -18,6 +18,9 @@ function preload() {
   imgItemPresent = loadImage('../assets/images/itemPresent.svg');
   imgItemCandy = loadImage('../assets/images/itemCandy.svg');
   imgItemCar = loadImage('../assets/images/itemCar.svg');
+  imgItemDanger = loadImage('../assets/images/itemDanger.svg');
+  imgItemStonefall = loadImage('../assets/images/itemStonefall.svg');
+  imgItemWatermelon = loadImage('../assets/images/itemWatermelon.svg');
   //SpeedBoost items
   imgSpeedBoost = loadImage('../assets/images/star.svg')
 }
@@ -28,6 +31,9 @@ let imgFragile: p5.Image;
 let imgItemPresent: p5.Image;
 let imgItemCandy: p5.Image;
 let imgItemCar: p5.Image;
+let imgItemDanger: p5.Image;
+let imgItemStonefall: p5.Image;
+let imgItemWatermelon: p5.Image;
 let collectItemSound: p5.SoundFile;
 let gameController: GameController;
 
