@@ -14,7 +14,8 @@ class GameController {
 
   constructor() {
     this.score = 0;
-    this.highScore = 0;
+    const localStorageHighscore = localStorage.getItem("highscore");
+    this.highScore = localStorageHighscore ? JSON.parse(localStorageHighscore) : 0;
     this.levelNumber = 1;
     this.levelFactory = new LevelFactory();
     this.level = this.levelFactory.createLevel(this.levelNumber);
@@ -29,12 +30,14 @@ class GameController {
     //If player is under game area display Game Over on screen
     if (this.isPlayerDead()) {
       this.displayGameOver();
+      localStorage.setItem("highscore", JSON.stringify(this.highScore))
       return;
     }
 
     // if level is done and we're not starting a new level
     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
+      localStorage.setItem("highscore", JSON.stringify(this.highScore))
     }
 
     this.player.move();
