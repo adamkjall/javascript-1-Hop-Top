@@ -13,7 +13,7 @@ class Player {
     xVelocity: number = 0,
     yVelocity: number = 0,
     speed: number = .5,
-    diameter: number = 55
+    diameter: number = 65
   ) {
     this.position = new Position(x, y);
     this.xVelocity = xVelocity;
@@ -46,13 +46,14 @@ class Player {
     this.gravity();
     this.xVelocity *= 0.95; // friction
 
-    const isOutsideRightEdge = this.position.x > width - this.diameter / 2;
-    if (isOutsideRightEdge) {
-      const endOfScreen = width - this.diameter / 2;
-      this.position.x = endOfScreen;
-    }
-    if (this.position.x < this.diameter / 2) {
+    const collisionWithRightWall = this.position.x > width - this.diameter / 2;
+    const collisionWithLeftWall = this.position.x < this.diameter / 2;
+    if (collisionWithRightWall) {
+      this.position.x = width - this.diameter / 2;
+      this.xVelocity = -this.xVelocity * 0.8;
+    } else if (collisionWithLeftWall) {
       this.position.x = this.diameter / 2;
+      this.xVelocity = -this.xVelocity * 0.8;
     }
   }
 
@@ -70,10 +71,15 @@ class Player {
 
   public drawPlayer(): void {
     push();
+    // outer circle
     stroke("rgb(255,171,194)");
-    strokeWeight(20);
+    const outerCircleSize = this.diameter / 3.5;
+    console.log(outerCircleSize);
+    
+    strokeWeight(outerCircleSize);
+    // inner circle
     fill("rgb(38,48,86)");
-    circle(this.position.x, this.position.y, this.diameter);
+    circle(this.position.x, this.position.y, this.diameter - outerCircleSize);
     pop();
   }
 
