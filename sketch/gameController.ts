@@ -28,8 +28,6 @@ class GameController {
     this.countDown = 5;
     this.effectList = [];
     this.isStartGame = true;
-    this.playButton?.remove();
-    this.quitButton?.remove();
   }
 
   public drawStartScreen() {
@@ -44,9 +42,8 @@ class GameController {
   }
 
   public drawGame(): void {
-    if (mouseIsPressed === true) {
+    if (keyIsPressed && keyCode === 32 || mouseIsPressed === true) {
       this.isStartGame = false;
-      console.log("mouseIsPressed");
     }
     if (this.isStartGame) {
       this.drawStartScreen();
@@ -158,12 +155,11 @@ class GameController {
   }
 
   private displayGameOver() {
-   
     if (!this.playButton && !this.quitButton) {
       push();
       //if clicked go to level1
       this.playButton = createButton("PLAY AGAIN?");
-      this.playButton.position(0, 510);
+      this.playButton.position(windowWidth / 2, 510);
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(242,37,174)");
 
@@ -173,12 +169,12 @@ class GameController {
       this.playButton.style("padding", "1rem");
       this.playButton.style("border", "none");
       this.playButton.style("outline", "none");
-      
+
       this.playButton.mousePressed(this.restartGame);
 
       //if clicked go to startScreen?
       this.quitButton = createButton("QUIT");
-      this.quitButton.position(width / 2, 580);
+      this.quitButton.position(windowWidth / 2, 590);
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
       this.quitButton.style("font-size", "1.3rem");
@@ -186,6 +182,8 @@ class GameController {
       this.quitButton.style("border-radius", "1rem");
       this.quitButton.style("border", "none");
       this.quitButton.style("outline", "none");
+      this.quitButton.style("display", "grid");
+      this.quitButton.style("justify-items", "center");
       this.quitButton.mousePressed(this.quitGame);
       pop();
     }
@@ -201,24 +199,19 @@ class GameController {
     pop();
   }
 
-  private restartGame(): void {   
-    this.playButton?.mousePressed(false)
-     if (mouseIsPressed === true) {
-        this.levelNumber = 1;
-        removeElements();
-        gameController = new GameController();
-      }
-      return;
+  private restartGame(): void {
+    removeElements();
+    gameController = new GameController();
   }
 
-  private quitGame():void {
+  private quitGame(): void {
     location.reload();
     gameController = new GameController();
-    gameController.drawGame()
+    gameController.drawGame();
   }
-  
- // private collectItem(): void {
-    //this.score += 20;
+
+  // private collectItem(): void {
+  //this.score += 20;
 
   private collectItem(itemScore: number): void {
     this.score += itemScore; //20;
