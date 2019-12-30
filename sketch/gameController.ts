@@ -134,25 +134,31 @@ class GameController {
 
   private displayGameOver() {
     if (!this.playButton && !this.exitButton) {
+      push();
       this.playButton = createButton("PLAY AGAIN?");
-      this.playButton.position(0, height / 2);
+      this.playButton.position(0, 510);
       this.playButton.center("horizontal");
-      this.playButton.style("background-color", "rgb(252, 208, 107)");
-      this.playButton.style("font-size", "30px");
+      this.playButton.style("background-color", "rgb(242,37,174)");
+
+      this.playButton.style("font-size", "1.7rem");
       this.playButton.style("color", "rgb(38,48,86)");
-      this.playButton.style("border-radius", "16px");
+      this.playButton.style("border-radius", "2rem");
+      this.playButton.style("padding", "1rem");
       this.playButton.style("border", "none");
       this.playButton.style("outline", "none");
+      this.playButton.mousePressed(this.restartGame);
 
-      this.exitButton = createButton("EXIT");
-      this.exitButton.position(0,height / 2);
+      //if clicked go to startScreen?
+      this.exitButton = createButton("QUIT");
+      this.exitButton.position(width / 2, 580);
       this.exitButton.center("horizontal");
       this.exitButton.style("background-color", "rgb(38,48,86)");
-      this.exitButton.style("font-size", "30px");
-      this.exitButton.style("color", "rgb(252, 208, 107)");
-      this.exitButton.style("border-radius", "16px");
+      this.exitButton.style("font-size", "1.3rem");
+      this.exitButton.style("color", "rgb(242,37,174)");
+      this.exitButton.style("border-radius", "1rem");
       this.exitButton.style("border", "none");
       this.exitButton.style("outline", "none");
+      pop();
     }
 
     push();
@@ -160,15 +166,22 @@ class GameController {
     fill("rgb(242,37,174)");
     stroke("rgb(5,42,147)");
     strokeWeight(12);
-    textSize(32);
     noCursor();
     ellipse(mouseX, mouseY, 30, 30);
     background(237, 244, 234, 4);
-    image(gameOver, 15, 15);
-    
+    image(gameOver, 15, 125);
 
     //text("GAME OVER", width / 2, height - 390);
     pop();
+  }
+  private restartGame(): void {
+    console.log("restartgame");
+    this.levelNumber = 1;
+    this.levelFactory = new LevelFactory();
+    this.playButton?.remove();
+    this.exitButton?.hide();
+  //  gameController = new GameController();
+  //  gameController.drawGame();
   }
 
   private collectItem(): void {
