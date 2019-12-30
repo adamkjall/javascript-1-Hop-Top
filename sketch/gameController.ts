@@ -9,13 +9,16 @@ class GameController {
   private isStartingNextLevel: boolean;
   private countDown: number;
   private effectList: GameObject[];
+  private isStartGame: boolean;
   private playButton: p5.Element | undefined;
   private exitButton: p5.Element | undefined;
 
   constructor() {
     this.score = 0;
     const localStorageHighscore = localStorage.getItem("highscore");
-    this.highScore = localStorageHighscore ? JSON.parse(localStorageHighscore) : 0;
+    this.highScore = localStorageHighscore
+      ? JSON.parse(localStorageHighscore)
+      : 0;
     this.levelNumber = 1;
     this.levelFactory = new LevelFactory();
     this.level = this.levelFactory.createLevel(this.levelNumber);
@@ -24,20 +27,41 @@ class GameController {
     this.isStartingNextLevel = false;
     this.countDown = 5;
     this.effectList = [];
+    this.isStartGame = true;
+  }
+
+  public drawStartScreen() {
+    push();
+    background("cornflowerblue");
+    fill("white");
+    textAlign(CENTER);
+    textSize(30);
+    text("HOP TOP", width / 2, height / 2);
+    text("click to start", width / 2, height / 2 + 38);
+    pop();
   }
 
   public drawGame(): void {
+    if (mouseIsPressed === true) {
+      this.isStartGame = false;
+      console.log("mouseIsPressed");
+    }
+    if (this.isStartGame) {
+      this.drawStartScreen();
+      return;
+    }
+
     //If player is under game area display Game Over on screen
     if (this.isPlayerDead()) {
       this.displayGameOver();
-      localStorage.setItem("highscore", JSON.stringify(this.highScore))
+      localStorage.setItem("highscore", JSON.stringify(this.highScore));
       return;
     }
 
     // if level is done and we're not starting a new level
     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
-      localStorage.setItem("highscore", JSON.stringify(this.highScore))
+      localStorage.setItem("highscore", JSON.stringify(this.highScore));
     }
 
     this.player.move();
@@ -129,13 +153,13 @@ class GameController {
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
-  
+
   private displayGameOver() {
     if (!this.playButton && !this.exitButton) {
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(0, height / 2);
       this.playButton.center("horizontal");
-      this.playButton.style('background-color', 'rgb(255,171,194)');
+      this.playButton.style("background-color", "rgb(255,171,194)");
 
       this.exitButton = createButton("EXIT");
       this.exitButton.position(0, height / 6);
