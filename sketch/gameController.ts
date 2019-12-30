@@ -91,7 +91,8 @@ class GameController {
       ) {
         if (levelObject instanceof Item) {
           this.level.levelObjects.splice(index, 1);
-          this.collectItem();
+          const itemScore = levelObject.getScore();
+          this.collectItem(itemScore);
           const effect = new Effect(levelObject);
           this.effectList.push(effect);
         } else if (levelObject instanceof SpeedBoost) {
@@ -179,8 +180,8 @@ class GameController {
     pop();
   }
 
-  private collectItem(): void {
-    this.score += 20;
+  private collectItem(itemScore: number): void {
+    this.score += itemScore; //20;
     if (this.score >= this.highScore) {
       this.highScore = this.score;
     }
