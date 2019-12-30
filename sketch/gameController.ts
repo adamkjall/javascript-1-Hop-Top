@@ -148,8 +148,8 @@ class GameController {
     stroke("rgb(255,171,194)");
     strokeWeight(7);
     textStyle(BOLD);
-    fill(32);
     textSize(42);
+    fill(32);
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
