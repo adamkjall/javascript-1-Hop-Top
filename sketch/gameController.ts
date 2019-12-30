@@ -11,7 +11,7 @@ class GameController {
   private effectList: GameObject[];
   private isStartGame: boolean;
   private playButton: p5.Element | undefined;
-  private exitButton: p5.Element | undefined;
+  private quitButton: p5.Element | undefined;
 
   constructor() {
     this.score = 0;
@@ -28,6 +28,8 @@ class GameController {
     this.countDown = 5;
     this.effectList = [];
     this.isStartGame = true;
+    this.playButton?.remove();
+    this.quitButton?.remove();
   }
 
   public drawStartScreen() {
@@ -156,31 +158,71 @@ class GameController {
   }
 
   private displayGameOver() {
-    if (!this.playButton && !this.exitButton) {
+   
+    if (!this.playButton && !this.quitButton) {
+      push();
+      //if clicked go to level1
       this.playButton = createButton("PLAY AGAIN?");
-      this.playButton.position(0, height / 2);
+      this.playButton.position(0, 510);
       this.playButton.center("horizontal");
-      this.playButton.style("background-color", "rgb(255,171,194)");
+      this.playButton.style("background-color", "rgb(242,37,174)");
 
-      this.exitButton = createButton("EXIT");
-      this.exitButton.position(0, height / 6);
-      this.exitButton.center("horizontal");
+      this.playButton.style("font-size", "1.7rem");
+      this.playButton.style("color", "rgb(38,48,86)");
+      this.playButton.style("border-radius", "2rem");
+      this.playButton.style("padding", "1rem");
+      this.playButton.style("border", "none");
+      this.playButton.style("outline", "none");
+      
+      this.playButton.mousePressed(this.restartGame);
+
+      //if clicked go to startScreen?
+      this.quitButton = createButton("QUIT");
+      this.quitButton.position(width / 2, 580);
+      this.quitButton.center("horizontal");
+      this.quitButton.style("background-color", "rgb(38,48,86)");
+      this.quitButton.style("font-size", "1.3rem");
+      this.quitButton.style("color", "rgb(242,37,174)");
+      this.quitButton.style("border-radius", "1rem");
+      this.quitButton.style("border", "none");
+      this.quitButton.style("outline", "none");
+      this.quitButton.mousePressed(this.quitGame);
+      pop();
     }
-
     push();
-    //let button;
     textAlign(CENTER);
-    fill(0, 10, 153);
-    textSize(32);
+    fill("rgb(242,37,174)");
+    stroke("rgb(5,42,147)");
+    strokeWeight(12);
     noCursor();
     ellipse(mouseX, mouseY, 30, 30);
-    background(200, 150, 255, 10);
-    text("GAME OVER", width / 2, height - 390);
+    background(237, 244, 234, 4);
+    image(gameOver, 15, 125);
     pop();
   }
 
+  private restartGame(): void {   
+    this.playButton?.mousePressed(false)
+     if (mouseIsPressed === true) {
+        this.levelNumber = 1;
+        removeElements();
+        gameController = new GameController();
+      }
+      return;
+  }
+
+  private quitGame():void {
+    location.reload();
+    gameController = new GameController();
+    gameController.drawGame()
+  }
+  
+ // private collectItem(): void {
+    //this.score += 20;
+
   private collectItem(itemScore: number): void {
     this.score += itemScore; //20;
+
     if (this.score >= this.highScore) {
       this.highScore = this.score;
     }

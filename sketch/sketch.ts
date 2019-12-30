@@ -23,9 +23,14 @@ function preload() {
   imgItemWatermelon = loadImage('../assets/images/itemWatermelon.svg');
   //SpeedBoost items
   imgSpeedBoost = loadImage('../assets/images/star.svg')
+  //Game over text
+  gameOver = loadImage('../assets/images/game_over.png')
 }
 
-let imgSpeedBoost: p5.Image;
+
+let gameOver: p5.Image
+let imgSpeedBoost: p5.Image
+
 let imgSolid: p5.Image;
 let imgFragile: p5.Image;
 let imgItemPresent: p5.Image;
