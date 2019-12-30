@@ -175,11 +175,19 @@ class GameController {
     pop();
   }
   private restartGame(): void {
-    console.log("restartgame");
-    this.levelNumber = 1;
-    this.levelFactory = new LevelFactory();
-    this.playButton?.remove();
-    this.exitButton?.hide();
+    if (mouseIsPressed === true) {
+      this.levelNumber = 1;
+      console.log("clicked");{
+        gameController = new GameController();
+        gameController.drawGame();
+      }
+      return;
+      
+    //console.log("restartgame");
+    // this.levelNumber = 1;
+    // this.levelFactory = new LevelFactory();
+    // this.playButton?.remove();
+    // this.exitButton?.hide();
   //  gameController = new GameController();
   //  gameController.drawGame();
   }
