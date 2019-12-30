@@ -9,6 +9,7 @@ class GameController {
   private isStartingNextLevel: boolean;
   private countDown: number;
   private effectList: GameObject[];
+  private isStartGame: boolean;
   private playButton: p5.Element | undefined;
   private exitButton: p5.Element | undefined;
 
@@ -26,9 +27,30 @@ class GameController {
     this.isStartingNextLevel = false;
     this.countDown = 5;
     this.effectList = [];
+    this.isStartGame = true;
+  }
+
+  public drawStartScreen() {
+    push();
+    background("cornflowerblue");
+    fill("white");
+    textAlign(CENTER);
+    textSize(30);
+    text("HOP TOP", width / 2, height / 2);
+    text("click to start", width / 2, height / 2 + 38);
+    pop();
   }
 
   public drawGame(): void {
+    if (mouseIsPressed === true) {
+      this.isStartGame = false;
+      console.log("mouseIsPressed");
+    }
+    if (this.isStartGame) {
+      this.drawStartScreen();
+      return;
+    }
+
     //If player is under game area display Game Over on screen
     if (this.isPlayerDead()) {
       this.displayGameOver();
