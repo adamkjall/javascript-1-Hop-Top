@@ -29,18 +29,19 @@ class GameController {
     this.effectList = [];
     this.isStartGame = true;
   }
-
+ 
   public drawStartScreen() {
     push();
-    background("cornflowerblue");
+    background('#acb8e5');
+    image(hopTopImage, 100, 190, 400, 400);
     fill("white");
     textAlign(CENTER);
-    textSize(30);
-    text("HOP TOP", width / 2, height / 2);
-    text("click to start", width / 2, height / 2 + 38);
+    textSize(20);
+    text("click on screen to", width / 2, height / 2 + 300);
+    text("start the game", width / 2, height / 2 + 320);
     pop();
   }
-
+ 
   public drawGame(): void {
     if (keyIsPressed && keyCode === 32 || mouseIsPressed === true) {
       this.isStartGame = false;
