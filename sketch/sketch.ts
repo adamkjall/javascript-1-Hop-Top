@@ -6,7 +6,7 @@
 function preload() {
   // Tyvärr har jag inte fått till den globala typningen för
   // inladdningen av ljud men fungerar bra enligt nedan..
-
+  hopTopImage = loadImage('../assets/images/HOP_TOP.png');
   //Sound for when the ball collects items. Not currently being used. 
   //Use with   collectItemSound.play()
   collectItemSound = (window as any).loadSound('../assets/sounds/bubbles.wav');
@@ -30,7 +30,7 @@ function preload() {
 
 let gameOver: p5.Image
 let imgSpeedBoost: p5.Image
-
+let hopTopImage: p5.Image;
 let imgSolid: p5.Image;
 let imgFragile: p5.Image;
 let imgItemPresent: p5.Image;
@@ -68,6 +68,7 @@ function setup() {
 
 function draw() {
   gameController.drawGame();
+
 }
 
 
