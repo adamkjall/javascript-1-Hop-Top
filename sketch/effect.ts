@@ -4,7 +4,13 @@ class Effect extends GameObject {
 
     constructor(item: Item) {
       super(item.pos.x, item.pos.y, 0, 0);
-      this.text = '+' + item.getScore().toString();
+      const score = item.getScore();
+      if (score < 0) {
+          this.text = '';
+      } else {
+          this.text = '+';
+      }
+      this.text = this.text + item.getScore().toString();
     }
 
     public drawObject(): void {
