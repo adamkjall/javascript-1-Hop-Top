@@ -162,7 +162,7 @@ class GameController {
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(windowWidth / 2, 510);
       this.playButton.center("horizontal");
-      this.playButton.style("background-color", "rgb(242,37,174)");
+      this.playButton.style("background-color", "rgb(232,37,174)"); //rgb(242,37,174)
 
       this.playButton.style("font-size", "1.7rem");
       this.playButton.style("color", "rgb(38,48,86)");
