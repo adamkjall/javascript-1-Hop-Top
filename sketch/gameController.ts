@@ -197,7 +197,7 @@ class GameController {
     strokeWeight(12);
     noCursor();
     ellipse(mouseX, mouseY, 30, 30);
-    background(172,184,229, 4);
+    background(237, 244, 234, 4);
     image(gameOver, 15, 125);
     pop();
   }
