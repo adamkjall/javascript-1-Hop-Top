@@ -207,12 +207,7 @@ class GameController {
 
   private quitGame(): void {
     location.reload();
-    gameController = new GameController();
-    gameController.drawGame();
   }
-
-  // private collectItem(): void {
-  //this.score += 20;
 
   private collectItem(itemScore: number): void {
     this.score += itemScore; //20;
