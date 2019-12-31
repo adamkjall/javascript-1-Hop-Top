@@ -162,7 +162,7 @@ class GameController {
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(windowWidth / 2, 510);
       this.playButton.center("horizontal");
-      this.playButton.style("background-color", "rgb(242,37,174)");
+      this.playButton.style("background-color", "rgb(252, 208, 107)");
 
       this.playButton.style("font-size", "1.7rem");
       this.playButton.style("color", "rgb(38,48,86)");
@@ -179,7 +179,7 @@ class GameController {
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
       this.quitButton.style("font-size", "1.3rem");
-      this.quitButton.style("color", "rgb(242,37,174)");
+      this.quitButton.style("color", "rgb(252, 208, 107)");
       this.quitButton.style("border-radius", "1rem");
       this.quitButton.style("border", "none");
       this.quitButton.style("outline", "none");
@@ -195,7 +195,7 @@ class GameController {
     strokeWeight(12);
     noCursor();
     ellipse(mouseX, mouseY, 30, 30);
-    background(237, 244, 234, 4);
+    background(172,184,229, 10);
     image(gameOver, 15, 125);
     pop();
   }
