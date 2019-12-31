@@ -214,8 +214,6 @@ class GameController {
 
   private quitGame():void {
     location.reload();
-    gameController = new GameController();
-    gameController.drawGame()
   }
   
  // private collectItem(): void {
