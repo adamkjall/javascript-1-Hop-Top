@@ -8,7 +8,6 @@ class GameController {
   private levelNumber: number;
   private isStartingNextLevel: boolean;
   private countDown: number;
-  private effectList: GameObject[];
   private isStartGame: boolean;
   private playButton: p5.Element | undefined;
   private quitButton: p5.Element | undefined;
@@ -26,19 +25,19 @@ class GameController {
     this.collisionDetection = new CollisionDetection();
     this.isStartingNextLevel = false;
     this.countDown = 5;
-    this.effectList = [];
     this.isStartGame = true;
   }
 
   public drawStartScreen() {
     push();
     background("#acb8e5");
-    image(hopTopImage, 100, 190, 400, 400);
+    imageMode(CENTER);
+    image(hopTopImage, width / 2, height * 0.45, width * 0.75);
     fill("white");
     textAlign(CENTER);
     textSize(20);
-    text("click on screen to", width / 2, height / 2 + 300);
-    text("start the game", width / 2, height / 2 + 320);
+    text("click on screen to", width / 2, height * 0.91);
+    text("start the game", width / 2, height * 0.95);
     pop();
   }
 
@@ -72,11 +71,12 @@ class GameController {
       this.level.levelProgress > 0
     ) {
       this.level.updateLevel();
-      this.updateEffects();
     }
 
+    this.level.updateEffects();
+
     // moves all level objects down
-    this.level.levelObjects.forEach((levelObject, index) => {
+    this.level.levelObjects.forEach(levelObject => {
       if (
         levelObject instanceof Block &&
         this.collisionDetection.playerCollidedWithBlock(
@@ -88,15 +88,13 @@ class GameController {
       } else if (
         this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
       ) {
-        if (levelObject instanceof Item) {
-          this.level.levelObjects.splice(index, 1);
-          const itemScore = levelObject.getScore();
-          this.collectItem(itemScore);
-          const effect = new Effect(levelObject);
-          this.effectList.push(effect);
-        } else if (levelObject instanceof SpeedBoost) {
-          this.level.levelObjects.splice(index, 1);
-          this.player.speedBoost();
+        if (levelObject instanceof SpeedBoost) {
+          levelObject.applySpeedBoost(this.player);
+          this.level.pickUpItem(levelObject);
+          this.updateScore(levelObject.points);
+        } else if (levelObject instanceof Item) {
+          this.level.pickUpItem(levelObject);
+          this.updateScore(levelObject.points);
         }
       }
     });
@@ -110,10 +108,6 @@ class GameController {
 
     this.level.drawLevel();
     this.drawScoreBoard();
-    this.effectList.forEach((effect, i) => {
-      effect.drawObject();
-      if (effect.pos.y >= height) this.effectList.splice(i, 1);
-    });
     this.player.drawPlayer();
 
     if (this.isStartingNextLevel) this.displayCountDown();
@@ -161,7 +155,7 @@ class GameController {
       //if clicked go to level1
 
       this.playButton = createButton("PLAY AGAIN?");
-      this.playButton.position(windowWidth / 2, 510);
+      this.playButton.position(windowWidth / 2, height * 0.82);
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(252, 208, 107)");
       this.playButton.style('font-family', 'Amatic SC');
@@ -176,8 +170,7 @@ class GameController {
 
       //if clicked go to startScreen?
       this.quitButton = createButton("QUIT");
-      
-      this.quitButton.position(windowWidth / 2, 590);
+      this.quitButton.position(windowWidth / 2, height * 0.94);
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
       this.quitButton.style('font-family', 'Amatic SC');
@@ -217,7 +210,7 @@ class GameController {
     location.reload();
   }
 
-  private collectItem(itemScore: number): void {
+  private updateScore(itemScore: number): void {
     this.score += itemScore; //20;
 
     if (this.score >= this.highScore) {
@@ -263,11 +256,5 @@ class GameController {
     scoreBoard();
     scoreText();
     scorePoints();
-  }
-
-  private updateEffects(): void {
-    for (const effect of this.effectList) {
-      effect.pos.y += 3.5;
-    }
   }
 }

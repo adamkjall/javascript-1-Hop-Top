@@ -1,33 +1,19 @@
 class Item extends GameObject {
-    private _img: p5.Image;
-    private _score: number;
+  private _points: number;
 
-    constructor(
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        image: p5.Image,
-        score: number,
-    ) {
-        super(x, y, width, height);
-        this._img = image;
-        this._score = score;
-    }
+  constructor(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    image: p5.Image,
+    points: number
+  ) {
+    super(x, y, width, height, image);
+    this._points = points;
+  }
 
-    public getScore(): number {
-        return this._score;
-    }
-
-    public drawObject(): void {
-        push();
-        image(
-            this._img,
-            this.position.x,
-            this.position.y,
-            this._width,
-            this._height
-        );
-        pop();
-    }
+  public get points(): number {
+    return this._points;
+  }
 }
