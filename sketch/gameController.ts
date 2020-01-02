@@ -30,12 +30,14 @@ class GameController {
 
   public drawStartScreen() {
     push();
+    //textFont(font);   
+    textFont("Amatic SC"); 
     background("#acb8e5");
     imageMode(CENTER);
     image(hopTopImage, width / 2, height * 0.45, width * 0.75);
     fill("white");
     textAlign(CENTER);
-    textSize(20);
+    textSize(30);
     text("click on screen to", width / 2, height * 0.91);
     text("start the game", width / 2, height * 0.95);
     pop();
@@ -159,6 +161,7 @@ class GameController {
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(252, 208, 107)");
       this.playButton.style('font-family', 'Amatic SC');
+      //textFont(font);
       this.playButton.style("font-size", "2rem");
       this.playButton.style("color", "rgb(38,48,86)");
       this.playButton.style("border-radius", "2rem");
@@ -174,6 +177,7 @@ class GameController {
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
       this.quitButton.style('font-family', 'Amatic SC');
+      //textFont(font);
       this.quitButton.style("font-size", "1.7rem");
       this.quitButton.style("color", "rgb(252, 208, 107)");
       this.quitButton.style("border-radius", "1rem");
@@ -185,7 +189,8 @@ class GameController {
       pop();
     }
     push();
-    this.font();
+    //textFont(font);
+    textFont("Amatic SC");
     textAlign(CENTER);
     fill("rgb(242,37,174)");
     stroke("rgb(5,42,147)");
@@ -197,9 +202,7 @@ class GameController {
     pop();
   }
 
-  private font(): void {
-    textFont("Amatic SC");
-  }
+
 
   private restartGame(): void {
     removeElements();
@@ -221,6 +224,7 @@ class GameController {
   private drawScoreBoard(): void {
     function scoreText(): void {
       push();
+      //textFont(font);
       textFont("Amatic SC");
       fill(0, 10, 153);
       textSize(22);
