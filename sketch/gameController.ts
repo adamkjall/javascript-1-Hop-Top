@@ -29,10 +29,10 @@ class GameController {
     this.effectList = [];
     this.isStartGame = true;
   }
- 
+
   public drawStartScreen() {
     push();
-    background('#acb8e5');
+    background("#acb8e5");
     image(hopTopImage, 100, 190, 400, 400);
     fill("white");
     textAlign(CENTER);
@@ -41,9 +41,9 @@ class GameController {
     text("start the game", width / 2, height / 2 + 320);
     pop();
   }
- 
+
   public drawGame(): void {
-    if (keyIsPressed && keyCode === 32 || mouseIsPressed === true) {
+    if ((keyIsPressed && keyCode === 32) || mouseIsPressed === true) {
       this.isStartGame = false;
     }
     if (this.isStartGame) {
@@ -159,12 +159,13 @@ class GameController {
     if (!this.playButton && !this.quitButton) {
       push();
       //if clicked go to level1
+
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(windowWidth / 2, 510);
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(252, 208, 107)");
-
-      this.playButton.style("font-size", "1.7rem");
+      this.playButton.style('font-family', 'Amatic SC');
+      this.playButton.style("font-size", "2rem");
       this.playButton.style("color", "rgb(38,48,86)");
       this.playButton.style("border-radius", "2rem");
       this.playButton.style("padding", "1rem");
@@ -175,10 +176,12 @@ class GameController {
 
       //if clicked go to startScreen?
       this.quitButton = createButton("QUIT");
+      
       this.quitButton.position(windowWidth / 2, 590);
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
-      this.quitButton.style("font-size", "1.3rem");
+      this.quitButton.style('font-family', 'Amatic SC');
+      this.quitButton.style("font-size", "1.7rem");
       this.quitButton.style("color", "rgb(252, 208, 107)");
       this.quitButton.style("border-radius", "1rem");
       this.quitButton.style("border", "none");
@@ -189,15 +192,20 @@ class GameController {
       pop();
     }
     push();
+    this.font();
     textAlign(CENTER);
     fill("rgb(242,37,174)");
     stroke("rgb(5,42,147)");
     strokeWeight(12);
     noCursor();
     ellipse(mouseX, mouseY, 30, 30);
-    background(172,184,229, 10);
+    background(172, 184, 229, 10);
     image(gameOver, 15, 125);
     pop();
+  }
+
+  private font(): void {
+    textFont("Amatic SC");
   }
 
   private restartGame(): void {
@@ -220,9 +228,10 @@ class GameController {
   private drawScoreBoard(): void {
     function scoreText(): void {
       push();
+      textFont("Amatic SC");
       fill(0, 10, 153);
-      textSize(18);
-      text("Level", 275, 35);
+      textSize(22);
+      text("Level", 285, 35);
       text("High Score", 85, 55);
       text("Score", 430, 55);
       pop();
