@@ -21,103 +21,94 @@ class LevelFactory {
     for (let y = 0; y < levelMap.length; y++) {
       for (let x = 0; x < levelMap[0].length; x++) {
         const cell = levelMap[levelMap.length - 1 - y][x];
+        const xPos = x * xStepSize;
+        const yPos = y * -100 + height;
+        let object : GameObject | undefined;
         switch (cell) {
           case 1:
             // clouds
             break;
           case 2:
-            const block = new Block(
-              x * xStepSize,
-              y * -100 + height,
-              xStepSize,
-              20
-            );
-            levelObjects.push(block);
+            object = new Block(xPos, yPos, xStepSize, 20);
             break;
           case 5:
             // bonus item
-            const itemPresent = new Item(
-              x * xStepSize,
-              y * -100 + height,
+            object = new Item(
+              xPos,
+              yPos,
               xStepSize,
               xStepSize,
               imgItemPresent,
               20
             );
-            levelObjects.push(itemPresent);
             break;
           case 6:
             // bonus item
-            const itemCandy = new Item(
-                x * xStepSize,
-                y * -100 + height,
-                xStepSize,
-                xStepSize,
-                imgItemCandy,
-                10
+            object = new Item(
+              xPos,
+              yPos,
+              xStepSize,
+              xStepSize,
+              imgItemCandy,
+              10
             );
-            levelObjects.push(itemCandy);
             break;
           case 7:
             // bonus item
-            const itemCar = new Item(
-                x * xStepSize,
-                y * -100 + height,
-                xStepSize,
-                xStepSize,
-                imgItemCar,
-                100
+            object = new Item(
+              xPos,
+              yPos,
+              xStepSize,
+              xStepSize,
+              imgItemCar,
+              100
             );
-            levelObjects.push(itemCar);
             break;
           case 8:
             // bonus item
-            const itemDanger = new Item(
-                x * xStepSize,
-                y * -100 + height,
-                xStepSize,
-                xStepSize,
-                imgItemDanger,
-                -100
+            object = new Item(
+              xPos,
+              yPos,
+              xStepSize,
+              xStepSize,
+              imgItemDanger,
+              -100
             );
-            levelObjects.push(itemDanger);
             break;
           case 9:
             // bonus item
-            const itemStonefall = new Item(
-                x * xStepSize,
-                y * -100 + height,
-                xStepSize,
-                xStepSize,
-                imgItemStonefall,
-                -20
+            object = new Item(
+              xPos,
+              yPos,
+              xStepSize,
+              xStepSize,
+              imgItemStonefall,
+              -20
             );
-            levelObjects.push(itemStonefall);
             break;
           case 10:
             // bonus item
-            const itemWatermelon = new Item(
-                x * xStepSize,
-                y * -100 + height,
-                xStepSize,
-                xStepSize,
-                imgItemWatermelon,
-                15
+            object = new Item(
+              xPos,
+              yPos,
+              xStepSize,
+              xStepSize,
+              imgItemWatermelon,
+              15
             );
-            levelObjects.push(itemWatermelon);
             break;
           case 4:
             //SpeedBoost item
-            const speedBoost = new SpeedBoost(
-              x * xStepSize,
-              y * -100 + height,
+            object = new SpeedBoost(
+              xPos,
+              yPos,
               xStepSize,
               xStepSize,
-              imgSpeedBoost
+              50
             );
-            levelObjects.push(speedBoost);
             break;
         }
+        if (object) levelObjects.push(object);
       }
     }
     return levelObjects;

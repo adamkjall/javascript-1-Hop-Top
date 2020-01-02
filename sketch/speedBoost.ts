@@ -1,38 +1,25 @@
-class SpeedBoost extends GameObject {
-  private _img: p5.Image;
-  private _exploded: boolean = false;
+class SpeedBoost extends Item {
+  private speedBoost: number;
+  private duration: number;
 
   constructor(
     x: number,
     y: number,
     width: number,
     height: number,
-    image: p5.Image
+    points: number = 50,
+    image: p5.Image = imgSpeedBoost
   ) {
-    super(x, y, width, height);
-    this._img = image;
+    super(x, y, width, height, image, points);
+    this.speedBoost = 1.5;
+    this.duration = 4000;
   }
 
-  public drawObject(): void {
-    if (this._exploded) {
-      return;
-    }
-    push();
-    image(
-      this._img,
-      this.position.x,
-      this.position.y,
-      this._width,
-      this._height
-    );
-    pop();
+  applySpeedBoost(player: Player) {
+    const oldSpeed = player.speed;
+    player.speed = this.speedBoost;
+    setTimeout(() => {
+      player.speed = oldSpeed;
+    }, this.duration);
   }
-
-  public explode(): void {
-    if (this._exploded) {
-      return;
-    }
-    this._exploded = true;
-  }
-
 }

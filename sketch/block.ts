@@ -1,13 +1,13 @@
 class Block extends GameObject {
-constructor(x: number, y: number, width: number, height: number){
-    super(x, y, width, height)
+  constructor(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    image: p5.Image = imgSolid
+  ) {
+    super(x, y, width, height, image);
+  }
+
+  
 }
-
-
-
-
-    // public getPosition(): Position {}
- 
-
-}
-

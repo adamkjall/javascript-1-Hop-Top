@@ -1,7 +1,7 @@
 class Level {
   private _levelProgress: number;
   private _levelObjects: GameObject[];
-  private effectList: GameObject[];
+  private effectList: Effect[];
   private isLevelDone: boolean;
   private speed: number;
   
@@ -32,24 +32,24 @@ class Level {
         this._levelProgress = numberOfBlocksPassed * progressStep;
       } 
     }
-
-    this.updateEffects();
   }
 
-  private updateEffects(): void {
+  public updateEffects(): void {
     for (const effect of this.effectList) {
-      effect.pos.y += this.speed;
+      effect.move()
     }
   }
   
   public drawLevel(): void {
     for (let object of this._levelObjects) {
-      object.drawObject();
+      object.draw();
     }
+
     this.effectList.forEach((effect, i) => {
-      effect.drawObject();
+      effect.draw();
       if (effect.pos.y >= height) this.effectList.splice(i, 1);
     });
+
     const cloudPosY = this.levelObjects[0].pos.y;
     this.createCloud(cloudPosY ); 
   }
