@@ -33,12 +33,13 @@ class GameController {
   public drawStartScreen() {
     push();
     background('#acb8e5');
-    image(hopTopImage, 100, 190, 400, 400);
+    imageMode(CENTER);
+    image(hopTopImage, width / 2, height * 0.45, width * 0.75);
     fill("white");
     textAlign(CENTER);
     textSize(20);
-    text("click on screen to", width / 2, height / 2 + 300);
-    text("start the game", width / 2, height / 2 + 320);
+    text("click on screen to", width / 2, height * 0.91);
+    text("start the game", width / 2, height * 0.95);
     pop();
   }
  
