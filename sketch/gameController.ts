@@ -33,12 +33,13 @@ class GameController {
   public drawStartScreen() {
     push();
     background('#acb8e5');
-    image(hopTopImage, 100, 190, 400, 400);
+    imageMode(CENTER);
+    image(hopTopImage, width / 2, height * 0.45, width * 0.75);
     fill("white");
     textAlign(CENTER);
     textSize(20);
-    text("click on screen to", width / 2, height / 2 + 300);
-    text("start the game", width / 2, height / 2 + 320);
+    text("click on screen to", width / 2, height * 0.91);
+    text("start the game", width / 2, height * 0.95);
     pop();
   }
  
@@ -160,7 +161,7 @@ class GameController {
       push();
       //if clicked go to level1
       this.playButton = createButton("PLAY AGAIN?");
-      this.playButton.position(windowWidth / 2, 510);
+      this.playButton.position(windowWidth / 2, height * 0.82);
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(252, 208, 107)");
 
@@ -175,7 +176,7 @@ class GameController {
 
       //if clicked go to startScreen?
       this.quitButton = createButton("QUIT");
-      this.quitButton.position(windowWidth / 2, 590);
+      this.quitButton.position(windowWidth / 2, height * 0.94);
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
       this.quitButton.style("font-size", "1.3rem");
