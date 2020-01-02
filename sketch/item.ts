@@ -1,6 +1,6 @@
 class Item extends GameObject {
     private _img: p5.Image;
-    private _score: number;
+    private _points: number;
 
     constructor(
         x: number,
@@ -12,11 +12,11 @@ class Item extends GameObject {
     ) {
         super(x, y, width, height);
         this._img = image;
-        this._score = score;
+        this._points = score;
     }
 
-    public getScore(): number {
-        return this._score;
+    public get points(): number {
+        return this._points;
     }
 
     public drawObject(): void {

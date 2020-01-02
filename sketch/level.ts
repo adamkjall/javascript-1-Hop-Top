@@ -1,12 +1,16 @@
 class Level {
   private _levelProgress: number;
   private _levelObjects: GameObject[];
+  private effectList: GameObject[];
   private isLevelDone: boolean;
+  private speed: number;
   
   constructor(gameObjects: GameObject[]) {
     this._levelProgress = 0;
     this._levelObjects = gameObjects;
+    this.effectList = [];
     this.isLevelDone = false;
+    this.speed = 3.5;
   }
   
   public updateLevel(): void {
@@ -21,12 +25,20 @@ class Level {
     let numberOfBlocksPassed: number = 0;
   
     for (let obj of this._levelObjects) {
-      obj.pos.y += 3.5;
+      obj.pos.y += this.speed;
       
-      if (obj.pos.y >= height){
+      if (obj instanceof Block && obj.pos.y >= height){
         numberOfBlocksPassed++;
         this._levelProgress = numberOfBlocksPassed * progressStep;
       } 
+    }
+
+    this.updateEffects();
+  }
+
+  private updateEffects(): void {
+    for (const effect of this.effectList) {
+      effect.pos.y += this.speed;
     }
   }
   
@@ -34,6 +46,10 @@ class Level {
     for (let object of this._levelObjects) {
       object.drawObject();
     }
+    this.effectList.forEach((effect, i) => {
+      effect.drawObject();
+      if (effect.pos.y >= height) this.effectList.splice(i, 1);
+    });
     const cloudPosY = this.levelObjects[0].pos.y;
     this.createCloud(cloudPosY ); 
   }
@@ -72,8 +88,10 @@ class Level {
     return lastObject.pos.y >= height - 300;
   }
 
-  public removeLevelObject(objectToRemove: GameObject) {
+  public pickUpItem(objectToRemove: Item) {
     this._levelObjects = this.levelObjects.filter(object => object !== objectToRemove);
+    const pickUpEffect = new Effect(objectToRemove.pos, objectToRemove.points);
+    this.effectList.push(pickUpEffect);
   }
   
   public get levelObjects(): Block[] {
