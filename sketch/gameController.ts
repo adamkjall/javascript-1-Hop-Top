@@ -8,7 +8,6 @@ class GameController {
   private levelNumber: number;
   private isStartingNextLevel: boolean;
   private countDown: number;
-  private effectList: GameObject[];
   private isStartGame: boolean;
   private playButton: p5.Element | undefined;
   private quitButton: p5.Element | undefined;
@@ -26,7 +25,6 @@ class GameController {
     this.collisionDetection = new CollisionDetection();
     this.isStartingNextLevel = false;
     this.countDown = 5;
-    this.effectList = [];
     this.isStartGame = true;
   }
  
@@ -73,11 +71,10 @@ class GameController {
       this.level.levelProgress > 0
     ) {
       this.level.updateLevel();
-      this.updateEffects();
     }
 
     // moves all level objects down
-    this.level.levelObjects.forEach((levelObject, index) => {
+    this.level.levelObjects.forEach(levelObject => {
       if (
         levelObject instanceof Block &&
         this.collisionDetection.playerCollidedWithBlock(
@@ -90,13 +87,10 @@ class GameController {
         this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
       ) {
         if (levelObject instanceof Item) {
-          this.level.levelObjects.splice(index, 1);
-          const itemScore = levelObject.getScore();
-          this.collectItem(itemScore);
-          const effect = new Effect(levelObject);
-          this.effectList.push(effect);
+          this.level.pickUpItem(levelObject);
+          this.updateScore(levelObject.points);
         } else if (levelObject instanceof SpeedBoost) {
-          this.level.levelObjects.splice(index, 1);
+          // this.level.pickUpItem(levelObject);
           this.player.speedBoost();
         }
       }
@@ -111,10 +105,6 @@ class GameController {
 
     this.level.drawLevel();
     this.drawScoreBoard();
-    this.effectList.forEach((effect, i) => {
-      effect.drawObject();
-      if (effect.pos.y >= height) this.effectList.splice(i, 1);
-    });
     this.player.drawPlayer();
 
     if (this.isStartingNextLevel) this.displayCountDown();
@@ -210,7 +200,7 @@ class GameController {
     location.reload();
   }
 
-  private collectItem(itemScore: number): void {
+  private updateScore(itemScore: number): void {
     this.score += itemScore; //20;
 
     if (this.score >= this.highScore) {
@@ -257,9 +247,5 @@ class GameController {
     scorePoints();
   }
 
-  private updateEffects(): void {
-    for (const effect of this.effectList) {
-      effect.pos.y += 3.5;
-    }
-  }
+
 }
