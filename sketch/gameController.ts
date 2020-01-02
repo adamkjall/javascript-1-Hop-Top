@@ -27,10 +27,10 @@ class GameController {
     this.countDown = 5;
     this.isStartGame = true;
   }
- 
+
   public drawStartScreen() {
     push();
-    background('#acb8e5');
+    background("#acb8e5");
     imageMode(CENTER);
     image(hopTopImage, width / 2, height * 0.45, width * 0.75);
     fill("white");
@@ -40,9 +40,9 @@ class GameController {
     text("start the game", width / 2, height * 0.95);
     pop();
   }
- 
+
   public drawGame(): void {
-    if (keyIsPressed && keyCode === 32 || mouseIsPressed === true) {
+    if ((keyIsPressed && keyCode === 32) || mouseIsPressed === true) {
       this.isStartGame = false;
     }
     if (this.isStartGame) {
@@ -73,6 +73,8 @@ class GameController {
       this.level.updateLevel();
     }
 
+    this.level.updateEffects();
+
     // moves all level objects down
     this.level.levelObjects.forEach(levelObject => {
       if (
@@ -86,12 +88,13 @@ class GameController {
       } else if (
         this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
       ) {
-        if (levelObject instanceof Item) {
+        if (levelObject instanceof SpeedBoost) {
+          levelObject.applySpeedBoost(this.player);
           this.level.pickUpItem(levelObject);
           this.updateScore(levelObject.points);
-        } else if (levelObject instanceof SpeedBoost) {
-          // this.level.pickUpItem(levelObject);
-          this.player.speedBoost();
+        } else if (levelObject instanceof Item) {
+          this.level.pickUpItem(levelObject);
+          this.updateScore(levelObject.points);
         }
       }
     });
@@ -186,7 +189,7 @@ class GameController {
     strokeWeight(12);
     noCursor();
     ellipse(mouseX, mouseY, 30, 30);
-    background(172,184,229, 10);
+    background(172, 184, 229, 10);
     image(gameOver, 15, 125);
     pop();
   }
@@ -246,6 +249,4 @@ class GameController {
     scoreText();
     scorePoints();
   }
-
-
 }
