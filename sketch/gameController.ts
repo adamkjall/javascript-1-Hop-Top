@@ -151,7 +151,7 @@ class GameController {
       push();
       //if clicked go to level1
       this.playButton = createButton("PLAY AGAIN?");
-      this.playButton.position(windowWidth / 2, 510);
+      this.playButton.position(windowWidth / 2, height * 0.82);
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(252, 208, 107)");
 
@@ -166,7 +166,7 @@ class GameController {
 
       //if clicked go to startScreen?
       this.quitButton = createButton("QUIT");
-      this.quitButton.position(windowWidth / 2, 590);
+      this.quitButton.position(windowWidth / 2, height * 0.94);
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
       this.quitButton.style("font-size", "1.3rem");
