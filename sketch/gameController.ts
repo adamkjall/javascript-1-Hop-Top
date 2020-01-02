@@ -77,7 +77,7 @@ class GameController {
     }
 
     // moves all level objects down
-    this.level.levelObjects.forEach((levelObject, index) => {
+    this.level.levelObjects.forEach(levelObject => {
       if (
         levelObject instanceof Block &&
         this.collisionDetection.playerCollidedWithBlock(
@@ -90,13 +90,13 @@ class GameController {
         this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
       ) {
         if (levelObject instanceof Item) {
-          this.level.levelObjects.splice(index, 1);
+          this.level.removeLevelObject(levelObject);
           const itemScore = levelObject.getScore();
           this.collectItem(itemScore);
           const effect = new Effect(levelObject);
           this.effectList.push(effect);
         } else if (levelObject instanceof SpeedBoost) {
-          this.level.levelObjects.splice(index, 1);
+          this.level.removeLevelObject(levelObject);
           this.player.speedBoost();
         }
       }
