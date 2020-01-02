@@ -7,9 +7,6 @@ function preload() {
   // Tyvärr har jag inte fått till den globala typningen för
   // inladdningen av ljud men fungerar bra enligt nedan..
   hopTopImage = loadImage('../assets/images/HOP_TOP.png');
-  //Sound for when the ball collects items. Not currently being used. 
-  //Use with   collectItemSound.play()
-  collectItemSound = (window as any).loadSound('../assets/sounds/bubbles.wav');
   //Solid blocks
   imgSolid = loadImage('../assets/images/10.png');
   //Fragile blocks
@@ -25,6 +22,10 @@ function preload() {
   imgSpeedBoost = loadImage('../assets/images/star.svg')
   //Game over text
   gameOver = loadImage('../assets/images/game_over.png')
+  jumpSound = (window as any).loadSound('../assets/sounds/bubbles.wav')
+  backgroundMusicSound = (window as any).loadSound('../assets/sounds/background-music.wav')
+  gameOverSound = (window as any).loadSound('../assets/sounds/game-over.wav')
+  newLevelSound = (window as any).loadSound('../assets/sounds/happy-clapps.wav')
 }
 
 let gameOver: p5.Image
@@ -38,8 +39,11 @@ let imgItemCar: p5.Image;
 let imgItemDanger: p5.Image;
 let imgItemStonefall: p5.Image;
 let imgItemWatermelon: p5.Image;
-let collectItemSound: p5.SoundFile;
 let gameController: GameController;
+let jumpSound: p5.SoundFile;
+let backgroundMusicSound: p5.SoundFile;
+let gameOverSound: p5.SoundFile;
+let newLevelSound: p5.SoundFile;
 
 /**
  * Built in setup function in P5
@@ -54,6 +58,7 @@ function setup() {
   frameRate(60);
   
   gameController = new GameController();
+
 }
 
 
