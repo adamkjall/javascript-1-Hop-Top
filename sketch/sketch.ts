@@ -6,28 +6,31 @@
 function preload() {
   // Tyvärr har jag inte fått till den globala typningen för
   // inladdningen av ljud men fungerar bra enligt nedan..
-  hopTopImage = loadImage('../assets/images/HOP_TOP.png');
-  //Sound for when the ball collects items. Not currently being used. 
+  hopTopImage = loadImage("../assets/images/HOP_TOP.png");
+  //Sound for when the ball collects items. Not currently being used.
   //Use with   collectItemSound.play()
-  collectItemSound = (window as any).loadSound('../assets/sounds/bubbles.wav');
+  collectItemSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
   //Solid blocks
-  imgSolid = loadImage('../assets/images/10.png');
+  imgSolid = loadImage("../assets/images/10.png");
   //Fragile blocks
-  imgFragile = loadImage('../assets/images/1.png');
+  imgFragile = loadImage("../assets/images/1.png");
   //Bonus items blocks
-  imgItemPresent = loadImage('../assets/images/itemPresent.svg');
-  imgItemCandy = loadImage('../assets/images/itemCandy.svg');
-  imgItemCar = loadImage('../assets/images/itemCar.svg');
-  imgItemDanger = loadImage('../assets/images/itemDanger.svg');
-  imgItemStonefall = loadImage('../assets/images/itemStonefall.svg');
-  imgItemWatermelon = loadImage('../assets/images/itemWatermelon.svg');
+  imgItemPresent = loadImage("../assets/images/itemPresent.svg");
+  imgItemCandy = loadImage("../assets/images/itemCandy.svg");
+  imgItemCar = loadImage("../assets/images/itemCar.svg");
+  imgItemDanger = loadImage("../assets/images/itemDanger.svg");
+  imgItemStonefall = loadImage("../assets/images/itemStonefall.svg");
+  imgItemWatermelon = loadImage("../assets/images/itemWatermelon.svg");
   //SpeedBoost items
-  imgSpeedBoost = loadImage('../assets/images/star.svg')
+  imgSpeedBoost = loadImage("../assets/images/star.svg");
   //Game over text
-  gameOver = loadImage('../assets/images/game_over.png')
+  gameOver = loadImage("../assets/images/game_over.png");
+  //Font in game
+  //font = loadFont("Amatic SC");
 }
 
-let gameOver: p5.Image
+//let font: p5.Font;
+let gameOver: p5.Image;
 let hopTopImage: p5.Image;
 let imgSpeedBoost: p5.Image;
 let imgSolid: p5.Image;
@@ -48,15 +51,12 @@ let gameController: GameController;
  * in the draw function below
  */
 
-
 function setup() {
   createCanvas(600, windowHeight);
   frameRate(60);
-  
+
   gameController = new GameController();
 }
-
-
 
 /**
  * Built in draw function in P5
@@ -64,18 +64,13 @@ function setup() {
  * you created in the setup function above
  */
 
-
 function draw() {
   gameController.drawGame();
-
 }
-
 
 /**
  *  Built in windowResize listener function in P5
  */
 function windowResized() {
   resizeCanvas(600, windowHeight);
-  
 }
-
