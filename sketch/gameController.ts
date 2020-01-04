@@ -27,22 +27,24 @@ class GameController {
     this.countDown = 5;
     this.isStartGame = true;
   }
- 
+
   public drawStartScreen() {
     push();
-    background('#acb8e5');
+    //textFont(font);   
+    textFont("Amatic SC"); 
+    background("#acb8e5");
     imageMode(CENTER);
     image(hopTopImage, width / 2, height * 0.45, width * 0.75);
     fill("white");
     textAlign(CENTER);
-    textSize(20);
+    textSize(30);
     text("click on screen to", width / 2, height * 0.91);
     text("start the game", width / 2, height * 0.95);
     pop();
   }
- 
+
   public drawGame(): void {
-    if (keyIsPressed && keyCode === 32 || mouseIsPressed === true) {
+    if ((keyIsPressed && keyCode === 32) || mouseIsPressed === true) {
       this.isStartGame = false;
       backgroundMusicSound.play();
     }
@@ -74,6 +76,8 @@ class GameController {
       this.level.updateLevel();
     }
 
+    this.level.updateEffects();
+
     // moves all level objects down
     this.level.levelObjects.forEach(levelObject => {
       if (
@@ -88,12 +92,13 @@ class GameController {
       } else if (
         this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
       ) {
-        if (levelObject instanceof Item) {
+        if (levelObject instanceof SpeedBoost) {
+          levelObject.applySpeedBoost(this.player);
           this.level.pickUpItem(levelObject);
           this.updateScore(levelObject.points);
-        } else if (levelObject instanceof SpeedBoost) {
-          // this.level.pickUpItem(levelObject);
-          this.player.speedBoost();
+        } else if (levelObject instanceof Item) {
+          this.level.pickUpItem(levelObject);
+          this.updateScore(levelObject.points);
         }
       }
     });
@@ -156,12 +161,14 @@ class GameController {
       gameOverSound.play();
       push();
       //if clicked go to level1
+
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(windowWidth / 2, height * 0.82);
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(252, 208, 107)");
-
-      this.playButton.style("font-size", "1.7rem");
+      this.playButton.style('font-family', 'Amatic SC');
+      //textFont(font);
+      this.playButton.style("font-size", "2rem");
       this.playButton.style("color", "rgb(38,48,86)");
       this.playButton.style("border-radius", "2rem");
       this.playButton.style("padding", "1rem");
@@ -175,7 +182,9 @@ class GameController {
       this.quitButton.position(windowWidth / 2, height * 0.94);
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
-      this.quitButton.style("font-size", "1.3rem");
+      this.quitButton.style('font-family', 'Amatic SC');
+      //textFont(font);
+      this.quitButton.style("font-size", "1.7rem");
       this.quitButton.style("color", "rgb(252, 208, 107)");
       this.quitButton.style("border-radius", "1rem");
       this.quitButton.style("border", "none");
@@ -186,16 +195,20 @@ class GameController {
       pop();
     }
     push();
+    //textFont(font);
+    textFont("Amatic SC");
     textAlign(CENTER);
     fill("rgb(242,37,174)");
     stroke("rgb(5,42,147)");
     strokeWeight(12);
     noCursor();
     ellipse(mouseX, mouseY, 30, 30);
-    background(172,184,229, 10);
+    background(172, 184, 229, 10);
     image(gameOver, 15, 125);
     pop();
   }
+
+
 
   private restartGame(): void {
     removeElements();
@@ -217,9 +230,11 @@ class GameController {
   private drawScoreBoard(): void {
     function scoreText(): void {
       push();
+      //textFont(font);
+      textFont("Amatic SC");
       fill(0, 10, 153);
-      textSize(18);
-      text("Level", 275, 35);
+      textSize(22);
+      text("Level", 285, 35);
       text("High Score", 85, 55);
       text("Score", 430, 55);
       pop();
@@ -252,6 +267,4 @@ class GameController {
     scoreText();
     scorePoints();
   }
-
-
 }

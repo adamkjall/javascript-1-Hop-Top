@@ -6,29 +6,36 @@
 function preload() {
   // Tyvärr har jag inte fått till den globala typningen för
   // inladdningen av ljud men fungerar bra enligt nedan..
-  hopTopImage = loadImage('../assets/images/HOP_TOP.png');
+  hopTopImage = loadImage("../assets/images/HOP_TOP.png");
+  //Sound for when the ball collects items. Not currently being used.
+  //Use with   collectItemSound.play()
+  collectItemSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
   //Solid blocks
-  imgSolid = loadImage('../assets/images/10.png');
+  imgSolid = loadImage("../assets/images/10.png");
   //Fragile blocks
-  imgFragile = loadImage('../assets/images/1.png');
+  imgFragile = loadImage("../assets/images/1.png");
   //Bonus items blocks
-  imgItemPresent = loadImage('../assets/images/itemPresent.svg');
-  imgItemCandy = loadImage('../assets/images/itemCandy.svg');
-  imgItemCar = loadImage('../assets/images/itemCar.svg');
-  imgItemDanger = loadImage('../assets/images/itemDanger.svg');
-  imgItemStonefall = loadImage('../assets/images/itemStonefall.svg');
-  imgItemWatermelon = loadImage('../assets/images/itemWatermelon.svg');
+  imgItemPresent = loadImage("../assets/images/itemPresent.svg");
+  imgItemCandy = loadImage("../assets/images/itemCandy.svg");
+  imgItemCar = loadImage("../assets/images/itemCar.svg");
+  imgItemDanger = loadImage("../assets/images/itemDanger.svg");
+  imgItemStonefall = loadImage("../assets/images/itemStonefall.svg");
+  imgItemWatermelon = loadImage("../assets/images/itemWatermelon.svg");
   //SpeedBoost items
-  imgSpeedBoost = loadImage('../assets/images/star.svg')
+  imgSpeedBoost = loadImage("../assets/images/star.svg");
   //Game over text
-  gameOver = loadImage('../assets/images/game_over.png')
-  jumpSound = (window as any).loadSound('../assets/sounds/bubbles.wav')
-  backgroundMusicSound = (window as any).loadSound('../assets/sounds/background-music.wav')
-  gameOverSound = (window as any).loadSound('../assets/sounds/game-over.wav')
-  newLevelSound = (window as any).loadSound('../assets/sounds/happy-clapps.wav')
+  gameOver = loadImage("../assets/images/game_over.png");
+  //Font in game
+  //font = loadFont("Amatic SC");
+  jumpSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
+
+  backgroundMusicSound = (window as any).loadSound("../assets/sounds/background-music.wav");
+
+  gameOverSound = (window as any).loadSound("../assets/sounds/game-over.wav");
 }
 
-let gameOver: p5.Image
+//let font: p5.Font;
+let gameOver: p5.Image;
 let hopTopImage: p5.Image;
 let imgSpeedBoost: p5.Image;
 let imgSolid: p5.Image;
@@ -39,11 +46,11 @@ let imgItemCar: p5.Image;
 let imgItemDanger: p5.Image;
 let imgItemStonefall: p5.Image;
 let imgItemWatermelon: p5.Image;
+let collectItemSound: p5.SoundFile;
 let gameController: GameController;
+let gameOverSound: p5.SoundFile;
 let jumpSound: p5.SoundFile;
 let backgroundMusicSound: p5.SoundFile;
-let gameOverSound: p5.SoundFile;
-let newLevelSound: p5.SoundFile;
 
 /**
  * Built in setup function in P5
@@ -52,16 +59,12 @@ let newLevelSound: p5.SoundFile;
  * in the draw function below
  */
 
-
 function setup() {
   createCanvas(600, windowHeight);
   frameRate(60);
-  
+
   gameController = new GameController();
-
 }
-
-
 
 /**
  * Built in draw function in P5
@@ -69,18 +72,13 @@ function setup() {
  * you created in the setup function above
  */
 
-
 function draw() {
   gameController.drawGame();
-
 }
-
 
 /**
  *  Built in windowResize listener function in P5
  */
 function windowResized() {
   resizeCanvas(600, windowHeight);
-  
 }
-
