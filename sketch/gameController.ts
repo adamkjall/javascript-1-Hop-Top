@@ -11,6 +11,7 @@ class GameController {
   private isStartGame: boolean;
   private playButton: p5.Element | undefined;
   private quitButton: p5.Element | undefined;
+ 
 
   constructor() {
     this.score = 0;
@@ -27,11 +28,11 @@ class GameController {
     this.countDown = 5;
     this.isStartGame = true;
   }
+  
 
   public drawStartScreen() {
     push();
-    //textFont(font);   
-    textFont("Amatic SC"); 
+    textFont(font);
     background("#acb8e5");
     imageMode(CENTER);
     image(hopTopImage, width / 2, height * 0.45, width * 0.75);
@@ -150,11 +151,10 @@ class GameController {
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
-
-  private displayGameOver() {
+ displayGameOver() {
     if (!this.playButton && !this.quitButton) {
       push();
-      //if clicked go to level1
+      //if clicked go to level_1
 
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(windowWidth / 2, height * 0.82);
@@ -189,8 +189,7 @@ class GameController {
       pop();
     }
     push();
-    //textFont(font);
-    textFont("Amatic SC");
+    textFont(font);
     textAlign(CENTER);
     fill("rgb(242,37,174)");
     stroke("rgb(5,42,147)");
@@ -224,8 +223,7 @@ class GameController {
   private drawScoreBoard(): void {
     function scoreText(): void {
       push();
-      //textFont(font);
-      textFont("Amatic SC");
+      textFont(font);
       fill(0, 10, 153);
       textSize(22);
       text("Level", 285, 35);
