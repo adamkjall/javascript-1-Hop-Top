@@ -102,13 +102,12 @@ class GameController {
       }
     });
 
-    const r: number = map(this.level.levelProgress, 0, 100, 120, 60);
+   /* const r: number = map(this.level.levelProgress, 0, 100, 120, 60);
     const b: number = map(this.level.levelProgress, 0, 100, 170, 110);
     const g: number = map(this.level.levelProgress, 0, 100, 235, 200);
 
-    // background("cornflowerblue");
-    background(r, b, g);
-
+    background(r, b, g);*/
+    
     this.level.drawLevel();
     this.drawScoreBoard();
     this.player.drawPlayer();

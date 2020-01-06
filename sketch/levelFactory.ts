@@ -109,17 +109,6 @@ class LevelFactory {
               -20
             );
             break;
-          case 10:
-            // bonus item
-            object = new Item(
-              xPos,
-              yPos,
-              xStepSize,
-              xStepSize,
-              imgItemWatermelon,
-              15
-            );
-            break;
         }
         if (object) levelObjects.push(object);
       }
