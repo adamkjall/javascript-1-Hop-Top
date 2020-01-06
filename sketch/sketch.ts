@@ -21,6 +21,7 @@ function preload() {
   imgItemDanger = loadImage("../assets/images/itemDanger.svg");
   imgItemStonefall = loadImage("../assets/images/itemStonefall.svg");
   imgItemWatermelon = loadImage("../assets/images/itemWatermelon.svg");
+  imgAnimated = loadImage("../assets/images/coin.gif");
   //SpeedBoost items
   imgSpeedBoost = loadImage("../assets/images/star.svg");
   //Game over text
@@ -47,6 +48,7 @@ let imgItemCar: p5.Image;
 let imgItemDanger: p5.Image;
 let imgItemStonefall: p5.Image;
 let imgItemWatermelon: p5.Image;
+let imgAnimated: p5.Image;
 let collectItemSound: p5.SoundFile;
 let gameController: GameController;
 let jumpSound: p5.SoundFile;
