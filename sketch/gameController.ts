@@ -11,6 +11,10 @@ class GameController {
   private isStartGame: boolean;
   private playButton: p5.Element | undefined;
   private quitButton: p5.Element | undefined;
+<<<<<<< HEAD
+=======
+  private scoreboard: Scoreboard;
+>>>>>>> master
 
   constructor() {
     this.score = 0;
@@ -26,6 +30,7 @@ class GameController {
     this.isStartingNextLevel = false;
     this.countDown = 5;
     this.isStartGame = true;
+    this.scoreboard = new Scoreboard();
   }
 
   public drawStartScreen() {
@@ -116,7 +121,7 @@ class GameController {
     background(r, b, g);
 
     this.level.drawLevel();
-    this.drawScoreBoard();
+    this.scoreboard.draw(this.score, this.highScore, this.levelNumber);
     this.player.drawPlayer();
 
     if (this.isStartingNextLevel) this.displayCountDown();
@@ -224,43 +229,4 @@ class GameController {
     }
   }
 
-  private drawScoreBoard(): void {
-    function scoreText(): void {
-      push();
-      textFont(font);
-      fill(0, 10, 153);
-      textSize(22);
-      text("Level", 285, 35);
-      text("High Score", 85, 55);
-      text("Score", 430, 55);
-      pop();
-    }
-
-    const scorePoints = (): void => {
-      push();
-      fill(255, 255, 255);
-      textSize(18);
-      text(this.highScore, 90, 75);
-      text(this.score, 430, 75);
-      textSize(62);
-      textAlign(CENTER);
-      text(this.levelNumber, 300, 90);
-      pop();
-    };
-
-    function scoreBoard(): void {
-      push();
-      let c: p5.Color = color(252, 208, 107);
-      stroke(c);
-      fill(c);
-      circle(300, 60, 100);
-      strokeWeight(50);
-      line(75, 60, 525, 60);
-      pop();
-    }
-
-    scoreBoard();
-    scoreText();
-    scorePoints();
-  }
 }
