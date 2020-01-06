@@ -6,7 +6,7 @@
 function preload() {
   // Tyvärr har jag inte fått till den globala typningen för
   // inladdningen av ljud men fungerar bra enligt nedan..
-  hopTopImage = loadImage("../assets/images/HOP_TOP.png");
+  hopTopImage = loadImage("../assets/images/hop_top.png");
   //Sound for when the ball collects items. Not currently being used.
   //Use with   collectItemSound.play()
   collectItemSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
