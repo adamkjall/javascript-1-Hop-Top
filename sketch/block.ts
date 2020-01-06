@@ -8,6 +8,4 @@ class Block extends GameObject {
   ) {
     super(x, y, width, height, image);
   }
-
-  
 }

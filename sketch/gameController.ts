@@ -93,17 +93,25 @@ class GameController {
 
     // moves all level objects down
     this.level.levelObjects.forEach(levelObject => {
-      if (
-        levelObject instanceof Block &&
-        this.collisionDetection.playerCollidedWithBlock(
-          this.player,
-          levelObject
-        )
-      ) {
-        this.player.bounceOnBlock(levelObject.pos);
-      } else if (
-        this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
-      ) {
+      const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
+        this.player,
+        levelObject
+      );
+      const isItemCollision = this.collisionDetection.playerCollidedWithItem(
+        this.player,
+        levelObject
+      );
+
+      if (isblockCollision) {
+        if (levelObject instanceof Block) {
+          this.player.bounceOnBlock(levelObject.pos);
+        } else if (levelObject instanceof FragileBlock) {
+          if (!levelObject.isDestroyed) {
+            const didBounce = this.player.bounceOnBlock(levelObject.pos);
+            if (didBounce) levelObject.destroy();
+          }
+        }
+      } else if (isItemCollision) {
         if (levelObject instanceof SpeedBoost) {
           levelObject.applySpeedBoost(this.player);
           this.level.pickUpItem(levelObject);
