@@ -27,6 +27,12 @@ function preload() {
   gameOver = loadImage("../assets/images/game_over.png");
   //Font in game
   font = loadFont("../assets/font/AmaticSC-Bold.ttf");
+  jumpSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
+  gameOverSound = (window as any).loadSound("../assets/sounds/game-over.wav");
+  newLevelSound = (window as any).loadSound("../assets/sounds/happy-clapps.wav");
+  pointsSound = (window as any).loadSound("../assets/sounds/points.wav");
+  gameOverMusic = (window as any).loadSound("../assets/sounds/game-over-music.mp3");
+  buttonSound = (window as any).loadSound("../assets/sounds/button.wav");
 }
 
 let font: p5.Font;
@@ -43,6 +49,14 @@ let imgItemStonefall: p5.Image;
 let imgItemWatermelon: p5.Image;
 let collectItemSound: p5.SoundFile;
 let gameController: GameController;
+let jumpSound: p5.SoundFile;
+let gameOverSound: p5.SoundFile;
+let newLevelSound: p5.SoundFile;
+let pointsSound: p5.SoundFile;
+let gameOverMusic: p5.SoundFile;
+let buttonSound: p5.SoundFile;
+
+
 
 /**
  * Built in setup function in P5

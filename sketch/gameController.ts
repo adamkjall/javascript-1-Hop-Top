@@ -35,6 +35,7 @@ class GameController {
   public drawGame(): void {
     if ((keyIsPressed && keyCode === 32) || mouseIsPressed === true) {
       this.isStartGame = false;
+      buttonSound.play();
     }
     if (this.isStartGame) {
       this.startScreen.draw();
@@ -55,6 +56,7 @@ class GameController {
     }
 
     this.player.move();
+    gameOverMusic.stop();
 
     const heightBeforeGameStarts = height / 2;
     if (
@@ -79,7 +81,8 @@ class GameController {
 
       if (isblockCollision) {
         if (levelObject instanceof Block) {
-          this.player.bounceOnBlock(levelObject.pos);
+          const didBounce = this.player.bounceOnBlock(levelObject.pos);
+          if (didBounce) jumpSound.play();
         } else if (levelObject instanceof FragileBlock) {
           if (!levelObject.isDestroyed) {
             const didBounce = this.player.bounceOnBlock(levelObject.pos);
@@ -116,6 +119,7 @@ class GameController {
     this.player.pos.y > height + this.player.radius * 2;
 
   private startNextLevel() {
+    newLevelSound.play();
     this.isStartingNextLevel = true;
     // wait before starting new level
     setTimeout(() => {
@@ -149,9 +153,11 @@ class GameController {
   }
   displayGameOver() {
     if (!this.playButton && !this.quitButton) {
+      gameOverSound.play();
+      gameOverMusic.loop();
       push();
-      //if clicked go to level_1
 
+      //if clicked go to level_1
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(windowWidth / 2, height * 0.82);
       this.playButton.center("horizontal");
@@ -207,11 +213,11 @@ class GameController {
   }
 
   private updateScore(itemScore: number): void {
+    pointsSound.play();
     this.score += itemScore; //20;
 
     if (this.score >= this.highScore) {
       this.highScore = this.score;
     }
   }
-
 }
