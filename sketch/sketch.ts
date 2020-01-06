@@ -26,10 +26,10 @@ function preload() {
   //Game over text
   gameOver = loadImage("../assets/images/game_over.png");
   //Font in game
-  //font = loadFont("Amatic SC");
+  font = loadFont("../assets/font/AmaticSC-Bold.ttf");
 }
 
-//let font: p5.Font;
+let font: p5.Font;
 let gameOver: p5.Image;
 let hopTopImage: p5.Image;
 let imgSpeedBoost: p5.Image;
