@@ -4,8 +4,10 @@ class Player {
   private yVelocity: number;
   private _speed: number;
   private diameter: number;
-  private bouncePower: number;
-  private _maxSpeed: number;
+  private bouncePower: number = 16.5;
+  private _maxSpeed: number = 8;
+  private color: p5.Color = color(38, 48, 86);
+  private borderColor: p5.Color = color(255, 171, 194);
 
   constructor(
     x: number,
@@ -20,8 +22,6 @@ class Player {
     this.yVelocity = yVelocity;
     this._speed = speed;
     this.diameter = diameter;
-    this.bouncePower = 16.5;
-    this._maxSpeed = 8;
   }
 
   public move(): void {
@@ -65,14 +65,27 @@ class Player {
   public drawPlayer(): void {
     push();
     // outer circle
-    stroke("rgb(255,171,194)");
+    stroke(this.borderColor);
     const outerCircleSize = this.diameter / 3.5;
 
     strokeWeight(outerCircleSize);
     // inner circle
-    fill("rgb(38,48,86)");
+    fill(this.color);
     circle(this.position.x, this.position.y, this.diameter - outerCircleSize);
     pop();
+  } 
+
+  /**
+   * Change color of the player and returns the old colors
+   * @param color new main color
+   * @param borderColor new border color
+   */
+  public changeColor(color: p5.Color, borderColor: p5.Color) : [p5.Color, p5.Color] {
+    const oldColor = this.color;
+    const oldBorderColor = this.borderColor;
+    this.color = color;
+    this.borderColor = borderColor;
+    return [oldColor, oldBorderColor];
   }
 
   public get pos() {
@@ -100,6 +113,8 @@ class Player {
   }
 
   public set maxSpeed(newMaxSpeed: number) {
-    this._maxSpeed = newMaxSpeed
+    this._maxSpeed = newMaxSpeed;
   }
+
+ 
 }

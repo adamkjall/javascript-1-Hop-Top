@@ -20,11 +20,30 @@ class SpeedBoost extends Item {
   applySpeedBoost(player: Player) {
     const oldSpeed = player.speed;
     const oldMaxSpeed = player.maxSpeed;
+    const newColor = color(59, 69, 107);
+    const newBorderColor = color(248, 122, 156);
+    const [oldColor, oldBorderColor] = player.changeColor(
+      newColor,
+      newBorderColor,
+    );
+
     player.speed = this.speed;
     player.maxSpeed = this.maxSpeed;
+
+    const interval1 = setInterval(() => {
+      player.changeColor(oldColor, oldBorderColor);
+    }, 200);
+
+    const interval2 = setInterval(() => {
+      player.changeColor(newColor, newBorderColor);
+    }, 400);
+
     setTimeout(() => {
       player.speed = oldSpeed;
       player.maxSpeed = oldMaxSpeed;
+      clearInterval(interval1);
+      clearInterval(interval2);
+      player.changeColor(oldColor, oldBorderColor);
     }, this.duration);
   }
 }
