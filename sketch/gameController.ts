@@ -11,7 +11,9 @@ class GameController {
   private isStartGame: boolean;
   private playButton: p5.Element | undefined;
   private quitButton: p5.Element | undefined;
+  private startScreen: StartScreen;
   private scoreboard: Scoreboard;
+
 
   constructor() {
     this.score = 0;
@@ -27,6 +29,7 @@ class GameController {
     this.isStartingNextLevel = false;
     this.countDown = 5;
     this.isStartGame = true;
+    this.startScreen = new StartScreen();
     this.scoreboard = new Scoreboard();
   }
   
@@ -50,7 +53,7 @@ class GameController {
       this.isStartGame = false;
     }
     if (this.isStartGame) {
-      this.drawStartScreen();
+      this.startScreen.draw();
       return;
     }
 
