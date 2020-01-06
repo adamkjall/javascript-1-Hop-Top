@@ -11,6 +11,9 @@ class GameController {
   private isStartGame: boolean;
   private playButton: p5.Element | undefined;
   private quitButton: p5.Element | undefined;
+  private startScreen: StartScreen;
+  private scoreboard: Scoreboard;
+
 
   constructor() {
     this.score = 0;
@@ -26,12 +29,14 @@ class GameController {
     this.isStartingNextLevel = false;
     this.countDown = 5;
     this.isStartGame = true;
+    this.startScreen = new StartScreen();
+    this.scoreboard = new Scoreboard();
   }
+  
 
   public drawStartScreen() {
     push();
-    //textFont(font);   
-    textFont("Amatic SC"); 
+    textFont(font);
     background("#acb8e5");
     imageMode(CENTER);
     image(hopTopImage, width / 2, height * 0.45, width * 0.75);
@@ -48,7 +53,7 @@ class GameController {
       this.isStartGame = false;
     }
     if (this.isStartGame) {
-      this.drawStartScreen();
+      this.startScreen.draw();
       return;
     }
 
@@ -109,7 +114,7 @@ class GameController {
     background(r, b, g);
 
     this.level.drawLevel();
-    this.drawScoreBoard();
+    this.scoreboard.draw(this.score, this.highScore, this.levelNumber);
     this.player.drawPlayer();
 
     if (this.isStartingNextLevel) this.displayCountDown();
@@ -150,11 +155,10 @@ class GameController {
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
-
-  private displayGameOver() {
+ displayGameOver() {
     if (!this.playButton && !this.quitButton) {
       push();
-      //if clicked go to level1
+      //if clicked go to level_1
 
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(windowWidth / 2, height * 0.82);
@@ -189,8 +193,7 @@ class GameController {
       pop();
     }
     push();
-    //textFont(font);
-    textFont("Amatic SC");
+    textFont(font);
     textAlign(CENTER);
     fill("rgb(242,37,174)");
     stroke("rgb(5,42,147)");
@@ -221,44 +224,4 @@ class GameController {
     }
   }
 
-  private drawScoreBoard(): void {
-    function scoreText(): void {
-      push();
-      //textFont(font);
-      textFont("Amatic SC");
-      fill(0, 10, 153);
-      textSize(22);
-      text("Level", 285, 35);
-      text("High Score", 85, 55);
-      text("Score", 430, 55);
-      pop();
-    }
-
-    const scorePoints = (): void => {
-      push();
-      fill(255, 255, 255);
-      textSize(18);
-      text(this.highScore, 90, 75);
-      text(this.score, 430, 75);
-      textSize(62);
-      textAlign(CENTER);
-      text(this.levelNumber, 300, 90);
-      pop();
-    };
-
-    function scoreBoard(): void {
-      push();
-      let c: p5.Color = color(252, 208, 107);
-      stroke(c);
-      fill(c);
-      circle(300, 60, 100);
-      strokeWeight(50);
-      line(75, 60, 525, 60);
-      pop();
-    }
-
-    scoreBoard();
-    scoreText();
-    scorePoints();
-  }
 }
