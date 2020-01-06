@@ -92,9 +92,9 @@ class GameController {
           this.player.bounceOnBlock(levelObject.pos);
         } else if (levelObject instanceof FragileBlock) {
           if (!levelObject.isDestroyed) {
-            this.player.bounceOnBlock(levelObject.pos);
+            const didBounce = this.player.bounceOnBlock(levelObject.pos);
+            if (didBounce) levelObject.destroy();
           }
-          levelObject.destroy();
         }
       } else if (isItemCollision) {
         if (levelObject instanceof SpeedBoost) {

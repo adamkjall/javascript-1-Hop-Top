@@ -50,12 +50,14 @@ class Player {
     }
   }
 
-  public bounceOnBlock(pos: Position): void {
+  public bounceOnBlock(pos: Position): boolean {
     if (this.yVelocity > 0) {
       this.pos.y = pos.y - this.radius - 1;
       this.yVelocity = 0;
       this.yVelocity -= this.bouncePower;
+      return true;
     }
+    return false;
   }
 
   private gravity(): void {
