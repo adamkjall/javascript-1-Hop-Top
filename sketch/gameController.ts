@@ -14,7 +14,6 @@ class GameController {
   private startScreen: StartScreen;
   private scoreboard: Scoreboard;
 
-
   constructor() {
     this.score = 0;
     const localStorageHighscore = localStorage.getItem("highscore");
@@ -31,20 +30,6 @@ class GameController {
     this.isStartGame = true;
     this.startScreen = new StartScreen();
     this.scoreboard = new Scoreboard();
-  }
-  
-  public drawStartScreen() {
-    push();
-    textFont(font);
-    background("#acb8e5");
-    imageMode(CENTER);
-    image(hopTopImage, width / 2, height * 0.45, width * 0.75);
-    fill("white");
-    textAlign(CENTER);
-    textSize(30);
-    text("click on screen to", width / 2, height * 0.91);
-    text("start the game", width / 2, height * 0.95);
-    pop();
   }
 
   public drawGame(): void {
@@ -85,18 +70,28 @@ class GameController {
 
     // moves all level objects down
     this.level.levelObjects.forEach(levelObject => {
-      if (
-        levelObject instanceof Block &&
-        this.collisionDetection.playerCollidedWithBlock(
-          this.player,
-          levelObject
-        )
-      ) {
-        this.player.bounceOnBlock(levelObject.pos);
-        jumpSound.play();
-      } else if (
-        this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
-      ) {
+
+      const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
+        this.player,
+        levelObject
+      );
+      const isItemCollision = this.collisionDetection.playerCollidedWithItem(
+        this.player,
+        levelObject
+      );
+
+      if (isblockCollision) {
+        if (levelObject instanceof Block) {
+          const dideBounce = this.player.bounceOnBlock(levelObject.pos);
+          if (didBounce)  jumpSound.play();
+        } else if (levelObject instanceof FragileBlock) {
+          if (!levelObject.isDestroyed) {
+            const didBounce = this.player.bounceOnBlock(levelObject.pos);
+            if (didBounce) levelObject.destroy();
+          }
+        }
+      } else if (isItemCollision) {
+
         if (levelObject instanceof SpeedBoost) {
           levelObject.applySpeedBoost(this.player);
           this.level.pickUpItem(levelObject);
@@ -159,7 +154,7 @@ class GameController {
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
- displayGameOver() {
+  displayGameOver() {
     if (!this.playButton && !this.quitButton) {
       gameOverSound.play();
       gameOverMusic.loop();
@@ -170,7 +165,7 @@ class GameController {
       this.playButton.position(windowWidth / 2, height * 0.82);
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(252, 208, 107)");
-      this.playButton.style('font-family', 'Amatic SC');
+      this.playButton.style("font-family", "Amatic SC");
       //textFont(font);
       this.playButton.style("font-size", "2rem");
       this.playButton.style("color", "rgb(38,48,86)");
@@ -186,7 +181,7 @@ class GameController {
       this.quitButton.position(windowWidth / 2, height * 0.94);
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
-      this.quitButton.style('font-family', 'Amatic SC');
+      this.quitButton.style("font-family", "Amatic SC");
       //textFont(font);
       this.quitButton.style("font-size", "1.7rem");
       this.quitButton.style("color", "rgb(252, 208, 107)");
@@ -211,8 +206,6 @@ class GameController {
     pop();
 
   }
-
-
 
   private restartGame(): void {
     removeElements();
