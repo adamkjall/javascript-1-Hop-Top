@@ -11,7 +11,6 @@ class GameController {
   private isStartGame: boolean;
   private playButton: p5.Element | undefined;
   private quitButton: p5.Element | undefined;
- 
 
   constructor() {
     this.score = 0;
@@ -28,7 +27,6 @@ class GameController {
     this.countDown = 5;
     this.isStartGame = true;
   }
-  
 
   public drawStartScreen() {
     push();
@@ -80,17 +78,25 @@ class GameController {
 
     // moves all level objects down
     this.level.levelObjects.forEach(levelObject => {
-      if (
-        levelObject instanceof Block &&
-        this.collisionDetection.playerCollidedWithBlock(
-          this.player,
-          levelObject
-        )
-      ) {
-        this.player.bounceOnBlock(levelObject.pos);
-      } else if (
-        this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
-      ) {
+      const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
+        this.player,
+        levelObject
+      );
+      const isItemCollision = this.collisionDetection.playerCollidedWithItem(
+        this.player,
+        levelObject
+      );
+
+      if (isblockCollision) {
+        if (levelObject instanceof Block) {
+          this.player.bounceOnBlock(levelObject.pos);
+        } else if (levelObject instanceof FragileBlock) {
+          if (!levelObject.isDestroyed) {
+            this.player.bounceOnBlock(levelObject.pos);
+          }
+          levelObject.destroy();
+        }
+      } else if (isItemCollision) {
         if (levelObject instanceof SpeedBoost) {
           levelObject.applySpeedBoost(this.player);
           this.level.pickUpItem(levelObject);
@@ -151,7 +157,7 @@ class GameController {
     text("Next level in " + this.countDown, width / 2, height / 4);
     pop();
   }
- displayGameOver() {
+  displayGameOver() {
     if (!this.playButton && !this.quitButton) {
       push();
       //if clicked go to level_1
@@ -160,7 +166,7 @@ class GameController {
       this.playButton.position(windowWidth / 2, height * 0.82);
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(252, 208, 107)");
-      this.playButton.style('font-family', 'Amatic SC');
+      this.playButton.style("font-family", "Amatic SC");
       //textFont(font);
       this.playButton.style("font-size", "2rem");
       this.playButton.style("color", "rgb(38,48,86)");
@@ -176,7 +182,7 @@ class GameController {
       this.quitButton.position(windowWidth / 2, height * 0.94);
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
-      this.quitButton.style('font-family', 'Amatic SC');
+      this.quitButton.style("font-family", "Amatic SC");
       //textFont(font);
       this.quitButton.style("font-size", "1.7rem");
       this.quitButton.style("color", "rgb(252, 208, 107)");
@@ -200,8 +206,6 @@ class GameController {
     image(gameOver, 15, 125);
     pop();
   }
-
-
 
   private restartGame(): void {
     removeElements();

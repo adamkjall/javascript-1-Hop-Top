@@ -42,7 +42,11 @@ class Level {
   
   public drawLevel(): void {
     for (let object of this._levelObjects) {
-      object.draw();
+      if (object instanceof FragileBlock) {
+        if (!object.isDestroyed) object.draw();
+      } else {
+        object.draw();
+      }
     }
 
     this.effectList.forEach((effect, i) => {
@@ -94,7 +98,7 @@ class Level {
     this.effectList.push(pickUpEffect);
   }
   
-  public get levelObjects(): Block[] {
+  public get levelObjects(): GameObject[] {
     return this._levelObjects;
   }
 
