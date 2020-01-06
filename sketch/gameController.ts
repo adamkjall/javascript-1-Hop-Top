@@ -139,16 +139,16 @@ class GameController {
 
   private saveHighscore() {
     const localStorageName = localStorage.getItem("name");
-    const playerName = localStorageName ? JSON.parse(localStorageName) : "";
+    const playerName = localStorageName ? JSON.parse(localStorageName) : undefined;
 
     if (playerName) {
       const localStorageHighscore = localStorage.getItem("highscore");
       const highscore = localStorageHighscore
         ? JSON.parse(localStorageHighscore)
         : {};
-      if (highscore[playerName] && highscore[playerName] > this.score) {
+      if (highscore[playerName] && highscore[playerName] < this.score) {
         highscore[playerName] = this.score;
-      } else {
+      } else if(!highscore[playerName]){
         highscore[playerName] = this.score;
       }
       localStorage.setItem("highscore", JSON.stringify(highscore));
