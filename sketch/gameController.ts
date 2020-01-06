@@ -33,7 +33,7 @@ class GameController {
   }
 
   public drawGame(): void {
-    if ((keyIsPressed && keyCode === 32) || mouseIsPressed === true) { 
+    if ((keyIsPressed && keyCode === 32) || mouseIsPressed === true) {
       this.isStartGame = false;
       buttonSound.play();
     }
@@ -70,7 +70,6 @@ class GameController {
 
     // moves all level objects down
     this.level.levelObjects.forEach(levelObject => {
-
       const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
         this.player,
         levelObject
@@ -82,8 +81,8 @@ class GameController {
 
       if (isblockCollision) {
         if (levelObject instanceof Block) {
-          const dideBounce = this.player.bounceOnBlock(levelObject.pos);
-          if (didBounce)  jumpSound.play();
+          const didBounce = this.player.bounceOnBlock(levelObject.pos);
+          if (didBounce) jumpSound.play();
         } else if (levelObject instanceof FragileBlock) {
           if (!levelObject.isDestroyed) {
             const didBounce = this.player.bounceOnBlock(levelObject.pos);
@@ -91,7 +90,6 @@ class GameController {
           }
         }
       } else if (isItemCollision) {
-
         if (levelObject instanceof SpeedBoost) {
           levelObject.applySpeedBoost(this.player);
           this.level.pickUpItem(levelObject);
@@ -119,10 +117,9 @@ class GameController {
 
   private isPlayerDead = (): boolean =>
     this.player.pos.y > height + this.player.radius * 2;
-    
 
   private startNextLevel() {
-    newLevelSound.play()
+    newLevelSound.play();
     this.isStartingNextLevel = true;
     // wait before starting new level
     setTimeout(() => {
@@ -159,7 +156,7 @@ class GameController {
       gameOverSound.play();
       gameOverMusic.loop();
       push();
-      
+
       //if clicked go to level_1
       this.playButton = createButton("PLAY AGAIN?");
       this.playButton.position(windowWidth / 2, height * 0.82);
@@ -204,7 +201,6 @@ class GameController {
     background(172, 184, 229, 10);
     image(gameOver, 15, 125);
     pop();
-
   }
 
   private restartGame(): void {
@@ -224,5 +220,4 @@ class GameController {
       this.highScore = this.score;
     }
   }
-
 }
