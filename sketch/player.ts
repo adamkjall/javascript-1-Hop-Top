@@ -5,14 +5,14 @@ class Player {
   private _speed: number;
   private diameter: number;
   private bouncePower: number;
-  private maxSpeed: number;
+  private _maxSpeed: number;
 
   constructor(
     x: number,
     y: number,
     xVelocity: number = 0,
     yVelocity: number = 0,
-    speed: number = .5,
+    speed: number = 0.6,
     diameter: number = 65
   ) {
     this.position = new Position(x, y);
@@ -21,18 +21,19 @@ class Player {
     this._speed = speed;
     this.diameter = diameter;
     this.bouncePower = 16.5;
-    this.maxSpeed = 8;
+    this._maxSpeed = 8;
   }
 
   public move(): void {
     if (keyIsDown(RIGHT_ARROW)) {
-      if (this.xVelocity >= this.maxSpeed) this.xVelocity = this.maxSpeed;
+      if (this.xVelocity >= this._maxSpeed) this.xVelocity = this._maxSpeed;
       else this.xVelocity += this._speed;
     } else if (keyIsDown(LEFT_ARROW)) {
-      if (abs(this.xVelocity) >= this.maxSpeed) this.xVelocity = -this.maxSpeed;
+      if (abs(this.xVelocity) >= this._maxSpeed)
+        this.xVelocity = -this._maxSpeed;
       else this.xVelocity -= this._speed;
     }
-    
+
     this.position.x += this.xVelocity;
     this.position.y += this.yVelocity;
     this.gravity();
@@ -49,7 +50,7 @@ class Player {
     }
   }
 
-  public bounceOnBlock(pos : Position) : void {
+  public bounceOnBlock(pos: Position): void {
     if (this.yVelocity > 0) {
       this.pos.y = pos.y - this.radius - 1;
       this.yVelocity = 0;
@@ -66,22 +67,22 @@ class Player {
     // outer circle
     stroke("rgb(255,171,194)");
     const outerCircleSize = this.diameter / 3.5;
-    
+
     strokeWeight(outerCircleSize);
     // inner circle
     fill("rgb(38,48,86)");
     circle(this.position.x, this.position.y, this.diameter - outerCircleSize);
     pop();
   }
-  
+
   public get pos() {
     return this.position;
   }
-  
+
   public set pos(pos: Position) {
-    this.position = pos; 
+    this.position = pos;
   }
-  
+
   public get radius() {
     return this.diameter / 2;
   }
@@ -92,5 +93,13 @@ class Player {
 
   public set speed(newSpeed: number) {
     this._speed = newSpeed;
+  }
+
+  public get maxSpeed() {
+    return this._maxSpeed;
+  }
+
+  public set maxSpeed(newMaxSpeed: number) {
+    this._maxSpeed = newMaxSpeed
   }
 }

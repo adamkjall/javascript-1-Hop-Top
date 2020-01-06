@@ -1,5 +1,6 @@
 class SpeedBoost extends Item {
-  private speedBoost: number;
+  private speed: number;
+  private maxSpeed: number;
   private duration: number;
 
   constructor(
@@ -11,15 +12,19 @@ class SpeedBoost extends Item {
     image: p5.Image = imgSpeedBoost
   ) {
     super(x, y, width, height, image, points);
-    this.speedBoost = 1.5;
-    this.duration = 4000;
+    this.speed = 1.2;
+    this.maxSpeed = 10;
+    this.duration = 5000;
   }
 
   applySpeedBoost(player: Player) {
     const oldSpeed = player.speed;
-    player.speed = this.speedBoost;
+    const oldMaxSpeed = player.maxSpeed;
+    player.speed = this.speed;
+    player.maxSpeed = this.maxSpeed;
     setTimeout(() => {
       player.speed = oldSpeed;
+      player.maxSpeed = oldMaxSpeed;
     }, this.duration);
   }
 }
