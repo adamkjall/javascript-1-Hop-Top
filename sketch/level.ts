@@ -4,20 +4,18 @@ class Level {
   private effectList: Effect[];
   private isLevelDone: boolean;
   private speed: number;
-  private r: p5.Color
-  private g: p5.Color
-  private b: p5.Color
+  private startColor: p5.Color;
+  private endColor: p5.Color;
 
 
-  constructor(gameObjects: GameObject[]) {
+  constructor(gameObjects: GameObject[], startColor: p5.Color, endColor: p5.Color ) {
     this._levelProgress = 0;
     this._levelObjects = gameObjects;
     this.effectList = [];
     this.isLevelDone = false;
     this.speed = 3.5;
-    this.r = new p5.Color
-    this.g = new p5.Color
-    this.b = new p5.Color
+    this.startColor = startColor;
+    this.endColor = endColor;
   }
 
   public updateLevel(): void {
@@ -51,10 +49,26 @@ class Level {
     for (let object of this._levelObjects) {
       object.draw();
 
-      const r: number = map(this.levelProgress, 0, 100, 120, 60);
-      const b: number = map(this.levelProgress, 0, 100, 170, 110);
-      const g: number = map(this.levelProgress, 0, 100, 235, 200);
-      background(r, b, g);
+      const startColorStr = this.startColor.toString();
+      const endColorStr = this.endColor.toString();
+
+      const startColorArr = startColorStr.slice(5, str.length - 3).split(",")
+      const endColorArr = endColorStr.slice(5, str.length - 3).split(",")
+      
+      const startR = Number(startColorArr[0]);
+      const startG = Number(startColorArr[1]);
+      const startB = Number(startColorArr[2]);
+      const endR = Number(endColorArr[0]);
+      const endG = Number(endColorArr[1]);
+      const endB = Number(endColorArr[2]);
+
+      
+      
+   
+      const r: number = map(this.levelProgress, 0, 100, startR, endR);
+      const g: number = map(this.levelProgress, 0, 100, startG, endG);
+      const b: number = map(this.levelProgress, 0, 100, startB, endB);
+      background(r, g, b);
     }
 
     this.effectList.forEach((effect, i) => {
