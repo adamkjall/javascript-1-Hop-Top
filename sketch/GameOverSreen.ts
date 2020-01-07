@@ -49,10 +49,11 @@ class GameOver {
 
   private restartGame(): void {
     removeElements();
-    gameController = new GameController();
+    gameController = new GameController(false);
   }
 
   private quitGame(): void {
-    location.reload();
+    removeElements();
+    gameController = new GameController();
   }
 }

@@ -14,7 +14,6 @@ class GameController {
   private scoreboard: Scoreboard;
   private gameOver: GameOver;
 
-
   constructor(showStartScreen: boolean = true) {
     this.score = 0;
     const localStorageHighscore = localStorage.getItem("highscore");
@@ -52,7 +51,6 @@ class GameController {
 
     //If player is under game area display Game Over on screen
     if (this.isPlayerDead()) {
-
       if (!this.isGameOver) {
         console.log("saved");
 
@@ -130,7 +128,9 @@ class GameController {
 
   private saveHighscore() {
     const localStorageName = localStorage.getItem("name");
-    const playerName = localStorageName ? JSON.parse(localStorageName) : undefined;
+    const playerName = localStorageName
+      ? JSON.parse(localStorageName)
+      : undefined;
 
     if (playerName) {
       const localStorageHighscore = localStorage.getItem("highscore");
@@ -139,7 +139,7 @@ class GameController {
         : {};
       if (highscore[playerName] && highscore[playerName] < this.score) {
         highscore[playerName] = this.score;
-      } else if(!highscore[playerName]){
+      } else if (!highscore[playerName]) {
         highscore[playerName] = this.score;
       }
       localStorage.setItem("highscore", JSON.stringify(highscore));
