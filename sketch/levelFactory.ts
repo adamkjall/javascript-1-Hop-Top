@@ -4,11 +4,11 @@ class LevelFactory {
   createLevel(level: number): Level {
     switch (level) {
       case 1:
+        return this.levelOne();
+      case 2:
+        return this.levelTwo();
+      case 3:
         return this.levelThree();
-        case 2:
-          return this.levelTwo();
-       case 3:
-         return this.levelOne();
       default:
         return this.levelOne();
     }
@@ -23,7 +23,7 @@ class LevelFactory {
         const cell = levelMap[levelMap.length - 1 - y][x];
         const xPos = x * xStepSize;
         const yPos = y * -100 + height;
-        let object : GameObject | undefined;
+        let object: GameObject | undefined;
         switch (cell) {
           case 1:
             object = new FragileBlock(xPos, yPos, xStepSize, 20);
@@ -109,16 +109,16 @@ class LevelFactory {
               -20
             );
             break;
-      
+
           case 11:
             // animated item
             object = new Item(
-                xPos,
-                yPos,
-                xStepSize,
-                xStepSize,
-                imgAnimated,
-                25
+              xPos,
+              yPos,
+              xStepSize,
+              xStepSize,
+              imgAnimated,
+              25
             );
             break;
         }
@@ -142,8 +142,8 @@ class LevelFactory {
       [0, 0, 0, 0, 0, 0, 2, 2],
       [0, 8, 0, 0, 0, 0, 0, 0],
       [0, 2, 2, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],    
-      [0, 0, 0, 0, 0, 2, 2, 2],  
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2, 2, 2],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [2, 2, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 6, 0],
@@ -177,7 +177,7 @@ class LevelFactory {
     ];
     const gameObjects: GameObject[] = this.createLevelObject(levelMap);
     const startColor = color(120, 170, 235);
-    const endColor = color(60,110,200);
+    const endColor = color(50, 120, 220);
     return new Level(gameObjects, startColor, endColor);
   }
 
@@ -213,9 +213,9 @@ class LevelFactory {
       [2, 2, 2, 2, 2, 2, 2, 2]
     ];
     const gameObjects: GameObject[] = this.createLevelObject(levelMap);
- 
-    const startColor = color(60,110,200);
-    const endColor = color(30, 80, 150);
+
+    const startColor = color(50, 120, 220);
+    const endColor = color(225, 60, 230);
     return new Level(gameObjects, startColor, endColor);
   }
 
@@ -233,7 +233,7 @@ class LevelFactory {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 2, 2, 2, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 2, 2, 0],//block 30
+      [0, 0, 0, 0, 0, 2, 2, 0], //block 30
       [0, 9, 0, 0, 0, 0, 0, 0],
       [0, 2, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -252,7 +252,7 @@ class LevelFactory {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 2, 2, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 2, 2, 0],//block 20
+      [0, 0, 0, 0, 0, 2, 2, 0], //block 20
       [0, 9, 0, 0, 0, 0, 0, 0],
       [0, 2, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -272,7 +272,7 @@ class LevelFactory {
       [0, 0, 0, 0, 0, 0, 0, 5],
       [0, 0, 0, 0, 0, 2, 2, 2],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 2, 2, 0, 0, 0, 0, 0],//block 10
+      [0, 2, 2, 0, 0, 0, 0, 0], //block 10
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 9, 0, 0, 0, 2, 2, 0],
       [0, 2, 2, 0, 0, 0, 0, 0],
@@ -292,8 +292,8 @@ class LevelFactory {
       [2, 2, 2, 2, 2, 2, 2, 2]
     ];
     const gameObjects: GameObject[] = this.createLevelObject(levelMap);
-  const startColor = color(30, 80, 150);
-  const endColor = color(250, 120, 80);
+    const startColor = color(225, 60, 230);
+    const endColor = color(120, 170, 235);
     return new Level(gameObjects, startColor, endColor);
   }
 }
