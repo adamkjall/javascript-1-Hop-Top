@@ -193,9 +193,6 @@ class GameController {
   private updateScore(itemScore: number): void {
     pointsSound.play();
     this.score += itemScore; //20;
-
-    if (this.score >= this.highScore) {
-      this.highScore = this.score;
     }
   }
-}
+
