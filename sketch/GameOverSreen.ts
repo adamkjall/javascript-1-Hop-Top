@@ -1,9 +1,8 @@
-class GameOver{
-    private playButton: p5.Element | undefined;
-    private quitButton: p5.Element | undefined;
-    
+class GameOver {
+  private playButton: p5.Element | undefined;
+  private quitButton: p5.Element | undefined;
 
-displayGameOver() {
+  displayGameOver() {
     if (!this.playButton && !this.quitButton) {
       push();
       //if clicked go to level1
@@ -35,7 +34,6 @@ displayGameOver() {
       this.quitButton.style("justify-items", "center");
       this.quitButton.mousePressed(this.quitGame);
       pop();
-      
     }
     push();
     textAlign(CENTER);
@@ -57,6 +55,4 @@ displayGameOver() {
   private quitGame(): void {
     location.reload();
   }
-
-
-
+}
