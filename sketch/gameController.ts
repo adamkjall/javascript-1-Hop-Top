@@ -9,17 +9,24 @@ class GameController {
   private isStartingNextLevel: boolean;
   private countDown: number;
   private isStartGame: boolean;
-  private startScreen: StartScreen;
+  private isGameOver: boolean;
+  private playButton: p5.Element | undefined;
+  private quitButton: p5.Element | undefined;
+  private startScreen: StartScreen | undefined;
   private scoreboard: Scoreboard;
   private gameOver: GameOver;
 
 
-  constructor() {
+  constructor(showStartScreen: boolean = true) {
     this.score = 0;
     const localStorageHighscore = localStorage.getItem("highscore");
-    this.highScore = localStorageHighscore
+    const highscoreObj = localStorageHighscore
       ? JSON.parse(localStorageHighscore)
-      : 0;
+      : {};
+    const highscoreArray = Object.keys(highscoreObj).map(
+      key => highscoreObj[key]
+    );
+    this.highScore = highscoreArray.length ? Math.max(...highscoreArray) : 0;
     this.levelNumber = 1;
     this.levelFactory = new LevelFactory();
     this.level = this.levelFactory.createLevel(this.levelNumber);
@@ -27,33 +34,40 @@ class GameController {
     this.collisionDetection = new CollisionDetection();
     this.isStartingNextLevel = false;
     this.countDown = 5;
-    this.isStartGame = true;
-    this.startScreen = new StartScreen();
+    this.isStartGame = showStartScreen;
+    this.isGameOver = false;
+    this.startScreen = showStartScreen ? new StartScreen() : undefined;
     this.scoreboard = new Scoreboard();
     this.gameOver = new GameOver();
   }
 
   public drawGame(): void {
-    if ((keyIsPressed && keyCode === 32) || mouseIsPressed === true) {
+    if (this.isStartGame && keyIsPressed && keyCode === 13) {
+      removeElements();
       this.isStartGame = false;
       buttonSound.play();
     }
-    if (this.isStartGame) {
+    if (this.isStartGame && this.startScreen) {
       this.startScreen.draw();
       return;
     }
 
     //If player is under game area display Game Over on screen
     if (this.isPlayerDead()) {
+
+      if (!this.isGameOver) {
+        console.log("saved");
+
+        this.saveHighscore();
+      }
+      this.isGameOver = true;
       this.gameOver.displayGameOver();
-      localStorage.setItem("highscore", JSON.stringify(this.highScore));
       return;
     }
 
     // if level is done and we're not starting a new level
     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
-      localStorage.setItem("highscore", JSON.stringify(this.highScore));
     }
 
     this.player.move();
@@ -114,6 +128,24 @@ class GameController {
     this.player.drawPlayer();
 
     if (this.isStartingNextLevel) this.displayCountDown();
+  }
+
+  private saveHighscore() {
+    const localStorageName = localStorage.getItem("name");
+    const playerName = localStorageName ? JSON.parse(localStorageName) : undefined;
+
+    if (playerName) {
+      const localStorageHighscore = localStorage.getItem("highscore");
+      const highscore = localStorageHighscore
+        ? JSON.parse(localStorageHighscore)
+        : {};
+      if (highscore[playerName] && highscore[playerName] < this.score) {
+        highscore[playerName] = this.score;
+      } else if(!highscore[playerName]){
+        highscore[playerName] = this.score;
+      }
+      localStorage.setItem("highscore", JSON.stringify(highscore));
+    }
   }
 
   private isPlayerDead = (): boolean =>

@@ -8,7 +8,7 @@ class Player {
   private _maxSpeed: number = 8;
   private color: p5.Color = color(38, 48, 86);
   private borderColor: p5.Color = color(255, 171, 194);
-  private history: [p5.Vector] = [];
+  private history: p5.Vector[] = [];
 
   constructor(
     x: number,
