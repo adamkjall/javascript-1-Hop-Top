@@ -46,29 +46,31 @@ class Level {
   }
 
   public drawLevel(): void {
+    const startColorStr = this.startColor.toString();
+    const endColorStr = this.endColor.toString();
+
+    const startColorArr = startColorStr.slice(5, str.length - 3).split(",")
+    const endColorArr = endColorStr.slice(5, str.length - 3).split(",")
+    
+    const startR = Number(startColorArr[0]);
+    const startG = Number(startColorArr[1]);
+    const startB = Number(startColorArr[2]);
+    const endR = Number(endColorArr[0]);
+    const endG = Number(endColorArr[1]);
+    const endB = Number(endColorArr[2]);
+
+    const r: number = map(this.levelProgress, 0, 100, startR, endR);
+    const g: number = map(this.levelProgress, 0, 100, startG, endG);
+    const b: number = map(this.levelProgress, 0, 100, startB, endB);
+
+    background(r, g, b);
+
     for (let object of this._levelObjects) {
-      object.draw();
-
-      const startColorStr = this.startColor.toString();
-      const endColorStr = this.endColor.toString();
-
-      const startColorArr = startColorStr.slice(5, str.length - 3).split(",")
-      const endColorArr = endColorStr.slice(5, str.length - 3).split(",")
-      
-      const startR = Number(startColorArr[0]);
-      const startG = Number(startColorArr[1]);
-      const startB = Number(startColorArr[2]);
-      const endR = Number(endColorArr[0]);
-      const endG = Number(endColorArr[1]);
-      const endB = Number(endColorArr[2]);
-
-      
-      
-   
-      const r: number = map(this.levelProgress, 0, 100, startR, endR);
-      const g: number = map(this.levelProgress, 0, 100, startG, endG);
-      const b: number = map(this.levelProgress, 0, 100, startB, endB);
-      background(r, g, b);
+      if (object instanceof FragileBlock) {
+        if (!object.isDestroyed) object.draw();
+      } else {
+        object.draw();
+      }
     }
 
     this.effectList.forEach((effect, i) => {
@@ -121,8 +123,8 @@ class Level {
     const pickUpEffect = new Effect(objectToRemove.pos, objectToRemove.points);
     this.effectList.push(pickUpEffect);
   }
-
-  public get levelObjects(): Block[] {
+  
+  public get levelObjects(): GameObject[] {
     return this._levelObjects;
   }
 

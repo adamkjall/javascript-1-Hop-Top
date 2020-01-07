@@ -26,7 +26,7 @@ class LevelFactory {
         let object : GameObject | undefined;
         switch (cell) {
           case 1:
-            // clouds
+            object = new FragileBlock(xPos, yPos, xStepSize, 20);
             break;
           case 2:
             object = new Block(xPos, yPos, xStepSize, 20);
@@ -109,6 +109,28 @@ class LevelFactory {
               -20
             );
             break;
+          // case 10:
+          //   // bonus item
+          //   object = new Item(
+          //     xPos,
+          //     yPos,
+          //     xStepSize,
+          //     xStepSize,
+          //     imgItemWatermelon,
+          //     15
+          //   );
+          //   break;
+          case 11:
+            // animated item
+            object = new Item(
+                xPos,
+                yPos,
+                xStepSize,
+                xStepSize,
+                imgAnimated,
+                25
+            );
+            break;
         }
         if (object) levelObjects.push(object);
       }
@@ -137,11 +159,11 @@ class LevelFactory {
       [0, 0, 0, 0, 0, 0, 6, 0],
       [0, 0, 0, 0, 2, 2, 2, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [2, 2, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 2, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0],
       [0, 5, 0, 0, 0, 0, 0, 0],
       [2, 2, 2, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -155,11 +177,11 @@ class LevelFactory {
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 2, 2, 0, 0, 0],
       [3, 0, 0, 0, 0, 0, 0, 0],
-      [2, 2, 2, 0, 0, 0, 0, 0],
+      [2, 2, 1, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 2, 2, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [2, 2, 2, 0, 0, 0, 0, 0],
+      [11, 0, 0, 0, 0, 0, 0, 0],
+      [2, 2, 1, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
       [2, 2, 2, 2, 2, 2, 2, 2]
     ];

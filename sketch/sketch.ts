@@ -6,7 +6,7 @@
 function preload() {
   // Tyvärr har jag inte fått till den globala typningen för
   // inladdningen av ljud men fungerar bra enligt nedan..
-  hopTopImage = loadImage("../assets/images/HOP_TOP.png");
+  hopTopImage = loadImage("../assets/images/hop_top.png");
   //Sound for when the ball collects items. Not currently being used.
   //Use with   collectItemSound.play()
   collectItemSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
@@ -21,12 +21,19 @@ function preload() {
   imgItemDanger = loadImage("../assets/images/itemDanger.svg");
   imgItemStonefall = loadImage("../assets/images/itemStonefall.svg");
   imgItemWatermelon = loadImage("../assets/images/itemWatermelon.svg");
+  imgAnimated = loadImage("../assets/images/coin.gif");
   //SpeedBoost items
   imgSpeedBoost = loadImage("../assets/images/star.svg");
   //Game over text
   gameOver = loadImage("../assets/images/game_over.png");
   //Font in game
   font = loadFont("../assets/font/AmaticSC-Bold.ttf");
+  jumpSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
+  gameOverSound = (window as any).loadSound("../assets/sounds/game-over.wav");
+  newLevelSound = (window as any).loadSound("../assets/sounds/happy-clapps.wav");
+  pointsSound = (window as any).loadSound("../assets/sounds/points.wav");
+  gameOverMusic = (window as any).loadSound("../assets/sounds/game-over-music.mp3");
+  buttonSound = (window as any).loadSound("../assets/sounds/button.wav");
 }
 
 let font: p5.Font;
@@ -41,8 +48,17 @@ let imgItemCar: p5.Image;
 let imgItemDanger: p5.Image;
 let imgItemStonefall: p5.Image;
 let imgItemWatermelon: p5.Image;
+let imgAnimated: p5.Image;
 let collectItemSound: p5.SoundFile;
 let gameController: GameController;
+let jumpSound: p5.SoundFile;
+let gameOverSound: p5.SoundFile;
+let newLevelSound: p5.SoundFile;
+let pointsSound: p5.SoundFile;
+let gameOverMusic: p5.SoundFile;
+let buttonSound: p5.SoundFile;
+
+
 
 /**
  * Built in setup function in P5
