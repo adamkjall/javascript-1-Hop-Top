@@ -42,7 +42,6 @@ class GameController {
     if (this.isStartGame && keyIsPressed && keyCode === 13) {
       removeElements();
       this.isStartGame = false;
-      buttonSound.play();
     }
 
     if (this.isPlayerDead()) {

@@ -48,11 +48,13 @@ class GameOver {
   }
 
   private restartGame(): void {
+    buttonSound.play();
     removeElements();
     gameController = new GameController(false);
   }
 
   private quitGame(): void {
+    buttonSound.play();
     removeElements();
     gameController = new GameController();
   }
