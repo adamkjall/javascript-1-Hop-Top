@@ -2,7 +2,7 @@ class GameOver {
   private playButton: p5.Element | undefined;
   private quitButton: p5.Element | undefined;
 
-  displayGameOver() {
+  draw() {
     if (!this.playButton && !this.quitButton) {
       push();
       //if clicked go to level1
