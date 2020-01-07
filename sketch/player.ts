@@ -4,15 +4,18 @@ class Player {
   private yVelocity: number;
   private _speed: number;
   private diameter: number;
-  private bouncePower: number;
-  private maxSpeed: number;
+  private bouncePower: number = 16.5;
+  private _maxSpeed: number = 8;
+  private color: p5.Color = color(38, 48, 86);
+  private borderColor: p5.Color = color(255, 171, 194);
+  private history: [p5.Vector] = [];
 
   constructor(
     x: number,
     y: number,
     xVelocity: number = 0,
     yVelocity: number = 0,
-    speed: number = .5,
+    speed: number = 0.6,
     diameter: number = 65
   ) {
     this.position = new Position(x, y);
@@ -20,19 +23,24 @@ class Player {
     this.yVelocity = yVelocity;
     this._speed = speed;
     this.diameter = diameter;
-    this.bouncePower = 16.5;
-    this.maxSpeed = 8;
   }
 
   public move(): void {
     if (keyIsDown(RIGHT_ARROW)) {
-      if (this.xVelocity >= this.maxSpeed) this.xVelocity = this.maxSpeed;
+      if (this.xVelocity >= this._maxSpeed) this.xVelocity = this._maxSpeed;
       else this.xVelocity += this._speed;
     } else if (keyIsDown(LEFT_ARROW)) {
-      if (abs(this.xVelocity) >= this.maxSpeed) this.xVelocity = -this.maxSpeed;
+      if (abs(this.xVelocity) >= this._maxSpeed)
+        this.xVelocity = -this._maxSpeed;
       else this.xVelocity -= this._speed;
     }
-    
+
+     // save old pos in history aray
+     this.history.length > 8 ? this.history.shift() : null;
+     const v = createVector(this.pos.x, this.pos.y);
+     this.history.push(v);
+
+     // update position
     this.position.x += this.xVelocity;
     this.position.y += this.yVelocity;
     this.gravity();
@@ -40,6 +48,8 @@ class Player {
 
     const collisionWithRightWall = this.position.x > width - this.diameter / 2;
     const collisionWithLeftWall = this.position.x < this.diameter / 2;
+    
+    // check wall collision and add wall bounce
     if (collisionWithRightWall) {
       this.position.x = width - this.diameter / 2;
       this.xVelocity = -this.xVelocity * 0.8;
@@ -49,12 +59,14 @@ class Player {
     }
   }
 
-  public bounceOnBlock(pos : Position) : void {
+  public bounceOnBlock(pos: Position): boolean {
     if (this.yVelocity > 0) {
       this.pos.y = pos.y - this.radius - 1;
       this.yVelocity = 0;
       this.yVelocity -= this.bouncePower;
+      return true;
     }
+    return false;
   }
 
   private gravity(): void {
@@ -63,25 +75,49 @@ class Player {
 
   public drawPlayer(): void {
     push();
+    for (let i = 0; i < this.history.length; i++) {
+      let v = this.history[i];
+      
+      noStroke();
+      this.borderColor.setAlpha(40);
+      fill(this.borderColor);
+      
+      circle(v.x, v.y, this.radius * 2 * (i / this.history.length));
+      
+    }
+    this.borderColor.setAlpha(255);
     // outer circle
-    stroke("rgb(255,171,194)");
+    stroke(this.borderColor);
     const outerCircleSize = this.diameter / 3.5;
-    
+
     strokeWeight(outerCircleSize);
     // inner circle
-    fill("rgb(38,48,86)");
+    fill(this.color);
     circle(this.position.x, this.position.y, this.diameter - outerCircleSize);
     pop();
+  } 
+
+  /**
+   * Change color of the player and returns the old colors
+   * @param color new main color
+   * @param borderColor new border color
+   */
+  public changeColor(color: p5.Color, borderColor: p5.Color) : [p5.Color, p5.Color] {
+    const oldColor = this.color;
+    const oldBorderColor = this.borderColor;
+    this.color = color;
+    this.borderColor = borderColor;
+    return [oldColor, oldBorderColor];
   }
-  
+
   public get pos() {
     return this.position;
   }
-  
+
   public set pos(pos: Position) {
-    this.position = pos; 
+    this.position = pos;
   }
-  
+
   public get radius() {
     return this.diameter / 2;
   }
@@ -93,4 +129,14 @@ class Player {
   public set speed(newSpeed: number) {
     this._speed = newSpeed;
   }
+
+  public get maxSpeed() {
+    return this._maxSpeed;
+  }
+
+  public set maxSpeed(newMaxSpeed: number) {
+    this._maxSpeed = newMaxSpeed;
+  }
+
+ 
 }

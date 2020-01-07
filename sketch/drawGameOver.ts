@@ -1,9 +1,9 @@
-abstract class DrawGameOver{
+class GameOver{
     private playButton: p5.Element | undefined;
     private quitButton: p5.Element | undefined;
-    private displayGameOver(): any;
+    
 
-private displayGameOver() {
+displayGameOver() {
     if (!this.playButton && !this.quitButton) {
       push();
       //if clicked go to level1
@@ -58,15 +58,5 @@ private displayGameOver() {
     location.reload();
   }
 
-//     //If player is under game area display Game Over on screen
-//     if (this.isPlayerDead()) {
-//         this.displayGameOver();
-//         localStorage.setItem("highscore", JSON.stringify(this.highScore));
-//         return;
-//       }
 
-//   private isPlayerDead = (): boolean =>
-//  new GameController.player.pos.y > height + this.player.radius * 2;
-
-}
 

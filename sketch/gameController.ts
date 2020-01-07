@@ -9,6 +9,9 @@ class GameController {
   private isStartingNextLevel: boolean;
   private countDown: number;
   private isStartGame: boolean;
+  private startScreen: StartScreen;
+  private scoreboard: Scoreboard;
+  private gameOver: GameOver;
 
 
   constructor() {
@@ -25,35 +28,24 @@ class GameController {
     this.isStartingNextLevel = false;
     this.countDown = 5;
     this.isStartGame = true;
-  }
-
-  public drawStartScreen() {
-    push();
-    //textFont(font);   
-    textFont("Amatic SC"); 
-    background("#acb8e5");
-    imageMode(CENTER);
-    image(hopTopImage, width / 2, height * 0.45, width * 0.75);
-    fill("white");
-    textAlign(CENTER);
-    textSize(30);
-    text("click on screen to", width / 2, height * 0.91);
-    text("start the game", width / 2, height * 0.95);
-    pop();
+    this.startScreen = new StartScreen();
+    this.scoreboard = new Scoreboard();
+    this.gameOver = new GameOver();
   }
 
   public drawGame(): void {
     if ((keyIsPressed && keyCode === 32) || mouseIsPressed === true) {
       this.isStartGame = false;
+      buttonSound.play();
     }
     if (this.isStartGame) {
-      this.drawStartScreen();
+      this.startScreen.draw();
       return;
     }
 
     //If player is under game area display Game Over on screen
     if (this.isPlayerDead()) {
-      this.displayGameOver();
+      this.gameOver.displayGameOver();
       localStorage.setItem("highscore", JSON.stringify(this.highScore));
       return;
     }
@@ -65,6 +57,7 @@ class GameController {
     }
 
     this.player.move();
+    gameOverMusic.stop();
 
     const heightBeforeGameStarts = height / 2;
     if (
@@ -78,17 +71,26 @@ class GameController {
 
     // moves all level objects down
     this.level.levelObjects.forEach(levelObject => {
-      if (
-        levelObject instanceof Block &&
-        this.collisionDetection.playerCollidedWithBlock(
-          this.player,
-          levelObject
-        )
-      ) {
-        this.player.bounceOnBlock(levelObject.pos);
-      } else if (
-        this.collisionDetection.playerCollidedWithItem(this.player, levelObject)
-      ) {
+      const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
+        this.player,
+        levelObject
+      );
+      const isItemCollision = this.collisionDetection.playerCollidedWithItem(
+        this.player,
+        levelObject
+      );
+
+      if (isblockCollision) {
+        if (levelObject instanceof Block) {
+          const didBounce = this.player.bounceOnBlock(levelObject.pos);
+          if (didBounce) jumpSound.play();
+        } else if (levelObject instanceof FragileBlock) {
+          if (!levelObject.isDestroyed) {
+            const didBounce = this.player.bounceOnBlock(levelObject.pos);
+            if (didBounce) levelObject.destroy();
+          }
+        }
+      } else if (isItemCollision) {
         if (levelObject instanceof SpeedBoost) {
           levelObject.applySpeedBoost(this.player);
           this.level.pickUpItem(levelObject);
@@ -108,7 +110,7 @@ class GameController {
     background(r, b, g);
 
     this.level.drawLevel();
-    this.drawScoreBoard();
+    this.scoreboard.draw(this.score, this.highScore, this.levelNumber);
     this.player.drawPlayer();
 
     if (this.isStartingNextLevel) this.displayCountDown();
@@ -118,6 +120,7 @@ class GameController {
     this.player.pos.y > height + this.player.radius * 2;
 
   private startNextLevel() {
+    newLevelSound.play();
     this.isStartingNextLevel = true;
     // wait before starting new level
     setTimeout(() => {
@@ -151,51 +154,11 @@ class GameController {
   }
 
   private updateScore(itemScore: number): void {
+    pointsSound.play();
     this.score += itemScore; //20;
 
     if (this.score >= this.highScore) {
       this.highScore = this.score;
     }
-  }
-
-  private drawScoreBoard(): void {
-    function scoreText(): void {
-      push();
-      //textFont(font);
-      textFont("Amatic SC");
-      fill(0, 10, 153);
-      textSize(22);
-      text("Level", 285, 35);
-      text("High Score", 85, 55);
-      text("Score", 430, 55);
-      pop();
-    }
-
-    const scorePoints = (): void => {
-      push();
-      fill(255, 255, 255);
-      textSize(18);
-      text(this.highScore, 90, 75);
-      text(this.score, 430, 75);
-      textSize(62);
-      textAlign(CENTER);
-      text(this.levelNumber, 300, 90);
-      pop();
-    };
-
-    function scoreBoard(): void {
-      push();
-      let c: p5.Color = color(252, 208, 107);
-      stroke(c);
-      fill(c);
-      circle(300, 60, 100);
-      strokeWeight(50);
-      line(75, 60, 525, 60);
-      pop();
-    }
-
-    scoreBoard();
-    scoreText();
-    scorePoints();
   }
 }
