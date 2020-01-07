@@ -10,7 +10,7 @@ class GameOver {
       this.playButton.position(windowWidth / 2, height * 0.82);
       this.playButton.center("horizontal");
       this.playButton.style("background-color", "rgb(252, 208, 107)");
-
+      this.playButton.style('font-family', 'AmaticSC-Bold')
       this.playButton.style("font-size", "1.7rem");
       this.playButton.style("color", "rgb(38,48,86)");
       this.playButton.style("border-radius", "2rem");
@@ -25,6 +25,7 @@ class GameOver {
       this.quitButton.position(windowWidth / 2, height * 0.94);
       this.quitButton.center("horizontal");
       this.quitButton.style("background-color", "rgb(38,48,86)");
+      this.quitButton.style('font-family', 'AmaticSC-Bold')
       this.quitButton.style("font-size", "1.3rem");
       this.quitButton.style("color", "rgb(252, 208, 107)");
       this.quitButton.style("border-radius", "1rem");
