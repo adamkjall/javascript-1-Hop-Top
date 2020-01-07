@@ -38,36 +38,30 @@ class GameController {
     this.gameOver = new GameOver();
   }
 
-  public drawGame(): void {
+  public update() {
     if (this.isStartGame && keyIsPressed && keyCode === 13) {
       removeElements();
       this.isStartGame = false;
-      buttonSound.play();
-    }
-    if (this.isStartGame && this.startScreen) {
-      this.startScreen.draw();
-      return;
     }
 
-    //If player is under game area display Game Over on screen
     if (this.isPlayerDead()) {
       if (!this.isGameOver) {
-        console.log("saved");
-
         this.saveHighscore();
+        gameOverMusic.play();
       }
       this.isGameOver = true;
-      this.gameOver.displayGameOver();
-      return;
     }
 
-    // if level is done and we're not starting a new level
-    if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
+    if (this.isStartGame || this.isGameOver) return
+
+    gameOverMusic.stop();
+
+     // if level is done and we're not starting a new level
+     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
     }
 
     this.player.move();
-    gameOverMusic.stop();
 
     const heightBeforeGameStarts = height / 2;
     if (
@@ -79,38 +73,52 @@ class GameController {
 
     this.level.updateEffects();
 
-    // moves all level objects down
-    this.level.levelObjects.forEach(levelObject => {
-      const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
-        this.player,
-        levelObject
-      );
-      const isItemCollision = this.collisionDetection.playerCollidedWithItem(
-        this.player,
-        levelObject
-      );
-
-      if (isblockCollision) {
-        if (levelObject instanceof Block) {
-          const didBounce = this.player.bounceOnBlock(levelObject.pos);
-          if (didBounce) jumpSound.play();
-        } else if (levelObject instanceof FragileBlock) {
-          if (!levelObject.isDestroyed) {
+       // moves all level objects down
+       this.level.levelObjects.forEach(levelObject => {
+        const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
+          this.player,
+          levelObject
+        );
+        const isItemCollision = this.collisionDetection.playerCollidedWithItem(
+          this.player,
+          levelObject
+        );
+  
+        if (isblockCollision) {
+          if (levelObject instanceof Block) {
             const didBounce = this.player.bounceOnBlock(levelObject.pos);
-            if (didBounce) levelObject.destroy();
+            if (didBounce) jumpSound.play();
+          } else if (levelObject instanceof FragileBlock) {
+            if (!levelObject.isDestroyed) {
+              const didBounce = this.player.bounceOnBlock(levelObject.pos);
+              if (didBounce) levelObject.destroy();
+            }
+          }
+        } else if (isItemCollision) {
+          if (levelObject instanceof SpeedBoost) {
+            levelObject.applySpeedBoost(this.player);
+            this.level.pickUpItem(levelObject);
+            this.updateScore(levelObject.points);
+          } else if (levelObject instanceof Item) {
+            this.level.pickUpItem(levelObject);
+            this.updateScore(levelObject.points);
           }
         }
-      } else if (isItemCollision) {
-        if (levelObject instanceof SpeedBoost) {
-          levelObject.applySpeedBoost(this.player);
-          this.level.pickUpItem(levelObject);
-          this.updateScore(levelObject.points);
-        } else if (levelObject instanceof Item) {
-          this.level.pickUpItem(levelObject);
-          this.updateScore(levelObject.points);
-        }
-      }
-    });
+      });
+
+  }
+
+  public draw(): void {
+    if (this.isStartGame && this.startScreen) {
+      gameOverMusic.stop();
+      this.startScreen.draw();
+      return;
+    }
+
+    if (this.isGameOver) {
+      this.gameOver.draw();
+      return;
+    }
 
     this.level.drawLevel();
     this.scoreboard.draw(this.score, this.highScore, this.levelNumber);
@@ -179,9 +187,6 @@ class GameController {
   private updateScore(itemScore: number): void {
     pointsSound.play();
     this.score += itemScore; //20;
-
-    if (this.score >= this.highScore) {
-      this.highScore = this.score;
     }
   }
-}
+

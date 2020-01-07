@@ -81,7 +81,8 @@ function setup() {
  */
 
 function draw() {
-  gameController.drawGame();
+  gameController.update();
+  gameController.draw();
 }
 
 /**
