@@ -10,8 +10,6 @@ class GameController {
   private countDown: number;
   private isStartGame: boolean;
   private isGameOver: boolean;
-  private playButton: p5.Element | undefined;
-  private quitButton: p5.Element | undefined;
   private startScreen: StartScreen | undefined;
   private scoreboard: Scoreboard;
   private gameOver: GameOver;
