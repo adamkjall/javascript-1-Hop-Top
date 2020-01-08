@@ -23,9 +23,10 @@ class StartScreen {
     input.position(0, height * 0.8);
     input.center("horizontal");
 
-    input.elt.addEventListener("keypress", (e: any) => {
+    window.addEventListener("keypress", (e: any) => {
       if (e.key === "Enter") {
         localStorage.setItem("name", JSON.stringify(input.value()));
+        
       }
     });
 
