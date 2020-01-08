@@ -47,8 +47,8 @@ class StartScreen {
     textSize(30);
     text("press enter to", width / 3, height * 0.91);
     text("start the game", width / 3, height * 0.95);
-    text("press h to", width / 1.5, height * 0.91);
-    text("for how to play", width / 1.5, height * 0.95);
+    text("press h for", width / 1.5, height * 0.91);
+    text("how to play", width / 1.5, height * 0.95);
     pop();
   }
 }
