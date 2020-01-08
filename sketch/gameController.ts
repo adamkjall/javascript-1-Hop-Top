@@ -12,7 +12,7 @@ class GameController {
   private isGameOver: boolean;
   private startScreen: StartScreen | undefined;
   private scoreboard: Scoreboard;
-  private gameOver: GameOverScreen | undefined;
+  private gameOverScreen: GameOverScreen | undefined;
 
   constructor(showStartScreen: boolean = true) {
     this.score = 0;
@@ -47,7 +47,7 @@ class GameController {
       if (!this.isGameOver) {
         this.saveHighscore();
         gameOverMusic.play();
-        this.gameOver = new GameOverScreen(this.score);
+        this.gameOverScreen = new GameOverScreen(this.score);
       }
       this.isGameOver = true;
     }
@@ -114,8 +114,8 @@ class GameController {
       return;
     }
 
-    if (this.isGameOver && this.gameOver) {
-      this.gameOver.draw();
+    if (this.isGameOver && this.gameOverScreen) {
+      this.gameOverScreen.draw();
       return;
     }
 
@@ -123,7 +123,7 @@ class GameController {
     this.scoreboard.draw(this.score, this.highScore, this.levelNumber);
     this.player.drawPlayer();
 
-    if (this.isStartingNextLevel) this.displayCountDown();
+    if (this.isStartingNextLevel) this.displayCountdown();
   }
 
   private saveHighscore() {
@@ -154,7 +154,9 @@ class GameController {
     this.isStartingNextLevel = true;
     // wait before starting new level
     setTimeout(() => {
-      this.levelNumber += 1;
+      let newLevel = (this.levelNumber + 1) % 6 ;
+      if (newLevel === 0) newLevel = 1;
+      this.levelNumber = newLevel;
       this.player.pos = new Position(width / 2, height - 100);
       this.level = this.levelFactory.createLevel(this.levelNumber);
       this.isStartingNextLevel = false;
@@ -171,7 +173,7 @@ class GameController {
   }
 
   // view the countdown message
-  private displayCountDown() {
+  private displayCountdown() {
     push();
     textAlign(CENTER);
     stroke("rgb(255,171,194)");

@@ -46,6 +46,8 @@ class Level {
   }
 
   public drawLevel(): void {
+    console.log("progress: " + this.levelProgress);
+    
     const startColorStr = this.startColor.toString();
     const endColorStr = this.endColor.toString();
 
