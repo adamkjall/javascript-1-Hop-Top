@@ -154,7 +154,7 @@ class GameController {
     this.isStartingNextLevel = true;
     // wait before starting new level
     setTimeout(() => {
-      let newLevel = this.levelNumber % 5;
+      let newLevel = (this.levelNumber + 1) % 5 ;
       if (newLevel === 0) newLevel = 1;
       this.levelNumber = newLevel;
       this.player.pos = new Position(width / 2, height - 100);
