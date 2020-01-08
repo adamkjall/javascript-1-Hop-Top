@@ -119,12 +119,6 @@ class GameController {
       return;
     }
 
-    const r: number = map(this.level.levelProgress, 0, 100, 120, 60);
-    const b: number = map(this.level.levelProgress, 0, 100, 170, 110);
-    const g: number = map(this.level.levelProgress, 0, 100, 235, 200);
-
-    background(r, b, g);
-
     this.level.drawLevel();
     this.scoreboard.draw(this.score, this.highScore, this.levelNumber);
     this.player.drawPlayer();
