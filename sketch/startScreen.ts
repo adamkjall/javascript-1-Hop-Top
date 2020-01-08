@@ -4,7 +4,7 @@ class StartScreen {
     this.initInput();
   }
 
-  initInput() {
+  private initInput() {
     const localStorageName = localStorage.getItem("name");
     const playerName : string = localStorageName ? JSON.parse(localStorageName) : "Player 1";
 
