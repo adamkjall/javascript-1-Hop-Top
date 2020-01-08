@@ -7,19 +7,19 @@ function preload() {
   // Tyvärr har jag inte fått till den globala typningen för
   // inladdningen av ljud men fungerar bra enligt nedan..
   hopTopImage = loadImage("../assets/images/hop_top.png");
-  //Sound for when the ball collects items. Not currently being used.
-  //Use with   collectItemSound.play()
-  collectItemSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
+  //Sounds
+  jumpSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
+  gameOverSound = (window as any).loadSound("../assets/sounds/game-over.wav");
+  newLevelSound = (window as any).loadSound("../assets/sounds/happy-clapps.wav");
+  pointsSound = (window as any).loadSound("../assets/sounds/points.wav");
+  gameOverMusic = (window as any).loadSound("../assets/sounds/game-over-music.mp3");
+  buttonSound = (window as any).loadSound("../assets/sounds/button.wav");
   //Solid blocks
   imgSolid = loadImage("../assets/images/10.png");
   //Fragile blocks
   imgFragile = loadImage("../assets/images/1.png");
-  //Bonus items blocks
-  imgItemPresent = loadImage("../assets/images/itemPresent.svg");
-  imgItemCandy = loadImage("../assets/images/itemCandy.svg");
-  imgItemCar = loadImage("../assets/images/itemCar.svg");
+  //Bonus items 
   imgItemDanger = loadImage("../assets/images/itemDanger.svg");
-  imgItemStonefall = loadImage("../assets/images/itemStonefall.svg");
   imgItemWatermelon = loadImage("../assets/images/itemWatermelon.svg");
   imgAnimated = loadImage("../assets/images/coin.gif");
   //SpeedBoost items
@@ -28,12 +28,6 @@ function preload() {
   gameOver = loadImage("../assets/images/game_over.png");
   //Font in game
   font = loadFont("../assets/font/AmaticSC-Bold.ttf");
-  jumpSound = (window as any).loadSound("../assets/sounds/bubbles.wav");
-  gameOverSound = (window as any).loadSound("../assets/sounds/game-over.wav");
-  newLevelSound = (window as any).loadSound("../assets/sounds/happy-clapps.wav");
-  pointsSound = (window as any).loadSound("../assets/sounds/points.wav");
-  gameOverMusic = (window as any).loadSound("../assets/sounds/game-over-music.mp3");
-  buttonSound = (window as any).loadSound("../assets/sounds/button.wav");
 }
 
 let font: p5.Font;
