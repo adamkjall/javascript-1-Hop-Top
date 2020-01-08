@@ -35,8 +35,7 @@ class GameOverScreen {
       push();
       //if clicked go to level1
       this.playButton = createButton("PLAY AGAIN?");
-      this.playButton.position(windowWidth/ 2, height * 0.82);
-      
+      this.playButton.position(windowWidth/ 2 - width/2 + width * 0.25 , height * 0.82);
       this.playButton.style("background-color", "rgb(252, 208, 107)");
       this.playButton.style('font-family', 'AmaticSC-Bold')
       this.playButton.style("font-size", "1.7rem");
@@ -45,13 +44,14 @@ class GameOverScreen {
       this.playButton.style("padding", "1rem");
       this.playButton.style("border", "none");
       this.playButton.style("outline", "none");
-      this.playButton.style("transform", "translateX(-50%)")
-      this.playButton.style("left", "35%")
+      //You can solve it like this also but then the buttons can end up outside the screen in other screensizes and resolutions 
+      //this.playButton.style("transform", "translateX(-50%)")
+      // this.playButton.style("left", "35%")
       this.playButton.mousePressed(this.restartGame);
       
       //if clicked go to startScreen?
       this.quitButton = createButton("QUIT GAME");
-      this.quitButton.position(windowWidth/ 2, height * 0.82);
+      this.quitButton.position(windowWidth/ 2 + width / 2 - width * 0.25, height * 0.82);
       this.quitButton.style("background-color", "rgb(38,48,86)");
       this.quitButton.style('font-family', 'AmaticSC-Bold')
       this.quitButton.style("font-size", "1.7rem");
@@ -60,8 +60,9 @@ class GameOverScreen {
       this.quitButton.style("padding", "1rem");
       this.quitButton.style("border", "none");
       this.quitButton.style("outline", "none");
-      this.quitButton.style("transform", "translateX(-50%)")
-      this.quitButton.style("left", "65%")
+      this.quitButton.style("transform", "translateX(-100%)")
+      //You can solve it like this also but then the buttons can end up outside the screen in other screensizes and resolutions 
+      //this.quitButton.style("left", "65%")
       this.quitButton.mousePressed(this.quitGame);
       pop();
     }
