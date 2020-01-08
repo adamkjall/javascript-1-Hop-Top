@@ -44,6 +44,7 @@ class GameOverScreen {
       this.playButton.style("padding", "1rem");
       this.playButton.style("border", "none");
       this.playButton.style("outline", "none");
+      //You can solve it like this also but then the buttons can end up outside the screen in other screensizes and resolutions 
       //this.playButton.style("transform", "translateX(-50%)")
       // this.playButton.style("left", "35%")
       this.playButton.mousePressed(this.restartGame);
@@ -60,6 +61,7 @@ class GameOverScreen {
       this.quitButton.style("border", "none");
       this.quitButton.style("outline", "none");
       this.quitButton.style("transform", "translateX(-100%)")
+      //You can solve it like this also but then the buttons can end up outside the screen in other screensizes and resolutions 
       //this.quitButton.style("left", "65%")
       this.quitButton.mousePressed(this.quitGame);
       pop();
