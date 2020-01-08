@@ -35,44 +35,46 @@ class GameOverScreen {
       push();
       //if clicked go to level1
       this.playButton = createButton("PLAY AGAIN?");
-      this.playButton.position(innerWidth / 2 - width / 2 + width * 0.1, height * 0.90);
-      // this.playButton.center("horizontal");
+      this.playButton.position(windowWidth/ 2, height * 0.82);
+      
       this.playButton.style("background-color", "rgb(252, 208, 107)");
-
+      this.playButton.style('font-family', 'AmaticSC-Bold')
       this.playButton.style("font-size", "1.7rem");
       this.playButton.style("color", "rgb(38,48,86)");
       this.playButton.style("border-radius", "2rem");
       this.playButton.style("padding", "1rem");
       this.playButton.style("border", "none");
       this.playButton.style("outline", "none");
-      
+      this.playButton.style("transform", "translateX(-50%)")
+      this.playButton.style("left", "35%")
       this.playButton.mousePressed(this.restartGame);
       
       //if clicked go to startScreen?
-      this.quitButton = createButton("QUIT");
-      this.quitButton.position(innerWidth / 2 - width / 2 + width * 0.75, height * 0.92);
-      // this.quitButton.center("horizontal");
+      this.quitButton = createButton("QUIT GAME");
+      this.quitButton.position(windowWidth/ 2, height * 0.82);
       this.quitButton.style("background-color", "rgb(38,48,86)");
+      this.quitButton.style('font-family', 'AmaticSC-Bold')
       this.quitButton.style("font-size", "1.7rem");
       this.quitButton.style("color", "rgb(252, 208, 107)");
       this.quitButton.style("border-radius", "2rem");
-      this.playButton.style("padding", "1rem");
+      this.quitButton.style("padding", "1rem");
       this.quitButton.style("border", "none");
-      this.playButton.style("outline", "none");
-
+      this.quitButton.style("outline", "none");
+      this.quitButton.style("transform", "translateX(-50%)")
+      this.quitButton.style("left", "65%")
       this.quitButton.mousePressed(this.quitGame);
       pop();
     }
     push();
+    background(172, 184, 229, 245);
     textAlign(CENTER);
-    fill("rgb(242,37,174)");
-    stroke("rgb(5,42,147)");
+    fill("rgb(255, 171, 194)");
+    stroke("rgb(38,48,86)");
     strokeWeight(12);
     noCursor();
     ellipse(mouseX, mouseY, 30, 30);
-    background(172, 184, 229, 10);
-    imageMode(CENTER);
-    image(gameOver, width / 2, height * 0.2, width * 0.7);
+    image(gameOver, 175, 35);
+    gameOver.resize(240, 180);
     pop();
 
     this.displayHighscoreList();
@@ -84,18 +86,22 @@ class GameOverScreen {
     fill(255);
     textAlign(CENTER);
     textSize(52);
-    text("Your score: " + this.playerScore, width / 2, height * 0.46);
-    text("Highscore", width / 2, height * 0.56);
+    fill(252, 208, 107)
+    text("Your score: " + this.playerScore, width / 2, height * 0.40);
+    fill(245, 88, 131)
+    text("Highscore", width / 2, height * 0.49);
+    fill(255, 255, 255)
     textSize(42);
-    text("Name", width / 2 - 100, height * 0.61);
-    text("Score", width / 2 + 100, height * 0.61);
+    text("Name", width / 2 - 100, height * 0.57);
+    text("Score", width / 2 + 100, height * 0.57);
 
     textSize(30);
     textAlign(CENTER);
     this.highscoreList.forEach((highscore, i) => {
       const offset = 30;
-      text(highscore.name, width / 2 - 100, height * 0.66 + offset * i);
-      text(highscore.score, width / 2 + 100, height * 0.66 + offset * i);
+      fill(38,48,86)
+      text(highscore.name, width / 2 - 100, height * 0.62 + offset * i);
+      text(highscore.score, width / 2 + 100, height * 0.62 + offset * i);
     });
     pop();
   }
