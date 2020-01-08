@@ -36,7 +36,7 @@ class Player {
     }
 
      // save old pos in history aray
-     this.history.length > 8 ? this.history.shift() : null;
+     this.history.length > 5 ? this.history.shift() : null;
      const v = createVector(this.pos.x, this.pos.y);
      this.history.push(v);
 

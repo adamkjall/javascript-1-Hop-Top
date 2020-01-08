@@ -35,7 +35,7 @@ class LevelFactory {
             break;
           case 3:
             // bonus item
-            const itemWatermelon = new Item(
+            object = new Item(
               x * xStepSize,
               y * -100 + height,
               xStepSize,
@@ -43,18 +43,16 @@ class LevelFactory {
               imgItemWatermelon,
               15
             );
-            levelObjects.push(itemWatermelon);
             break;
           case 4:
             //SpeedBoost item
-            const speedBoost = new SpeedBoost(
+            object = new SpeedBoost(
               x * xStepSize,
               y * -100 + height,
               xStepSize,
               xStepSize,
               50
             );
-            levelObjects.push(speedBoost);
             break;
           case 5:
             // bonus item

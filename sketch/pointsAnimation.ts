@@ -1,4 +1,4 @@
-class Effect {
+class PointsAnimation {
   private _pos: Position;
   private points: number;
   private gravity: number;

@@ -1,7 +1,7 @@
 class Level {
   private _levelProgress: number;
   private _levelObjects: GameObject[];
-  private effectList: Effect[];
+  private pointsAnimation: PointsAnimation[];
   private isLevelDone: boolean;
   private speed: number;
   private startColor: p5.Color;
@@ -11,9 +11,9 @@ class Level {
   constructor(gameObjects: GameObject[], startColor: p5.Color, endColor: p5.Color ) {
     this._levelProgress = 0;
     this._levelObjects = gameObjects;
-    this.effectList = [];
+    this.pointsAnimation = [];
     this.isLevelDone = false;
-    this.speed = 3.5;
+    this.speed = 3.25;
     this.startColor = startColor;
     this.endColor = endColor;
   }
@@ -40,7 +40,7 @@ class Level {
   }
 
   public updateEffects(): void {
-    for (const effect of this.effectList) {
+    for (const effect of this.pointsAnimation) {
       effect.move();
     }
   }
@@ -73,9 +73,9 @@ class Level {
       }
     }
 
-    this.effectList.forEach((effect, i) => {
+    this.pointsAnimation.forEach((effect, i) => {
       effect.draw();
-      if (effect.pos.y >= height) this.effectList.splice(i, 1);
+      if (effect.pos.y >= height) this.pointsAnimation.splice(i, 1);
     });
 
     const cloudPosY = this.levelObjects[0].pos.y;
@@ -120,8 +120,8 @@ class Level {
     this._levelObjects = this.levelObjects.filter(
       object => object !== objectToRemove
     );
-    const pickUpEffect = new Effect(objectToRemove.pos, objectToRemove.points);
-    this.effectList.push(pickUpEffect);
+    const pickUpEffect = new PointsAnimation(objectToRemove.pos, objectToRemove.points);
+    this.pointsAnimation.push(pickUpEffect);
   }
   
   public get levelObjects(): GameObject[] {
