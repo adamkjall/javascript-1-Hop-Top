@@ -12,7 +12,7 @@ class GameController {
   private isGameOver: boolean;
   private startScreen: StartScreen | undefined;
   private scoreboard: Scoreboard;
-  private gameOver: GameOver;
+  private gameOver: GameOverScreen | undefined;
 
   constructor(showStartScreen: boolean = true) {
     this.score = 0;
@@ -35,7 +35,6 @@ class GameController {
     this.isGameOver = false;
     this.startScreen = showStartScreen ? new StartScreen() : undefined;
     this.scoreboard = new Scoreboard();
-    this.gameOver = new GameOver();
   }
 
   public update() {
@@ -48,16 +47,17 @@ class GameController {
       if (!this.isGameOver) {
         this.saveHighscore();
         gameOverMusic.play();
+        this.gameOver = new GameOverScreen(this.score);
       }
       this.isGameOver = true;
     }
 
-    if (this.isStartGame || this.isGameOver) return
+    if (this.isStartGame || this.isGameOver) return;
 
     gameOverMusic.stop();
 
-     // if level is done and we're not starting a new level
-     if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
+    // if level is done and we're not starting a new level
+    if (this.level.levelProgress >= 100 && !this.isStartingNextLevel) {
       this.startNextLevel();
     }
 
@@ -73,39 +73,38 @@ class GameController {
 
     this.level.updateEffects();
 
-       // moves all level objects down
-       this.level.levelObjects.forEach(levelObject => {
-        const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
-          this.player,
-          levelObject
-        );
-        const isItemCollision = this.collisionDetection.playerCollidedWithItem(
-          this.player,
-          levelObject
-        );
-  
-        if (isblockCollision) {
-          if (levelObject instanceof Block) {
+    // moves all level objects down
+    this.level.levelObjects.forEach(levelObject => {
+      const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
+        this.player,
+        levelObject
+      );
+      const isItemCollision = this.collisionDetection.playerCollidedWithItem(
+        this.player,
+        levelObject
+      );
+
+      if (isblockCollision) {
+        if (levelObject instanceof Block) {
+          const didBounce = this.player.bounceOnBlock(levelObject.pos);
+          if (didBounce) jumpSound.play();
+        } else if (levelObject instanceof FragileBlock) {
+          if (!levelObject.isDestroyed) {
             const didBounce = this.player.bounceOnBlock(levelObject.pos);
-            if (didBounce) jumpSound.play();
-          } else if (levelObject instanceof FragileBlock) {
-            if (!levelObject.isDestroyed) {
-              const didBounce = this.player.bounceOnBlock(levelObject.pos);
-              if (didBounce) levelObject.destroy();
-            }
-          }
-        } else if (isItemCollision) {
-          if (levelObject instanceof SpeedBoost) {
-            levelObject.applySpeedBoost(this.player);
-            this.level.pickUpItem(levelObject);
-            this.updateScore(levelObject.points);
-          } else if (levelObject instanceof Item) {
-            this.level.pickUpItem(levelObject);
-            this.updateScore(levelObject.points);
+            if (didBounce) levelObject.destroy();
           }
         }
-      });
-
+      } else if (isItemCollision) {
+        if (levelObject instanceof SpeedBoost) {
+          levelObject.applySpeedBoost(this.player);
+          this.level.pickUpItem(levelObject);
+          this.updateScore(levelObject.points);
+        } else if (levelObject instanceof Item) {
+          this.level.pickUpItem(levelObject);
+          this.updateScore(levelObject.points);
+        }
+      }
+    });
   }
 
   public draw(): void {
@@ -115,7 +114,7 @@ class GameController {
       return;
     }
 
-    if (this.isGameOver) {
+    if (this.isGameOver && this.gameOver) {
       this.gameOver.draw();
       return;
     }
