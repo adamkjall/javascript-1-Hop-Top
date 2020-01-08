@@ -13,6 +13,8 @@ class GameController {
   private startScreen: StartScreen | undefined;
   private scoreboard: Scoreboard;
   private gameOverScreen: GameOverScreen | undefined;
+  private isHowToplay: boolean;
+  private howToPlayScreen: HowToPlayScreen;
 
   constructor(showStartScreen: boolean = true) {
     this.score = 0;
@@ -35,6 +37,8 @@ class GameController {
     this.isGameOver = false;
     this.startScreen = showStartScreen ? new StartScreen() : undefined;
     this.scoreboard = new Scoreboard();
+    this.isHowToplay = false;
+    this.howToPlayScreen = new HowToPlayScreen();
   }
 
   public update() {
@@ -42,7 +46,17 @@ class GameController {
       removeElements();
       this.isStartGame = false;
     }
-
+    if (this.isStartGame && !this.isHowToplay && keyIsPressed && keyCode === 72) {
+      removeElements();
+      this.isStartGame = false; 
+      this.isHowToplay = true;
+     }
+     else if (this.isHowToplay && !this.isStartGame && keyIsPressed && keyCode === 27) {
+       removeElements();
+       this.isHowToplay = false;
+       this.isStartGame = true; 
+       this.startScreen = new StartScreen;
+   }
     if (this.isPlayerDead()) {
       if (!this.isGameOver) {
         this.saveHighscore();
@@ -52,7 +66,7 @@ class GameController {
       this.isGameOver = true;
     }
 
-    if (this.isStartGame || this.isGameOver) return;
+    if (this.isStartGame || this.isHowToplay || this.isGameOver) return;
 
     gameOverMusic.stop();
 
@@ -111,6 +125,10 @@ class GameController {
     if (this.isStartGame && this.startScreen) {
       gameOverMusic.stop();
       this.startScreen.draw();
+      return;
+    }
+    if (this.isHowToplay) {
+      this.howToPlayScreen.draw();
       return;
     }
 
