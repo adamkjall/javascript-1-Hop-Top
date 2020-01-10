@@ -612,7 +612,7 @@ var LevelFactory = (function () {
     function LevelFactory() {
     }
     LevelFactory.prototype.createLevel = function (level) {
-        switch (5) {
+        switch (level) {
             case 1:
                 return this.levelOne();
             case 2:
