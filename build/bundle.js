@@ -1,4 +1,54 @@
 "use strict";
+function preload() {
+    hopTopImage = loadImage("../assets/images/hop_top.png");
+    jumpSound = window.loadSound("../assets/sounds/bubbles.wav");
+    gameOverSound = window.loadSound("../assets/sounds/game-over.wav");
+    newLevelSound = window.loadSound("../assets/sounds/happy-clapps.wav");
+    pointsSound = window.loadSound("../assets/sounds/points.wav");
+    gameOverMusic = window.loadSound("../assets/sounds/game-over-music.mp3");
+    buttonSound = window.loadSound("../assets/sounds/button.wav");
+    imgSolid = loadImage("../assets/images/10.png");
+    imgFragile = loadImage("../assets/images/1.png");
+    imgItemDanger = loadImage("../assets/images/itemDanger.svg");
+    imgItemWatermelon = loadImage("../assets/images/itemWatermelon.svg");
+    imgAnimated = loadImage("../assets/images/coin.gif");
+    imgSpeedBoost = loadImage("../assets/images/star.svg");
+    gameOver = loadImage("../assets/images/game_over.png");
+    font = loadFont("../assets/font/AmaticSC-Bold.ttf");
+}
+var font;
+var gameOver;
+var hopTopImage;
+var imgSpeedBoost;
+var imgSolid;
+var imgFragile;
+var imgItemPresent;
+var imgItemCandy;
+var imgItemCar;
+var imgItemDanger;
+var imgItemStonefall;
+var imgItemWatermelon;
+var imgAnimated;
+var collectItemSound;
+var gameController;
+var jumpSound;
+var gameOverSound;
+var newLevelSound;
+var pointsSound;
+var gameOverMusic;
+var buttonSound;
+function setup() {
+    createCanvas(600, windowHeight);
+    frameRate(60);
+    gameController = new GameController();
+}
+function draw() {
+    gameController.update();
+    gameController.draw();
+}
+function windowResized() {
+    resizeCanvas(600, windowHeight);
+}
 var GameObject = (function () {
     function GameObject(x, y, width, height, image) {
         this.position = new Position(x, y);
@@ -1141,56 +1191,6 @@ var Scoreboard = (function () {
     };
     return Scoreboard;
 }());
-function preload() {
-    hopTopImage = loadImage("../assets/images/hop_top.png");
-    jumpSound = window.loadSound("../assets/sounds/bubbles.wav");
-    gameOverSound = window.loadSound("../assets/sounds/game-over.wav");
-    newLevelSound = window.loadSound("../assets/sounds/happy-clapps.wav");
-    pointsSound = window.loadSound("../assets/sounds/points.wav");
-    gameOverMusic = window.loadSound("../assets/sounds/game-over-music.mp3");
-    buttonSound = window.loadSound("../assets/sounds/button.wav");
-    imgSolid = loadImage("../assets/images/10.png");
-    imgFragile = loadImage("../assets/images/1.png");
-    imgItemDanger = loadImage("../assets/images/itemDanger.svg");
-    imgItemWatermelon = loadImage("../assets/images/itemWatermelon.svg");
-    imgAnimated = loadImage("../assets/images/coin.gif");
-    imgSpeedBoost = loadImage("../assets/images/star.svg");
-    gameOver = loadImage("../assets/images/game_over.png");
-    font = loadFont("../assets/font/AmaticSC-Bold.ttf");
-}
-var font;
-var gameOver;
-var hopTopImage;
-var imgSpeedBoost;
-var imgSolid;
-var imgFragile;
-var imgItemPresent;
-var imgItemCandy;
-var imgItemCar;
-var imgItemDanger;
-var imgItemStonefall;
-var imgItemWatermelon;
-var imgAnimated;
-var collectItemSound;
-var gameController;
-var jumpSound;
-var gameOverSound;
-var newLevelSound;
-var pointsSound;
-var gameOverMusic;
-var buttonSound;
-function setup() {
-    createCanvas(600, windowHeight);
-    frameRate(60);
-    gameController = new GameController();
-}
-function draw() {
-    gameController.update();
-    gameController.draw();
-}
-function windowResized() {
-    resizeCanvas(600, windowHeight);
-}
 var SpeedBoost = (function (_super) {
     __extends(SpeedBoost, _super);
     function SpeedBoost(x, y, width, height, points, image) {
