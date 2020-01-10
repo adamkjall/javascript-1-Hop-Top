@@ -1,20 +1,20 @@
 "use strict";
 function preload() {
-    hopTopImage = loadImage("../assets/images/hop_top.png");
-    jumpSound = window.loadSound("../assets/sounds/bubbles.wav");
-    gameOverSound = window.loadSound("../assets/sounds/game-over.wav");
-    newLevelSound = window.loadSound("../assets/sounds/happy-clapps.wav");
-    pointsSound = window.loadSound("../assets/sounds/points.wav");
-    gameOverMusic = window.loadSound("../assets/sounds/game-over-music.mp3");
-    buttonSound = window.loadSound("../assets/sounds/button.wav");
-    imgSolid = loadImage("../assets/images/10.png");
-    imgFragile = loadImage("../assets/images/1.png");
-    imgItemDanger = loadImage("../assets/images/itemDanger.svg");
-    imgItemWatermelon = loadImage("../assets/images/itemWatermelon.svg");
-    imgAnimated = loadImage("../assets/images/coin.gif");
-    imgSpeedBoost = loadImage("../assets/images/star.svg");
-    gameOver = loadImage("../assets/images/game_over.png");
-    font = loadFont("../assets/font/AmaticSC-Bold.ttf");
+    hopTopImage = loadImage("./assets/images/hop_top.png");
+    jumpSound = window.loadSound("./assets/sounds/bubbles.wav");
+    gameOverSound = window.loadSound("./assets/sounds/game-over.wav");
+    newLevelSound = window.loadSound("./assets/sounds/happy-clapps.wav");
+    pointsSound = window.loadSound("./assets/sounds/points.wav");
+    gameOverMusic = window.loadSound("./assets/sounds/game-over-music.mp3");
+    buttonSound = window.loadSound("./assets/sounds/button.wav");
+    imgSolid = loadImage("./assets/images/10.png");
+    imgFragile = loadImage("./assets/images/1.png");
+    imgItemDanger = loadImage("./assets/images/itemDanger.svg");
+    imgItemWatermelon = loadImage("./assets/images/itemWatermelon.svg");
+    imgAnimated = loadImage("./assets/images/coin.gif");
+    imgSpeedBoost = loadImage("./assets/images/star.svg");
+    gameOver = loadImage("./assets/images/game_over.png");
+    font = loadFont("./assets/font/AmaticSC-Bold.ttf");
 }
 var font;
 var gameOver;
@@ -917,17 +917,17 @@ var LevelFactory = (function () {
             [0, 0, 0, 0, 0, 0, 2, 2],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 2, 2, 0, 0, 0, 0],
-            [7, 8, 7, 11, 7, 11, 7, 8],
+            [5, 5, 5, 6, 5, 6, 5, 5],
             [0, 0, 0, 0, 0, 2, 2, 0],
             [0, 6, 0, 3, 0, 6, 0, 3],
             [0, 2, 2, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 6, 5],
             [0, 0, 6, 0, 0, 2, 2, 0],
             [0, 0, 2, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 9, 0, 0],
-            [0, 0, 9, 0, 2, 2, 0, 0],
+            [0, 0, 0, 0, 0, 5, 0, 0],
+            [0, 0, 3, 0, 2, 2, 0, 0],
             [0, 2, 1, 2, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 11, 0, 0],
+            [0, 0, 0, 0, 1, 6, 0, 0],
             [0, 0, 0, 0, 0, 1, 2, 2],
             [0, 4, 0, 7, 0, 0, 0, 0],
             [0, 1, 2, 0, 0, 0, 0, 0],
@@ -935,7 +935,7 @@ var LevelFactory = (function () {
             [0, 0, 0, 0, 0, 2, 2, 0],
             [0, 0, 0, 5, 0, 0, 0, 0],
             [0, 0, 0, 1, 2, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 11, 0],
+            [0, 0, 0, 0, 0, 0, 6, 0],
             [0, 0, 0, 0, 0, 2, 2, 2],
             [0, 0, 0, 3, 3, 3, 0, 0],
             [0, 0, 0, 2, 2, 1, 0, 0],
@@ -946,13 +946,13 @@ var LevelFactory = (function () {
             [0, 0, 0, 0, 2, 1, 0, 0],
             [0, 0, 0, 6, 0, 0, 0, 0],
             [0, 0, 0, 1, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 8, 5],
-            [0, 0, 0, 11, 0, 2, 2, 2],
+            [0, 0, 0, 0, 0, 0, 5, 5],
+            [0, 0, 0, 6, 0, 2, 2, 2],
             [0, 0, 0, 1, 2, 0, 0, 0],
             [0, 6, 0, 0, 0, 0, 0, 0],
             [2, 2, 2, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 1, 2, 0],
-            [0, 0, 0, 11, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 6, 0, 0, 0, 0],
             [0, 0, 2, 2, 2, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [2, 2, 2, 2, 2, 2, 2, 2]
