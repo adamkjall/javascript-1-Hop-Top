@@ -88,7 +88,8 @@ class GameController {
     this.level.updateEffects();
 
     // moves all level objects down
-    this.level.levelObjects.forEach(levelObject => {
+    for(let levelObject of this.level.levelObjects) {
+      if (levelObject.pos.y < 0) return;
       const isblockCollision = this.collisionDetection.playerCollidedWithBlock(
         this.player,
         levelObject
@@ -118,7 +119,7 @@ class GameController {
           this.updateScore(levelObject.points);
         }
       }
-    });
+    }
   }
 
   public draw(): void {

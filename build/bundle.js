@@ -205,7 +205,6 @@ var GameController = (function () {
         this.howToPlayScreen = new HowToPlayScreen();
     }
     GameController.prototype.update = function () {
-        var _this = this;
         if (this.isStartGame && keyIsPressed && keyCode === 13) {
             removeElements();
             this.isStartGame = false;
@@ -242,18 +241,21 @@ var GameController = (function () {
             this.level.updateLevel();
         }
         this.level.updateEffects();
-        this.level.levelObjects.forEach(function (levelObject) {
-            var isblockCollision = _this.collisionDetection.playerCollidedWithBlock(_this.player, levelObject);
-            var isItemCollision = _this.collisionDetection.playerCollidedWithItem(_this.player, levelObject);
+        for (var _i = 0, _a = this.level.levelObjects; _i < _a.length; _i++) {
+            var levelObject = _a[_i];
+            if (levelObject.pos.y < 0)
+                return;
+            var isblockCollision = this.collisionDetection.playerCollidedWithBlock(this.player, levelObject);
+            var isItemCollision = this.collisionDetection.playerCollidedWithItem(this.player, levelObject);
             if (isblockCollision) {
                 if (levelObject instanceof Block) {
-                    var didBounce = _this.player.bounceOnBlock(levelObject.pos);
+                    var didBounce = this.player.bounceOnBlock(levelObject.pos);
                     if (didBounce)
                         jumpSound.play();
                 }
                 else if (levelObject instanceof FragileBlock) {
                     if (!levelObject.isDestroyed) {
-                        var didBounce = _this.player.bounceOnBlock(levelObject.pos);
+                        var didBounce = this.player.bounceOnBlock(levelObject.pos);
                         if (didBounce)
                             levelObject.destroy();
                     }
@@ -261,16 +263,16 @@ var GameController = (function () {
             }
             else if (isItemCollision) {
                 if (levelObject instanceof SpeedBoost) {
-                    levelObject.applySpeedBoost(_this.player);
-                    _this.level.pickUpItem(levelObject);
-                    _this.updateScore(levelObject.points);
+                    levelObject.applySpeedBoost(this.player);
+                    this.level.pickUpItem(levelObject);
+                    this.updateScore(levelObject.points);
                 }
                 else if (levelObject instanceof Item) {
-                    _this.level.pickUpItem(levelObject);
-                    _this.updateScore(levelObject.points);
+                    this.level.pickUpItem(levelObject);
+                    this.updateScore(levelObject.points);
                 }
             }
-        });
+        }
     };
     GameController.prototype.draw = function () {
         if (this.isStartGame && this.startScreen) {
@@ -610,7 +612,7 @@ var LevelFactory = (function () {
     function LevelFactory() {
     }
     LevelFactory.prototype.createLevel = function (level) {
-        switch (level) {
+        switch (5) {
             case 1:
                 return this.levelOne();
             case 2:
@@ -951,7 +953,7 @@ var LevelFactory = (function () {
             [0, 0, 0, 1, 2, 0, 0, 0],
             [0, 6, 0, 0, 0, 0, 0, 0],
             [2, 2, 2, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 2],
             [0, 0, 0, 6, 0, 0, 0, 0],
             [0, 0, 2, 2, 2, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],

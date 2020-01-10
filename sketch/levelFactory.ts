@@ -2,7 +2,7 @@ type LevelMap = number[][];
 
 class LevelFactory {
   createLevel(level: number): Level {
-    switch (level) {
+    switch (5) {
       case 1:
         return this.levelOne();
       case 2:
@@ -380,7 +380,7 @@ class LevelFactory {
       [0, 0, 0, 1, 2, 0, 0, 0],
       [0, 6, 0, 0, 0, 0, 0, 0],
       [2, 2, 2, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1, 2],
       [0, 0, 0, 6, 0, 0, 0, 0],
       [0, 0, 2, 2, 2, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
